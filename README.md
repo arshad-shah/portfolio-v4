@@ -1,73 +1,195 @@
-# React + TypeScript + Vite
+# Portfolio v4
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Personal portfolio website showcasing my work as a Software Engineer specializing in high-performance systems and microfrontend architecture.
 
-Currently, two official plugins are available:
+[![Live Site](https://img.shields.io/badge/Live-arshadshah.com-blue)](https://arshadshah.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+- **Modern Stack**: Built with React 19, TypeScript, and Vite
+- **Responsive Design**: Mobile-first approach with Tailwind CSS v4
+- **Smooth Animations**: Framer Motion for fluid interactions
+- **SEO Optimized**: Meta tags, Open Graph, and web manifest configured
+- **Performance**: Fast loading with code splitting and optimized assets
+- **Type Safe**: Full TypeScript coverage with strict mode
+- **Code Quality**: ESLint and Prettier configured for consistent code style
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📋 Prerequisites
 
-## Expanding the ESLint configuration
+- **Node.js**: v18.0.0 or higher
+- **pnpm**: v8.0.0 or higher (recommended) or npm/yarn
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Installation
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/arshad-shah/portfolio-v4.git
+   cd portfolio-v4
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+2. **Install dependencies**
+   ```bash
+   pnpm install
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🏃 Development
+
+Start the development server with hot module replacement:
+
+```bash
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The site will be available at `http://localhost:5173`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📦 Build
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Create a production build:
+
+```bash
+pnpm build
 ```
+
+The optimized files will be in the `dist/` directory.
+
+### Preview Production Build
+
+Preview the production build locally:
+
+```bash
+pnpm preview
+```
+
+## 🧹 Code Quality
+
+### Linting
+
+Check for code issues:
+
+```bash
+pnpm lint
+```
+
+### Formatting
+
+Format code with Prettier:
+
+```bash
+# Format all files
+pnpm format
+
+# Check formatting without making changes
+pnpm format:check
+```
+
+## 📁 Project Structure
+
+```
+portfolio-v4/
+├── public/              # Static assets
+│   ├── images/         # Image files
+│   ├── *.png           # Favicon and app icons
+│   ├── resume.pdf      # Resume file
+│   └── site.webmanifest # PWA manifest
+├── src/
+│   ├── components/     # React components
+│   │   ├── layout/    # Layout components (Header, Footer)
+│   │   ├── sections/  # Page sections (Hero, About, Projects, etc.)
+│   │   └── ui/        # Reusable UI components
+│   ├── data/          # Static data (projects, skills, experience)
+│   ├── hooks/         # Custom React hooks
+│   ├── lib/           # Utility functions and helpers
+│   ├── types/         # TypeScript type definitions
+│   ├── App.tsx        # Main app component
+│   ├── main.tsx       # Application entry point
+│   └── index.css      # Global styles and Tailwind imports
+├── index.html         # HTML template with meta tags
+├── vite.config.ts     # Vite configuration
+├── tsconfig.json      # TypeScript configuration
+├── eslint.config.js   # ESLint configuration
+└── package.json       # Project dependencies and scripts
+```
+
+## 🎨 Tech Stack
+
+### Core
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+
+### Styling
+- **Tailwind CSS v4** - Utility-first CSS framework
+- **Framer Motion** - Animation library
+- **clsx & tailwind-merge** - Conditional class utilities
+
+### Development Tools
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **TypeScript ESLint** - TypeScript-specific linting
+
+### SEO & PWA
+- **react-helmet-async** - Dynamic meta tags
+- **Web Manifest** - PWA configuration
+- **Open Graph** - Social media previews
+
+## 🔧 Configuration
+
+### Environment Variables
+
+No environment variables are required for basic functionality. The site is fully static.
+
+### Customization
+
+1. **Personal Information**: Update `src/data/` files with your information
+2. **Styling**: Modify `src/index.css` for global styles or component files for specific changes
+3. **Assets**: Replace images in `public/` directory
+4. **Meta Tags**: Update `index.html` for SEO and social media tags
+
+## 🚢 Deployment
+
+### Vercel (Recommended)
+
+```bash
+# Install Vercel CLI
+pnpm add -g vercel
+
+# Deploy
+vercel
+```
+
+### Netlify
+
+```bash
+# Install Netlify CLI
+pnpm add -g netlify-cli
+
+# Deploy
+netlify deploy --prod
+```
+
+### Manual Deployment
+
+1. Build the project: `pnpm build`
+2. Upload the `dist/` directory to your hosting provider
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+**Arshad Shah**
+- Website: [arshadshah.com](https://arshadshah.com)
+- GitHub: [@arshad-shah](https://github.com/arshad-shah)
+- Email: arshad@arshadshah.com
+
+## 🙏 Acknowledgments
+
+- Design inspiration from modern portfolio trends
+- Icons and assets optimized for web performance
+- Built with best practices for accessibility and SEO
+
+---
+
+Made with ❤️ by Arshad Shah
