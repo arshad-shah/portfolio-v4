@@ -59,28 +59,93 @@
       }
     </style>
     
-    <!-- Structured Data - Person Schema -->
+    <!-- Structured Data - Enhanced Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Arshad Shah",
-      "url": "https://arshadshah.com",
-      "image": "https://arshadshah.com/og-image.png",
-      "jobTitle": "Software Engineer",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "Houghton Mifflin Harcourt"
-      },
-      "alumniOf": "Technological University Dublin",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Dublin",
-        "addressCountry": "IE"
-      },
-      "sameAs": [
-        "https://github.com/arshad-shah",
-        "https://www.linkedin.com/in/arshadshah"
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://arshadshah.com/#person",
+          "name": "Arshad Shah",
+          "givenName": "Arshad",
+          "familyName": "Shah",
+          "url": "https://arshadshah.com",
+          "image": {
+            "@type": "ImageObject",
+            "url": "https://arshadshah.com/og-image.png",
+            "width": 1200,
+            "height": 630
+          },
+          "jobTitle": "Software Engineer",
+          "description": "Software Engineer specializing in high-performance systems, microfrontend architecture, and educational technology solutions.",
+          "knowsAbout": [
+            "Software Engineering",
+            "Full Stack Development",
+            "React",
+            "TypeScript",
+            "Spring Boot",
+            "Microservices",
+            "Performance Engineering"
+          ],
+          "worksFor": {
+            "@type": "Organization",
+            "name": "Houghton Mifflin Harcourt",
+            "url": "https://www.hmhco.com"
+          },
+          "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "Technological University Dublin",
+            "url": "https://www.tudublin.ie"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Dublin",
+            "addressRegion": "Leinster",
+            "addressCountry": "IE"
+          },
+          "email": "arshad@arshadshah.com",
+          "sameAs": [
+            "https://github.com/arshad-shah",
+            "https://www.linkedin.com/in/arshadshah"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://arshadshah.com/#website",
+          "url": "https://arshadshah.com",
+          "name": "Arshad Shah - Software Engineer",
+          "description": "Personal portfolio and professional website of Arshad Shah, Software Engineer",
+          "publisher": {
+            "@id": "https://arshadshah.com/#person"
+          },
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": "https://arshadshah.com/#profilepage",
+          "url": "https://arshadshah.com",
+          "name": "Arshad Shah - Software Engineer & Full-Stack Developer",
+          "isPartOf": {
+            "@id": "https://arshadshah.com/#website"
+          },
+          "about": {
+            "@id": "https://arshadshah.com/#person"
+          },
+          "description": "Professional portfolio showcasing software engineering projects, experience, and technical expertise.",
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://arshadshah.com"
+            }
+          ]
+        }
       ]
     }
     </script>
