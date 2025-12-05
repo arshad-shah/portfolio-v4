@@ -81,10 +81,10 @@ export function Contact({ data }: ContactProps) {
             viewport={{ once: true }}
           >
             <motion.div variants={itemAnimation} className="mb-8">
-              <h3 className="mb-4 font-display text-h2 font-bold text-text-primary">
+              <h3 className="font-display text-h2 text-text-primary mb-4 font-bold">
                 {data.heading}
               </h3>
-              <p className="mb-2 text-text-secondary">{data.subheading}</p>
+              <p className="text-text-secondary mb-2">{data.subheading}</p>
               <p className="text-text-muted">{data.description}</p>
             </motion.div>
 
@@ -94,16 +94,12 @@ export function Contact({ data }: ContactProps) {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="rounded-sm bg-accent-gold/20 p-2">
-                        <Mail className="h-5 w-5 text-accent-gold" />
+                      <div className="bg-accent-gold/20 rounded-sm p-2">
+                        <Mail className="text-accent-gold h-5 w-5" />
                       </div>
                       <div>
-                        <p className="text-sm font-medium text-text-secondary">
-                          Email
-                        </p>
-                        <p className="font-mono text-text-primary">
-                          {data.email.display}
-                        </p>
+                        <p className="text-text-secondary text-sm font-medium">Email</p>
+                        <p className="text-text-primary font-mono">{data.email.display}</p>
                       </div>
                     </div>
                     <IconButton
@@ -115,13 +111,11 @@ export function Contact({ data }: ContactProps) {
                           <Copy className="h-4 w-4" />
                         )
                       }
-                      onClick={() =>
-                        handleCopy(data.email.address, 'email')
-                      }
+                      onClick={() => handleCopy(data.email.address, 'email')}
                       aria-label="Copy email"
                       className={cn(
                         copiedItem === 'email' &&
-                          '!bg-green-500/20 !text-green-400 !border-green-400/40'
+                          '!border-green-400/40 !bg-green-500/20 !text-green-400'
                       )}
                     />
                   </div>
@@ -134,16 +128,12 @@ export function Contact({ data }: ContactProps) {
               <div className="grid gap-4 sm:grid-cols-2">
                 <Card padding="md">
                   <div className="flex items-center gap-3">
-                    <div className="rounded-sm bg-accent-blue/20 p-2">
-                      <MapPin className="h-5 w-5 text-accent-blue" />
+                    <div className="bg-accent-blue/20 rounded-sm p-2">
+                      <MapPin className="text-accent-blue h-5 w-5" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-text-secondary">
-                        Location
-                      </p>
-                      <p className="text-text-primary">
-                        {data.location.display}
-                      </p>
+                      <p className="text-text-secondary text-sm font-medium">Location</p>
+                      <p className="text-text-primary">{data.location.display}</p>
                     </div>
                   </div>
                 </Card>
@@ -154,18 +144,14 @@ export function Contact({ data }: ContactProps) {
                       <div className="rounded-sm bg-green-500/20 p-2">
                         <Clock className="h-5 w-5 text-green-400" />
                       </div>
-                      <span className="absolute -right-1 -top-1 flex h-3 w-3">
+                      <span className="absolute -top-1 -right-1 flex h-3 w-3">
                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
                         <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
                       </span>
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-text-secondary">
-                        Status
-                      </p>
-                      <p className="text-text-primary">
-                        {data.availability.status}
-                      </p>
+                      <p className="text-text-secondary text-sm font-medium">Status</p>
+                      <p className="text-text-primary">{data.availability.status}</p>
                     </div>
                   </div>
                 </Card>
@@ -174,9 +160,7 @@ export function Contact({ data }: ContactProps) {
 
             {/* Social Links */}
             <motion.div variants={itemAnimation} className="mt-8">
-              <h4 className="mb-4 font-medium text-text-primary">
-                Connect with me
-              </h4>
+              <h4 className="text-text-primary mb-4 font-medium">Connect with me</h4>
               <div className="flex gap-4">
                 {data.social_links
                   .filter((link) => link.primary)
@@ -210,27 +194,25 @@ export function Contact({ data }: ContactProps) {
               <Card padding="md">
                 <CardHeader>
                   <CardTitle className="mb-4 flex items-center gap-2 text-lg">
-                    <Calendar className="h-5 w-5 text-accent-gold" />
+                    <Calendar className="text-accent-gold h-5 w-5" />
                     Working Hours
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+                  <div className="border-border-subtle flex items-center justify-between border-b pb-3">
                     <span className="text-text-secondary">Schedule</span>
-                    <span className="font-mono text-sm text-text-primary">
+                    <span className="text-text-primary font-mono text-sm">
                       {data.availability.working_hours}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between border-b border-border-subtle pb-3">
+                  <div className="border-border-subtle flex items-center justify-between border-b pb-3">
                     <span className="text-text-secondary">Response Time</span>
-                    <span className="font-mono text-sm text-text-primary">
+                    <span className="text-text-primary font-mono text-sm">
                       {data.availability.response_time}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">
-                      Preferred Contact
-                    </span>
+                    <span className="text-text-secondary">Preferred Contact</span>
                     <Badge variant="primary" size="sm">
                       {data.availability.preferred_contact}
                     </Badge>
@@ -244,20 +226,14 @@ export function Contact({ data }: ContactProps) {
               <Card padding="md">
                 <CardHeader>
                   <CardTitle className="mb-4 flex items-center gap-2 text-lg">
-                    <Briefcase className="h-5 w-5 text-accent-gold" />
+                    <Briefcase className="text-accent-gold h-5 w-5" />
                     Expertise
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <BadgeGroup>
                     {data.expertise.map((skill, idx) => (
-                      <Badge
-                        key={skill}
-                        variant="secondary"
-                        size="sm"
-                        animated
-                        index={idx}
-                      >
+                      <Badge key={skill} variant="secondary" size="sm" animated index={idx}>
                         {skill}
                       </Badge>
                     ))}
@@ -278,10 +254,7 @@ export function Contact({ data }: ContactProps) {
                 <CardContent>
                   <ul className="space-y-2">
                     {data.availability.open_to.map((item, idx) => (
-                      <li
-                        key={idx}
-                        className="flex items-center gap-2 text-text-secondary"
-                      >
+                      <li key={idx} className="text-text-secondary flex items-center gap-2">
                         <span className="text-accent-gold">▸</span>
                         {item}
                       </li>
@@ -314,39 +287,34 @@ export function Contact({ data }: ContactProps) {
       </Container>
 
       {/* Footer */}
-      <footer className="mt-24 border-t border-border-subtle pt-12">
+      <footer className="border-border-subtle mt-24 border-t pt-12">
         <Container>
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             <div className="text-center md:text-left">
-              <div className="mb-2 font-display text-lg font-bold text-text-primary">
-                <span className="text-accent-gold">
-                  {data.footer.copyright.charAt(0)}
-                </span>
+              <div className="font-display text-text-primary mb-2 text-lg font-bold">
+                <span className="text-accent-gold">{data.footer.copyright.charAt(0)}</span>
                 {data.footer.copyright.slice(1)}
               </div>
-              <p className="text-sm text-text-secondary">
-                {data.footer.tagline}
-              </p>
+              <p className="text-text-secondary text-sm">{data.footer.tagline}</p>
             </div>
 
             <div className="text-center md:text-right">
-              <p className="text-sm text-text-muted">
-                Crafted with{' '}
-                <span className="text-accent-gold">{'<code/>'}</span> and{' '}
+              <p className="text-text-muted text-sm">
+                Crafted with <span className="text-accent-gold">{'<code/>'}</span> and{' '}
                 <span className="text-red-500">♥</span>
               </p>
-              <p className="mt-1 text-xs text-text-muted">
+              <p className="text-text-muted mt-1 text-xs">
                 © {data.footer.year === 'auto' ? new Date().getFullYear() : data.footer.year}{' '}
                 {data.footer.copyright} • All Rights Reserved
               </p>
-              <p className="mt-1 text-xs text-text-muted">
+              <p className="text-text-muted mt-1 text-xs">
                 Built with React, TypeScript, Vite & Tailwind CSS
               </p>
             </div>
           </div>
 
           {/* Additional Links (Optional) */}
-          <div className="mt-8 flex justify-center gap-6 border-t border-border-subtle pt-6">
+          <div className="border-border-subtle mt-8 flex justify-center gap-6 border-t pt-6">
             {data.social_links.map((link) => {
               const IconComponent = iconMap[link.platform] || Mail
               return (

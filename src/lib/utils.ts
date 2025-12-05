@@ -17,7 +17,7 @@ export function cn(...inputs: ClassValue[]) {
  */
 export function formatDate(date: string): string {
   if (!date) return 'Present'
-  
+
   try {
     return new Date(date + '-01').toLocaleDateString('en-US', {
       year: 'numeric',
@@ -47,21 +47,21 @@ export function getYearFromDate(date: string): number {
 export function calculateDuration(startDate: string, endDate: string | null): string {
   const start = new Date(startDate + '-01')
   const end = endDate ? new Date(endDate + '-01') : new Date()
-  
-  const months = (end.getFullYear() - start.getFullYear()) * 12 + 
-                 (end.getMonth() - start.getMonth())
-  
+
+  const months =
+    (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth())
+
   if (months < 12) {
     return `${months} month${months !== 1 ? 's' : ''}`
   }
-  
+
   const years = Math.floor(months / 12)
   const remainingMonths = months % 12
-  
+
   if (remainingMonths === 0) {
     return `${years} year${years !== 1 ? 's' : ''}`
   }
-  
+
   return `${years} yr${years !== 1 ? 's' : ''} ${remainingMonths} mo`
 }
 
@@ -82,13 +82,13 @@ export function debounce<T extends (...args: never[]) => unknown>(
   wait: number
 ): (...args: Parameters<T>) => void {
   let timeout: number | null = null
-  
+
   return function executedFunction(...args: Parameters<T>) {
     const later = () => {
       timeout = null
       func(...args)
     }
-    
+
     if (timeout) clearTimeout(timeout)
     timeout = setTimeout(later, wait)
   }
@@ -102,7 +102,7 @@ export function throttle<T extends (...args: never[]) => unknown>(
   limit: number
 ): (...args: Parameters<T>) => void {
   let inThrottle: boolean
-  
+
   return function executedFunction(...args: Parameters<T>) {
     if (!inThrottle) {
       func(...args)
@@ -122,7 +122,7 @@ export const isBrowser = typeof window !== 'undefined'
  */
 export function getWindowDimensions() {
   if (!isBrowser) return { width: 0, height: 0 }
-  
+
   return {
     width: window.innerWidth,
     height: window.innerHeight,
@@ -134,13 +134,13 @@ export function getWindowDimensions() {
  */
 export function scrollToElement(elementId: string, offset: number = 80) {
   if (!isBrowser) return
-  
+
   const element = document.getElementById(elementId)
   if (!element) return
-  
+
   const elementPosition = element.getBoundingClientRect().top
   const offsetPosition = elementPosition + window.pageYOffset - offset
-  
+
   window.scrollTo({
     top: offsetPosition,
     behavior: 'smooth',
@@ -186,7 +186,7 @@ export function getRelativeTime(dateString: string): string {
   const date = new Date(dateString + '-01')
   const now = new Date()
   const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000)
-  
+
   const intervals = {
     year: 31536000,
     month: 2592000,
@@ -195,14 +195,14 @@ export function getRelativeTime(dateString: string): string {
     hour: 3600,
     minute: 60,
   }
-  
+
   for (const [unit, seconds] of Object.entries(intervals)) {
     const interval = Math.floor(diffInSeconds / seconds)
     if (interval >= 1) {
       return `${interval} ${unit}${interval !== 1 ? 's' : ''} ago`
     }
   }
-  
+
   return 'just now'
 }
 
@@ -231,14 +231,17 @@ export function capitalize(str: string): string {
  * Group array by key
  */
 export function groupBy<T>(array: T[], key: keyof T): Record<string, T[]> {
-  return array.reduce((result, item) => {
-    const group = String(item[key])
-    if (!result[group]) {
-      result[group] = []
-    }
-    result[group].push(item)
-    return result
-  }, {} as Record<string, T[]>)
+  return array.reduce(
+    (result, item) => {
+      const group = String(item[key])
+      if (!result[group]) {
+        result[group] = []
+      }
+      result[group].push(item)
+      return result
+    },
+    {} as Record<string, T[]>
+  )
 }
 
 /**
@@ -254,8 +257,8 @@ export function unique<T>(array: T[]): T[] {
 export function shuffle<T>(array: T[]): T[] {
   const newArray = [...array]
   for (let i = newArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [newArray[i], newArray[j]] = [newArray[j], newArray[i]]
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[newArray[i], newArray[j]] = [newArray[j], newArray[i]]
   }
   return newArray
 }

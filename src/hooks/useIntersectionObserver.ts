@@ -11,7 +11,7 @@ interface UseIntersectionObserverOptions extends IntersectionObserverInit {
  * Hook to observe element visibility using IntersectionObserver
  * @param options - IntersectionObserver options
  * @returns ref to attach to element and isIntersecting state
- * 
+ *
  * @example
  * const { ref, isIntersecting } = useIntersectionObserver({ threshold: 0.5 })
  * return <div ref={ref}>{isIntersecting ? 'Visible!' : 'Not visible'}</div>
@@ -77,11 +77,7 @@ export function useIntersectionObserver<T extends HTMLElement = HTMLDivElement>(
 export function useIntersectionObservers<T extends HTMLElement = HTMLDivElement>(
   options: UseIntersectionObserverOptions = {}
 ) {
-  const {
-    threshold = 0.1,
-    root = null,
-    rootMargin = '0px',
-  } = options
+  const { threshold = 0.1, root = null, rootMargin = '0px' } = options
 
   const [entries, setEntries] = useState<Map<Element, boolean>>(new Map())
   const observerRef = useRef<IntersectionObserver | null>(null)

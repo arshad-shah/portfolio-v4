@@ -6,7 +6,7 @@ import { useEffect, type RefObject } from 'react'
  * Hook to detect clicks outside of a ref element
  * @param ref - React ref to the element
  * @param handler - Callback function to execute on outside click
- * 
+ *
  * @example
  * const ref = useRef<HTMLDivElement>(null)
  * useClickOutside(ref, () => setIsOpen(false))

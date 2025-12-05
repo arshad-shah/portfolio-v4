@@ -31,7 +31,7 @@ function App() {
         type="profile"
       />
 
-      <div className="min-h-screen bg-primary text-text-primary">
+      <div className="bg-primary text-text-primary min-h-screen">
         {/* Navigation */}
         <Navigation />
 

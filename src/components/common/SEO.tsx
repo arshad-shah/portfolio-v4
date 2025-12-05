@@ -17,7 +17,7 @@ interface SEOProps {
 
 /**
  * SEO component for managing meta tags
- * 
+ *
  * @example
  * <SEO
  *   title="About Me"
@@ -35,13 +35,9 @@ export function SEO({
   publishedTime,
   modifiedTime,
 }: SEOProps) {
-  const fullTitle = title
-    ? `${title} | ${SITE_CONFIG.name}`
-    : SITE_CONFIG.title
+  const fullTitle = title ? `${title} | ${SITE_CONFIG.name}` : SITE_CONFIG.title
 
-  const fullImageUrl = image.startsWith('http')
-    ? image
-    : `${SITE_CONFIG.url}${image}`
+  const fullImageUrl = image.startsWith('http') ? image : `${SITE_CONFIG.url}${image}`
 
   const fullUrl = url.startsWith('http') ? url : `${SITE_CONFIG.url}${url}`
 
@@ -52,7 +48,7 @@ export function SEO({
       <meta name="description" content={description} />
       <meta name="keywords" content={keywords.join(', ')} />
       <meta name="author" content={author} />
-      
+
       {/* Mobile */}
       <meta name="format-detection" content="telephone=no" />
       <meta name="mobile-web-app-capable" content="yes" />
@@ -79,9 +75,7 @@ export function SEO({
       {type === 'article' && modifiedTime && (
         <meta property="article:modified_time" content={modifiedTime} />
       )}
-      {type === 'article' && (
-        <meta property="article:author" content={author} />
-      )}
+      {type === 'article' && <meta property="article:author" content={author} />}
 
       {/* Canonical URL */}
       <link rel="canonical" href={fullUrl} />
@@ -111,10 +105,7 @@ export function SEO({
               addressLocality: 'Dublin',
               addressCountry: 'IE',
             },
-            sameAs: [
-              'https://github.com/arshad-shah',
-              'https://www.linkedin.com/in/arshadshah',
-            ],
+            sameAs: ['https://github.com/arshad-shah', 'https://www.linkedin.com/in/arshadshah'],
           })}
         </script>
       )}

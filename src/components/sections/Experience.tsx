@@ -41,15 +41,13 @@ export function Experience({ data }: ExperienceProps) {
   }
 
   // Get all unique technologies
-  const allTechnologies = Array.from(
-    new Set(data.flatMap((job) => job.technologies))
-  ).sort()
+  const allTechnologies = Array.from(new Set(data.flatMap((job) => job.technologies))).sort()
 
   return (
     <AnimatedSection id="experience" className="bg-primary py-24">
       <Container>
         <SectionHeader>
-          <span className="font-mono text-accent-gold">function</span>{' '}
+          <span className="text-accent-gold font-mono">function</span>{' '}
           <span className="text-text-primary">Experience</span>
           <span className="text-accent-gold">()</span>
         </SectionHeader>
@@ -85,7 +83,7 @@ export function Experience({ data }: ExperienceProps) {
                     {/* Timeline dot */}
                     <div
                       className={cn(
-                        'absolute -left-2 top-6 h-4 w-4 rounded-full border-4 border-primary transition-colors',
+                        'border-primary absolute top-6 -left-2 h-4 w-4 rounded-full border-4 transition-colors',
                         activeJob === index
                           ? 'bg-accent-gold'
                           : 'bg-text-secondary/50 group-hover:bg-accent-gold/50'
@@ -114,9 +112,7 @@ export function Experience({ data }: ExperienceProps) {
                       >
                         {job.position}
                       </h3>
-                      <p className="text-sm text-text-secondary">
-                        {job.company}
-                      </p>
+                      <p className="text-text-secondary text-sm">{job.company}</p>
                     </div>
                   </motion.button>
                 ))}
@@ -128,14 +124,14 @@ export function Experience({ data }: ExperienceProps) {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                className="rounded-sm border border-secondary-light bg-secondary p-4 font-mono text-xs"
+                className="border-secondary-light bg-secondary rounded-sm border p-4 font-mono text-xs"
               >
                 <div className="mb-2 flex items-center gap-1">
                   <div className="h-2 w-2 rounded-full bg-red-500" />
                   <div className="h-2 w-2 rounded-full bg-yellow-500" />
                   <div className="h-2 w-2 rounded-full bg-green-500" />
                 </div>
-                <div className="space-y-1 text-text-secondary">
+                <div className="text-text-secondary space-y-1">
                   <p>
                     <span className="text-accent-blue">const</span>{' '}
                     <span className="text-text-primary">totalJobs</span> ={' '}
@@ -150,10 +146,7 @@ export function Experience({ data }: ExperienceProps) {
                     <span className="text-accent-blue">const</span>{' '}
                     <span className="text-text-primary">duration</span> = "
                     <span className="text-green-400">
-                      {calculateDuration(
-                        data[activeJob].startDate,
-                        data[activeJob].endDate
-                      )}
+                      {calculateDuration(data[activeJob].startDate, data[activeJob].endDate)}
                     </span>
                     ";
                   </p>
@@ -175,28 +168,30 @@ export function Experience({ data }: ExperienceProps) {
               >
                 {/* Job Header Card */}
                 <Card padding="lg">
-                  <CardHeader className="border-b border-border-subtle pb-4">
+                  <CardHeader className="border-border-subtle border-b pb-4">
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
                         <CardTitle className="mb-2">
                           {data[activeJob].position}{' '}
-                          <span className="bg-gradient-to-r from-accent-gold to-accent-blue bg-clip-text text-transparent">
+                          <span className="from-accent-gold to-accent-blue bg-gradient-to-r bg-clip-text text-transparent">
                             @ {data[activeJob].company}
                           </span>
                         </CardTitle>
 
-                        <div className="flex flex-wrap gap-4 text-sm text-text-secondary">
+                        <div className="text-text-secondary flex flex-wrap gap-4 text-sm">
                           <div className="flex items-center gap-2">
-                            <Calendar className="h-4 w-4 text-accent-gold" />
+                            <Calendar className="text-accent-gold h-4 w-4" />
                             <span className="font-mono">
                               {formatDate(data[activeJob].startDate)} -{' '}
                               {data[activeJob].current
                                 ? 'Present'
-                                : data[activeJob].endDate ? formatDate(data[activeJob].endDate) : 'N/A'}
+                                : data[activeJob].endDate
+                                  ? formatDate(data[activeJob].endDate)
+                                  : 'N/A'}
                             </span>
                           </div>
                           <div className="flex items-center gap-2">
-                            <MapPin className="h-4 w-4 text-accent-gold" />
+                            <MapPin className="text-accent-gold h-4 w-4" />
                             <span>{data[activeJob].location}</span>
                           </div>
                         </div>
@@ -211,15 +206,13 @@ export function Experience({ data }: ExperienceProps) {
                   </CardHeader>
 
                   <CardContent className="pt-4">
-                    <p className="text-text-secondary">
-                      {data[activeJob].description}
-                    </p>
+                    <p className="text-text-secondary">{data[activeJob].description}</p>
                   </CardContent>
                 </Card>
 
                 {/* Responsibilities */}
                 <Card padding="lg">
-                  <h4 className="mb-4 font-mono text-sm text-accent-gold">
+                  <h4 className="text-accent-gold mb-4 font-mono text-sm">
                     // Key Responsibilities:
                   </h4>
                   <motion.ul
@@ -228,62 +221,55 @@ export function Experience({ data }: ExperienceProps) {
                     animate="visible"
                     className="space-y-4"
                   >
-                    {data[activeJob].responsibilities.map(
-                      (responsibility, idx) => (
-                        <motion.li
-                          key={idx}
-                          variants={itemAnimation}
-                          custom={idx}
-                          className="group flex gap-3 transition-all hover:-translate-y-0.5"
-                        >
-                          <div className="mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-sm bg-secondary transition-colors group-hover:bg-accent-gold/20">
-                            <ChevronRight className="h-4 w-4 text-accent-gold" />
-                          </div>
-                          <span className="text-text-secondary group-hover:text-text-primary">
-                            {responsibility}
-                          </span>
-                        </motion.li>
-                      )
-                    )}
+                    {data[activeJob].responsibilities.map((responsibility, idx) => (
+                      <motion.li
+                        key={idx}
+                        variants={itemAnimation}
+                        custom={idx}
+                        className="group flex gap-3 transition-all hover:-translate-y-0.5"
+                      >
+                        <div className="bg-secondary group-hover:bg-accent-gold/20 mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-sm transition-colors">
+                          <ChevronRight className="text-accent-gold h-4 w-4" />
+                        </div>
+                        <span className="text-text-secondary group-hover:text-text-primary">
+                          {responsibility}
+                        </span>
+                      </motion.li>
+                    ))}
                   </motion.ul>
                 </Card>
 
                 {/* Achievements (if available) */}
-                {data[activeJob].achievements &&
-                  data[activeJob].achievements!.length > 0 && (
-                    <Card padding="lg" className="border-accent-gold/20">
-                      <h4 className="mb-4 flex items-center gap-2 font-mono text-sm text-accent-gold">
-                        <Briefcase className="h-4 w-4" />
-                        // Key Achievements:
-                      </h4>
-                      <motion.ul
-                        variants={containerAnimation}
-                        initial="hidden"
-                        animate="visible"
-                        className="space-y-3"
-                      >
-                        {data[activeJob].achievements!.map(
-                          (achievement, idx) => (
-                            <motion.li
-                              key={idx}
-                              variants={itemAnimation}
-                              custom={idx}
-                              className="flex gap-3 text-sm text-text-secondary"
-                            >
-                              <span className="text-accent-gold">▸</span>
-                              <span>{achievement}</span>
-                            </motion.li>
-                          )
-                        )}
-                      </motion.ul>
-                    </Card>
-                  )}
+                {data[activeJob].achievements && data[activeJob].achievements!.length > 0 && (
+                  <Card padding="lg" className="border-accent-gold/20">
+                    <h4 className="text-accent-gold mb-4 flex items-center gap-2 font-mono text-sm">
+                      <Briefcase className="h-4 w-4" />
+                      // Key Achievements:
+                    </h4>
+                    <motion.ul
+                      variants={containerAnimation}
+                      initial="hidden"
+                      animate="visible"
+                      className="space-y-3"
+                    >
+                      {data[activeJob].achievements!.map((achievement, idx) => (
+                        <motion.li
+                          key={idx}
+                          variants={itemAnimation}
+                          custom={idx}
+                          className="text-text-secondary flex gap-3 text-sm"
+                        >
+                          <span className="text-accent-gold">▸</span>
+                          <span>{achievement}</span>
+                        </motion.li>
+                      ))}
+                    </motion.ul>
+                  </Card>
+                )}
 
                 {/* Technologies */}
                 <Card padding="lg">
-                  <h4 className="mb-4 font-mono text-sm text-accent-gold">
-                    // Technologies Used:
-                  </h4>
+                  <h4 className="text-accent-gold mb-4 font-mono text-sm">// Technologies Used:</h4>
                   <BadgeGroup>
                     {data[activeJob].technologies.map((tech, idx) => (
                       <Badge
@@ -310,9 +296,9 @@ export function Experience({ data }: ExperienceProps) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mt-20 rounded-sm border border-secondary-light bg-secondary/30 p-6 backdrop-blur-sm lg:p-8"
+          className="border-secondary-light bg-secondary/30 mt-20 rounded-sm border p-6 backdrop-blur-sm lg:p-8"
         >
-          <h3 className="mb-6 font-mono text-xl font-bold text-text-primary">
+          <h3 className="text-text-primary mb-6 font-mono text-xl font-bold">
             <span className="text-accent-gold">import</span>{' '}
             <span className="text-green-400">{'{ Skills }'}</span>{' '}
             <span className="text-accent-gold">from</span>{' '}
@@ -327,7 +313,7 @@ export function Experience({ data }: ExperienceProps) {
                 size="sm"
                 animated
                 index={idx}
-                className="font-mono hover:border-accent-gold/50"
+                className="hover:border-accent-gold/50 font-mono"
               >
                 {tech}
               </Badge>

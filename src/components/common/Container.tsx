@@ -20,12 +20,12 @@ const sizeClasses = {
 
 /**
  * Container component for consistent content width
- * 
+ *
  * @example
  * <Container>
  *   <h1>Content</h1>
  * </Container>
- * 
+ *
  * @example
  * <Container size="sm" as="section">
  *   <p>Narrow content</p>
@@ -38,13 +38,7 @@ export function Container({
   size = 'xl',
 }: ContainerProps) {
   return (
-    <Component
-      className={cn(
-        'mx-auto w-full px-6',
-        sizeClasses[size],
-        className
-      )}
-    >
+    <Component className={cn('mx-auto w-full px-6', sizeClasses[size], className)}>
       {children}
     </Component>
   )

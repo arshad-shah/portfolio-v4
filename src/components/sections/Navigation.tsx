@@ -22,7 +22,7 @@ import { useRef } from 'react'
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
-  
+
   const { scrollDirection } = useScrollDirection({ threshold: 10 })
   const isPastTop = useScrollPast(50)
   const isMobile = useIsMobile()
@@ -39,8 +39,8 @@ export function Navigation() {
   // Track active section
   useEffect(() => {
     const handleScroll = () => {
-      const sections = NAV_ITEMS.map(item => item.href.substring(1))
-      
+      const sections = NAV_ITEMS.map((item) => item.href.substring(1))
+
       for (const section of sections) {
         const element = document.getElementById(section)
         if (element) {
@@ -104,9 +104,9 @@ export function Navigation() {
         // Hide on scroll down, show on scroll up
         scrollDirection === 'down' && isPastTop && '-translate-y-full',
         // Background when scrolled
-        isPastTop && 'bg-primary/90 backdrop-blur-md shadow-lg shadow-primary/5',
+        isPastTop && 'bg-primary/90 shadow-primary/5 shadow-lg backdrop-blur-md',
         // Border when scrolled
-        isPastTop && 'border-b border-border-subtle'
+        isPastTop && 'border-border-subtle border-b'
       )}
     >
       <Container>
@@ -120,7 +120,7 @@ export function Navigation() {
             }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="text-xl font-bold text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:ring-offset-2 focus-visible:ring-offset-primary rounded-sm"
+            className="text-text-primary focus-visible:ring-accent-gold focus-visible:ring-offset-primary rounded-sm text-xl font-bold focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           >
             <span className="text-accent-gold">A</span>rshad{' '}
             <span className="text-accent-gold">S</span>hah
@@ -179,7 +179,7 @@ export function Navigation() {
               initial="closed"
               animate="open"
               exit="closed"
-              className="border-t border-border-subtle bg-primary/95 backdrop-blur-md"
+              className="border-border-subtle bg-primary/95 border-t backdrop-blur-md"
             >
               <Container>
                 <nav className="py-6">
@@ -206,7 +206,7 @@ export function Navigation() {
                     ))}
                   </ul>
 
-                  <div className="mt-6 border-t border-border-subtle pt-6">
+                  <div className="border-border-subtle mt-6 border-t pt-6">
                     <ButtonLink
                       href={EXTERNAL_LINKS.resume}
                       variant="secondary"

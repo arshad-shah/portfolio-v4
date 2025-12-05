@@ -14,7 +14,7 @@ interface UseScrollDirectionOptions {
  * Hook to detect scroll direction
  * @param options - Configuration options
  * @returns Current scroll direction and scroll position
- * 
+ *
  * @example
  * const { scrollDirection, scrollY } = useScrollDirection({ threshold: 10 })
  * const isScrollingDown = scrollDirection === 'down'
@@ -23,8 +23,10 @@ export function useScrollDirection(options: UseScrollDirectionOptions = {}) {
   const { threshold = 10, throttleMs = 100 } = options
 
   const [scrollDirection, setScrollDirection] = useState<ScrollDirection>(null)
-  const [scrollY, setScrollY] = useState(() => typeof window !== 'undefined' ? window.scrollY : 0)
-  const [prevScrollY, setPrevScrollY] = useState(() => typeof window !== 'undefined' ? window.scrollY : 0)
+  const [scrollY, setScrollY] = useState(() => (typeof window !== 'undefined' ? window.scrollY : 0))
+  const [prevScrollY, setPrevScrollY] = useState(() =>
+    typeof window !== 'undefined' ? window.scrollY : 0
+  )
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -65,7 +67,7 @@ export function useScrollDirection(options: UseScrollDirectionOptions = {}) {
  * @returns boolean indicating if scrolled past threshold
  */
 export function useScrollPast(threshold: number = 100): boolean {
-  const [isPast, setIsPast] = useState(() => 
+  const [isPast, setIsPast] = useState(() =>
     typeof window !== 'undefined' ? window.scrollY > threshold : false
   )
 

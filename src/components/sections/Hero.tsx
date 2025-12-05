@@ -7,13 +7,7 @@ import { Button } from '@/components/ui/Button'
 import { Badge, BadgeGroup } from '@/components/ui/Badge'
 import { SocialLink } from '@/components/ui/Link'
 import { SOCIAL_LINKS, EXTERNAL_LINKS } from '@/lib/constants'
-import {
-  fadeInUp,
-  fadeInDown,
-  fadeInRight,
-  staggerContainer,
-  staggerItem,
-} from '@/lib/animations'
+import { fadeInUp, fadeInDown, fadeInRight, staggerContainer, staggerItem } from '@/lib/animations'
 import { useAccessibleAnimation } from '@/hooks/usePreferredMotion'
 import { useScrollAnimation } from '@/hooks/useIntersectionObserver'
 
@@ -61,11 +55,11 @@ export function Hero({ data }: HeroProps) {
   }
 
   return (
-    <section className="relative min-h-screen bg-primary pt-20">
+    <section className="bg-primary relative min-h-screen pt-20">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-20 left-1/4 h-64 w-64 rounded-full bg-accent-gold/5 blur-3xl" />
-        <div className="absolute right-1/4 bottom-20 h-64 w-64 rounded-full bg-accent-blue/5 blur-3xl" />
+        <div className="bg-accent-gold/5 absolute top-20 left-1/4 h-64 w-64 rounded-full blur-3xl" />
+        <div className="bg-accent-blue/5 absolute right-1/4 bottom-20 h-64 w-64 rounded-full blur-3xl" />
       </div>
 
       <Container className="relative">
@@ -80,9 +74,7 @@ export function Hero({ data }: HeroProps) {
                 animate="visible"
                 className="mb-4"
               >
-                <span className="inline-block font-medium text-accent-gold">
-                  Hello, my name is
-                </span>
+                <span className="text-accent-gold inline-block font-medium">Hello, my name is</span>
               </motion.div>
 
               {/* Name */}
@@ -91,10 +83,9 @@ export function Hero({ data }: HeroProps) {
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 0.1 }}
-                className="mb-2 font-display text-5xl font-bold text-text-primary md:text-6xl lg:text-hero"
+                className="font-display text-text-primary lg:text-hero mb-2 text-5xl font-bold md:text-6xl"
               >
-                {data.name.first}{' '}
-                <span className="text-accent-gold">{data.name.last}</span>.
+                {data.name.first} <span className="text-accent-gold">{data.name.last}</span>.
               </motion.h1>
 
               {/* Title */}
@@ -103,7 +94,7 @@ export function Hero({ data }: HeroProps) {
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 0.2 }}
-                className="mb-6 font-display text-3xl font-bold text-text-secondary md:text-4xl lg:text-display"
+                className="font-display text-text-secondary lg:text-display mb-6 text-3xl font-bold md:text-4xl"
               >
                 {data.title}
               </motion.h2>
@@ -114,7 +105,7 @@ export function Hero({ data }: HeroProps) {
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 0.3 }}
-                className="mb-6 max-w-xl text-lg leading-relaxed text-text-secondary"
+                className="text-text-secondary mb-6 max-w-xl text-lg leading-relaxed"
               >
                 {data.description}
               </motion.p>
@@ -125,17 +116,17 @@ export function Hero({ data }: HeroProps) {
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 0.4 }}
-                className="mb-8 flex flex-wrap items-center gap-4 text-sm text-text-secondary"
+                className="text-text-secondary mb-8 flex flex-wrap items-center gap-4 text-sm"
               >
                 <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-accent-gold" />
+                  <MapPin className="text-accent-gold h-4 w-4" />
                   <span>{data.location.display}</span>
                 </div>
-                <div className="h-4 w-px bg-text-secondary/30" />
+                <div className="bg-text-secondary/30 h-4 w-px" />
                 <div className="flex items-center gap-2">
                   <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-gold opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-gold" />
+                    <span className="bg-accent-gold absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
+                    <span className="bg-accent-gold relative inline-flex h-2 w-2 rounded-full" />
                   </span>
                   <span>{data.availability.status}</span>
                 </div>
@@ -149,17 +140,13 @@ export function Hero({ data }: HeroProps) {
                 transition={{ delay: 0.5 }}
                 className="mb-8"
               >
-                <p className="mb-3 text-sm font-medium text-text-secondary">
+                <p className="text-text-secondary mb-3 text-sm font-medium">
                   Technologies I work with:
                 </p>
                 <BadgeGroup animated>
                   {data.technologies.map((tech, index) => (
                     <motion.div key={tech} variants={staggerItem} custom={index}>
-                      <Badge
-                        variant="secondary"
-                        size="sm"
-                        className="font-mono"
-                      >
+                      <Badge variant="secondary" size="sm" className="font-mono">
                         {tech}
                       </Badge>
                     </motion.div>
@@ -233,10 +220,10 @@ export function Hero({ data }: HeroProps) {
                 className="relative mx-auto max-w-sm lg:max-w-none"
               >
                 {/* Border decoration */}
-                <div className="absolute inset-0 translate-x-6 translate-y-6 border-2 border-accent-gold transition-transform duration-300 hover:translate-x-4 hover:translate-y-4" />
+                <div className="border-accent-gold absolute inset-0 translate-x-6 translate-y-6 border-2 transition-transform duration-300 hover:translate-x-4 hover:translate-y-4" />
 
                 {/* Image container */}
-                <div className="relative overflow-hidden bg-secondary">
+                <div className="bg-secondary relative overflow-hidden">
                   <img
                     src="/images/profile.webp"
                     alt={`${data.name.first} ${data.name.last}`}
@@ -246,7 +233,7 @@ export function Hero({ data }: HeroProps) {
                   />
 
                   {/* Overlay */}
-                  <div className="absolute inset-0 z-20 bg-accent-gold/10 mix-blend-multiply transition-opacity duration-500 hover:opacity-0" />
+                  <div className="bg-accent-gold/10 absolute inset-0 z-20 mix-blend-multiply transition-opacity duration-500 hover:opacity-0" />
                 </div>
               </motion.div>
             </div>
@@ -261,7 +248,7 @@ export function Hero({ data }: HeroProps) {
           animate={isIntersecting ? 'visible' : 'hidden'}
           className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex"
         >
-          <span className="text-xs text-text-muted">Scroll down</span>
+          <span className="text-text-muted text-xs">Scroll down</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{
@@ -269,9 +256,9 @@ export function Hero({ data }: HeroProps) {
               repeat: Infinity,
               ease: 'easeInOut',
             }}
-            className="flex h-8 w-5 items-start justify-center rounded-full border-2 border-text-muted/30 p-1"
+            className="border-text-muted/30 flex h-8 w-5 items-start justify-center rounded-full border-2 p-1"
           >
-            <motion.div className="h-1.5 w-1.5 rounded-full bg-accent-gold" />
+            <motion.div className="bg-accent-gold h-1.5 w-1.5 rounded-full" />
           </motion.div>
         </motion.div>
       </Container>

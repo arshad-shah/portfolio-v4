@@ -7,15 +7,12 @@ import { useEffect, useState, useCallback } from 'react'
  * @param targetKey - Key to detect (e.g., 'Escape', 'Enter')
  * @param handler - Optional callback to execute on key press
  * @returns boolean indicating if key is pressed
- * 
+ *
  * @example
  * const escapePressed = useKeyPress('Escape')
  * useKeyPress('Enter', () => handleSubmit())
  */
-export function useKeyPress(
-  targetKey: string,
-  handler?: (event: KeyboardEvent) => void
-): boolean {
+export function useKeyPress(targetKey: string, handler?: (event: KeyboardEvent) => void): boolean {
   const [isPressed, setIsPressed] = useState(false)
 
   const downHandler = useCallback(
@@ -54,14 +51,11 @@ export function useKeyPress(
  * Hook to detect multiple key combination
  * @param keys - Array of keys to detect (e.g., ['Control', 'k'])
  * @param handler - Callback to execute when combination is pressed
- * 
+ *
  * @example
  * useKeyCombination(['Control', 'k'], () => openSearch())
  */
-export function useKeyCombination(
-  keys: string[],
-  handler: (event: KeyboardEvent) => void
-) {
+export function useKeyCombination(keys: string[], handler: (event: KeyboardEvent) => void) {
   useEffect(() => {
     const pressedKeys = new Set<string>()
 

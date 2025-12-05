@@ -16,12 +16,12 @@ interface SectionHeaderProps {
 
 /**
  * Section header with title and optional decorative line
- * 
+ *
  * @example
  * <SectionHeader>
  *   <span className="text-accent-gold">#</span> Experience
  * </SectionHeader>
- * 
+ *
  * @example
  * <SectionHeader subtitle="What I've been working on" align="center">
  *   Projects
@@ -38,19 +38,8 @@ export function SectionHeader({
   const lineAnimation = useAccessibleAnimation(fadeInRight)
 
   return (
-    <div
-      className={cn(
-        'mb-16',
-        align === 'center' ? 'text-center' : '',
-        className
-      )}
-    >
-      <div
-        className={cn(
-          'flex items-center gap-6',
-          align === 'center' && 'justify-center'
-        )}
-      >
+    <div className={cn('mb-16', align === 'center' ? 'text-center' : '', className)}>
+      <div className={cn('flex items-center gap-6', align === 'center' && 'justify-center')}>
         <motion.h2
           variants={titleAnimation}
           initial="hidden"
@@ -68,7 +57,7 @@ export function SectionHeader({
             whileInView="visible"
             viewport={{ once: true, margin: '-100px' }}
             className={cn(
-              'h-px flex-1 bg-gradient-to-r from-text-secondary/30 to-transparent',
+              'from-text-secondary/30 h-px flex-1 bg-gradient-to-r to-transparent',
               align === 'center' && 'hidden'
             )}
           />
@@ -82,7 +71,7 @@ export function SectionHeader({
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
           className={cn(
-            'mt-4 text-text-secondary',
+            'text-text-secondary mt-4',
             align === 'center' ? 'mx-auto max-w-2xl' : 'max-w-xl'
           )}
         >

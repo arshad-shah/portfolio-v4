@@ -9,18 +9,18 @@ export const COLORS = {
   primary: '#0a0e27',
   secondary: '#141b3a',
   elevated: '#1a2247',
-  
+
   // Accents
   gold: '#d4a574',
   goldLight: '#e8b889',
   blue: '#4a9eff',
   blueLight: '#6eb0ff',
-  
+
   // Text
   textPrimary: '#e8e9f3',
   textSecondary: '#a0a3bd',
   textMuted: '#6b7280',
-  
+
   // Borders
   borderSubtle: 'rgba(212, 165, 116, 0.1)',
   borderMedium: 'rgba(212, 165, 116, 0.3)',
@@ -72,7 +72,7 @@ export const EASING = {
   // Custom easings
   outExpo: [0.19, 1, 0.22, 1],
   inOutSmooth: [0.4, 0, 0.2, 1],
-  
+
   // Standard easings
   linear: [0, 0, 1, 1],
   easeIn: [0.42, 0, 1, 1],
@@ -115,7 +115,8 @@ export const EXTERNAL_LINKS = {
 export const SITE_CONFIG = {
   name: 'Arshad Shah',
   title: 'Arshad Shah - Software Engineer',
-  description: 'Software Engineer specializing in high-performance systems, microfrontend architecture, and educational technology solutions.',
+  description:
+    'Software Engineer specializing in high-performance systems, microfrontend architecture, and educational technology solutions.',
   url: 'https://arshadshah.com',
   ogImage: '/og-image.png',
   author: 'Arshad Shah',
@@ -148,49 +149,44 @@ export const CONTACT_INFO = {
 /**
  * Project categories
  */
-export const PROJECT_CATEGORIES = [
-  'All',
-  'Professional',
-  'Personal',
-  'Tools',
-] as const
+export const PROJECT_CATEGORIES = ['All', 'Professional', 'Personal', 'Tools'] as const
 
 /**
  * Technology tags with colors
  */
 export const TECH_COLORS: Record<string, string> = {
   // Frontend
-  'React': 'blue',
-  'TypeScript': 'blue',
-  'JavaScript': 'yellow',
+  React: 'blue',
+  TypeScript: 'blue',
+  JavaScript: 'yellow',
   'Next.js': 'black',
   'Tailwind CSS': 'cyan',
-  'Vite': 'purple',
-  
+  Vite: 'purple',
+
   // Backend
   'Spring Boot': 'green',
   'Node.js': 'green',
-  'Java': 'orange',
-  'Kotlin': 'purple',
-  'Python': 'blue',
-  
+  Java: 'orange',
+  Kotlin: 'purple',
+  Python: 'blue',
+
   // Database
-  'PostgreSQL': 'blue',
-  'MongoDB': 'green',
-  'Redis': 'red',
-  
+  PostgreSQL: 'blue',
+  MongoDB: 'green',
+  Redis: 'red',
+
   // DevOps
-  'Kubernetes': 'blue',
-  'Docker': 'blue',
-  'AWS': 'orange',
-  
+  Kubernetes: 'blue',
+  Docker: 'blue',
+  AWS: 'orange',
+
   // Tools
-  'GraphQL': 'pink',
-  'Hasura': 'blue',
-  'Firebase': 'orange',
-  
+  GraphQL: 'pink',
+  Hasura: 'blue',
+  Firebase: 'orange',
+
   // Default
-  'default': 'gray',
+  default: 'gray',
 }
 
 /**
@@ -227,21 +223,21 @@ export const PERFORMANCE = {
     bestPractices: 95,
     seo: 100,
   },
-  
+
   // Core Web Vitals
   webVitals: {
     fcp: 1000, // First Contentful Paint (ms)
     lcp: 2500, // Largest Contentful Paint (ms)
-    fid: 100,  // First Input Delay (ms)
-    cls: 0.1,  // Cumulative Layout Shift
+    fid: 100, // First Input Delay (ms)
+    cls: 0.1, // Cumulative Layout Shift
     ttfb: 600, // Time to First Byte (ms)
   },
-  
+
   // Bundle size limits
   bundleSize: {
     total: 150 * 1024, // 150KB (gzipped)
-    js: 100 * 1024,    // 100KB (gzipped)
-    css: 20 * 1024,    // 20KB (gzipped)
+    js: 100 * 1024, // 100KB (gzipped)
+    css: 20 * 1024, // 20KB (gzipped)
   },
 } as const
 

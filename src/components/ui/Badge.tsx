@@ -31,15 +31,15 @@ const sizeClasses = {
 
 /**
  * Badge component for labels and tags
- * 
+ *
  * @example
  * <Badge variant="primary">Featured</Badge>
- * 
+ *
  * @example
  * <Badge variant="secondary" size="sm">
  *   TypeScript
  * </Badge>
- * 
+ *
  * @example
  * <Badge animated index={0}>
  *   Animated Badge
@@ -111,19 +111,14 @@ export const TechBadge = forwardRef<HTMLSpanElement, TechBadgeProps>(
     const getVariant = (tech: string): BadgeProps['variant'] => {
       const frontend = ['React', 'TypeScript', 'JavaScript', 'Next.js', 'Tailwind']
       const backend = ['Spring Boot', 'Node.js', 'Java', 'Kotlin', 'Python']
-      
-      if (frontend.some(t => tech.includes(t))) return 'secondary'
-      if (backend.some(t => tech.includes(t))) return 'primary'
+
+      if (frontend.some((t) => tech.includes(t))) return 'secondary'
+      if (backend.some((t) => tech.includes(t))) return 'primary'
       return 'default'
     }
 
     return (
-      <Badge
-        ref={ref}
-        variant={getVariant(technology)}
-        className={className}
-        {...props}
-      >
+      <Badge ref={ref} variant={getVariant(technology)} className={className} {...props}>
         {technology}
       </Badge>
     )
@@ -172,11 +167,7 @@ export const BadgeGroup = forwardRef<HTMLDivElement, BadgeGroupProps>(
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ({ children, className, animated: _animated = false, ...props }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={cn('flex flex-wrap gap-2', className)}
-        {...props}
-      >
+      <div ref={ref} className={cn('flex flex-wrap gap-2', className)} {...props}>
         {children}
       </div>
     )

@@ -12,7 +12,7 @@ interface CopyToClipboardResult {
 /**
  * Hook to copy text to clipboard
  * @returns object with copy function, copied value, and success state
- * 
+ *
  * @example
  * const { copy, success } = useCopyToClipboard()
  * <button onClick={() => copy('text to copy')}>

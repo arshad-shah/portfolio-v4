@@ -23,13 +23,13 @@ const paddingClasses = {
 
 /**
  * Card component with optional hover animation
- * 
+ *
  * @example
  * <Card>
  *   <h3>Title</h3>
  *   <p>Content</p>
  * </Card>
- * 
+ *
  * @example
  * <Card hover interactive padding="lg">
  *   <CardHeader>...</CardHeader>
@@ -96,11 +96,7 @@ interface CardHeaderProps extends HTMLAttributes<HTMLDivElement> {
 export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
   ({ children, className, ...props }, ref) => {
     return (
-      <div
-        ref={ref}
-        className={cn('mb-4', className)}
-        {...props}
-      >
+      <div ref={ref} className={cn('mb-4', className)} {...props}>
         {children}
       </div>
     )
@@ -122,10 +118,7 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
     return (
       <Component
         ref={ref}
-        className={cn(
-          'font-display text-h3 font-semibold text-text-primary',
-          className
-        )}
+        className={cn('font-display text-h3 text-text-primary font-semibold', className)}
         {...props}
       >
         {children}
@@ -146,11 +139,7 @@ interface CardDescriptionProps extends HTMLAttributes<HTMLParagraphElement> {
 export const CardDescription = forwardRef<HTMLParagraphElement, CardDescriptionProps>(
   ({ children, className, ...props }, ref) => {
     return (
-      <p
-        ref={ref}
-        className={cn('text-text-secondary', className)}
-        {...props}
-      >
+      <p ref={ref} className={cn('text-text-secondary', className)} {...props}>
         {children}
       </p>
     )
@@ -190,10 +179,7 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
     return (
       <div
         ref={ref}
-        className={cn(
-          'mt-4 flex items-center gap-2 border-t border-border-subtle pt-4',
-          className
-        )}
+        className={cn('border-border-subtle mt-4 flex items-center gap-2 border-t pt-4', className)}
         {...props}
       >
         {children}

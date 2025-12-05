@@ -17,7 +17,7 @@ interface AnimatedSectionProps {
 
 /**
  * Wrapper component that animates content on scroll
- * 
+ *
  * @example
  * <AnimatedSection id="about">
  *   <h2>About Me</h2>

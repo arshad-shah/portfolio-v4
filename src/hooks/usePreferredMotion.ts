@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 /**
  * Hook to detect user's motion preference
  * @returns 'reduce' if user prefers reduced motion, 'no-preference' otherwise
- * 
+ *
  * @example
  * const prefersReducedMotion = usePreferredMotion() === 'reduce'
  * const animation = prefersReducedMotion ? {} : { animate: { x: 100 } }
@@ -49,11 +49,11 @@ export function usePrefersReducedMotion(): boolean {
  * Hook to get animation config based on user preference
  * @param animationConfig - Animation configuration to use if motion is allowed
  * @returns Animation config or empty object if reduced motion is preferred
- * 
+ *
  * @example
- * const animation = useMotionConfig({ 
- *   initial: { opacity: 0 }, 
- *   animate: { opacity: 1 } 
+ * const animation = useMotionConfig({
+ *   initial: { opacity: 0 },
+ *   animate: { opacity: 1 }
  * })
  */
 export function useMotionConfig<T extends Record<string, unknown>>(

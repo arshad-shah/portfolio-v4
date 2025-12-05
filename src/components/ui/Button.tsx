@@ -33,12 +33,12 @@ const sizeClasses = {
 
 /**
  * Button component with multiple variants and animations
- * 
+ *
  * @example
  * <Button variant="primary" onClick={handleClick}>
  *   Click me
  * </Button>
- * 
+ *
  * @example
  * <Button variant="secondary" leftIcon={<Icon />} isLoading>
  *   Submit
@@ -75,7 +75,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           'inline-flex items-center justify-center gap-2',
           'rounded-none font-medium',
           'transition-all duration-300',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:ring-offset-2 focus-visible:ring-offset-primary',
+          'focus-visible:ring-accent-gold focus-visible:ring-offset-primary focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
           'disabled:pointer-events-none disabled:opacity-50',
           // Variant styles
           variantClasses[variant],
@@ -123,14 +123,7 @@ function LoadingSpinner({ size }: { size: 'sm' | 'md' | 'lg' }) {
       fill="none"
       viewBox="0 0 24 24"
     >
-      <circle
-        className="opacity-25"
-        cx="12"
-        cy="12"
-        r="10"
-        stroke="currentColor"
-        strokeWidth="4"
-      />
+      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
       <path
         className="opacity-75"
         fill="currentColor"
@@ -194,11 +187,11 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         className={cn(
           // Base styles
           'group relative inline-flex items-center justify-center',
-          'rounded-sm overflow-hidden',
+          'overflow-hidden rounded-sm',
           'transition-all duration-300 ease-out',
           // Focus styles for accessibility
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold',
-          'focus-visible:ring-offset-2 focus-visible:ring-offset-primary',
+          'focus-visible:ring-accent-gold focus-visible:ring-2 focus-visible:outline-none',
+          'focus-visible:ring-offset-primary focus-visible:ring-offset-2',
           // Disabled state
           'disabled:pointer-events-none disabled:opacity-40 disabled:grayscale',
           // Active state
@@ -212,8 +205,8 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
         {...props}
       >
         {/* Hover glow effect */}
-        <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-accent-gold/0 via-accent-gold/5 to-accent-gold/0" />
-        
+        <span className="from-accent-gold/0 via-accent-gold/5 to-accent-gold/0 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
         {/* Icon with smooth transition */}
         <span className="relative z-10 transition-transform duration-300 group-hover:scale-110">
           {icon}

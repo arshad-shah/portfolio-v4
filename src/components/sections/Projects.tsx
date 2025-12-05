@@ -37,9 +37,7 @@ export function Projects({ data }: ProjectsProps) {
 
   // Filter projects
   const filteredProjects =
-    activeFilter === 'All'
-      ? data
-      : data.filter((project) => project.category === activeFilter)
+    activeFilter === 'All' ? data : data.filter((project) => project.category === activeFilter)
 
   // Sort by featured first, then by year
   const sortedProjects = [...filteredProjects].sort((a, b) => {
@@ -52,15 +50,15 @@ export function Projects({ data }: ProjectsProps) {
     <AnimatedSection id="projects" className="bg-secondary py-24">
       <Container>
         <SectionHeader>
-          <span className="mr-2 font-mono text-accent-gold">{'<'}</span>
+          <span className="text-accent-gold mr-2 font-mono">{'<'}</span>
           <span className="text-text-primary">Projects</span>
-          <span className="ml-2 font-mono text-accent-gold">{'/>'}</span>
+          <span className="text-accent-gold ml-2 font-mono">{'/>'}</span>
         </SectionHeader>
 
         {/* Filter Buttons */}
         <div className="mb-12 flex justify-center">
-          <div className="inline-flex items-center gap-2 rounded-sm border border-secondary-light bg-primary p-1">
-            <Filter className="mx-2 h-4 w-4 text-accent-gold" />
+          <div className="border-secondary-light bg-primary inline-flex items-center gap-2 rounded-sm border p-1">
+            <Filter className="text-accent-gold mx-2 h-4 w-4" />
             {PROJECT_CATEGORIES.map((category) => (
               <button
                 key={category}
@@ -76,7 +74,7 @@ export function Projects({ data }: ProjectsProps) {
                 {activeFilter === category && (
                   <motion.div
                     layoutId="activeFilter"
-                    className="absolute inset-0 rounded-sm bg-accent-gold/20"
+                    className="bg-accent-gold/20 absolute inset-0 rounded-sm"
                     transition={{ type: 'spring', duration: 0.5 }}
                   />
                 )}
@@ -116,9 +114,7 @@ export function Projects({ data }: ProjectsProps) {
             animate={{ opacity: 1, y: 0 }}
             className="py-20 text-center"
           >
-            <p className="text-text-secondary">
-              No projects found in this category.
-            </p>
+            <p className="text-text-secondary">No projects found in this category.</p>
           </motion.div>
         )}
 
@@ -133,9 +129,7 @@ export function Projects({ data }: ProjectsProps) {
           <Button
             variant="secondary"
             size="lg"
-            onClick={() =>
-              window.open('https://github.com/arshad-shah?tab=repositories', '_blank')
-            }
+            onClick={() => window.open('https://github.com/arshad-shah?tab=repositories', '_blank')}
             rightIcon={<ExternalLink className="h-5 w-5" />}
           >
             View All Projects on GitHub
@@ -157,17 +151,13 @@ function ProjectCard({ project }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
-    <Card
-      hover
-      padding="none"
-      className="group flex h-full flex-col overflow-hidden"
-    >
+    <Card hover padding="none" className="group flex h-full flex-col overflow-hidden">
       {/* Card Header */}
-      <CardHeader className="border-b border-border-subtle p-4">
+      <CardHeader className="border-border-subtle border-b p-4">
         <div className="mb-3 flex items-start justify-between">
           <div className="flex items-center gap-2">
-            <div className="rounded-sm bg-accent-gold/20 p-2">
-              <Github className="h-4 w-4 text-accent-gold" />
+            <div className="bg-accent-gold/20 rounded-sm p-2">
+              <Github className="text-accent-gold h-4 w-4" />
             </div>
             <Badge variant="default" size="sm">
               {project.type}
@@ -203,13 +193,11 @@ function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
 
-        <CardTitle className="mb-2 line-clamp-2 transition-colors group-hover:text-accent-gold">
+        <CardTitle className="group-hover:text-accent-gold mb-2 line-clamp-2 transition-colors">
           {project.title}
         </CardTitle>
 
-        <CardDescription className="line-clamp-2 text-sm">
-          {project.description}
-        </CardDescription>
+        <CardDescription className="line-clamp-2 text-sm">{project.description}</CardDescription>
       </CardHeader>
 
       {/* Card Content */}
@@ -226,22 +214,14 @@ function ProjectCard({ project }: ProjectCardProps) {
             >
               {project.challenge && (
                 <div>
-                  <h4 className="mb-1 font-mono text-xs text-accent-gold">
-                    // Challenge:
-                  </h4>
-                  <p className="text-sm text-text-secondary">
-                    {project.challenge}
-                  </p>
+                  <h4 className="text-accent-gold mb-1 font-mono text-xs">// Challenge:</h4>
+                  <p className="text-text-secondary text-sm">{project.challenge}</p>
                 </div>
               )}
               {project.solution && (
                 <div>
-                  <h4 className="mb-1 font-mono text-xs text-accent-blue">
-                    // Solution:
-                  </h4>
-                  <p className="text-sm text-text-secondary">
-                    {project.solution}
-                  </p>
+                  <h4 className="text-accent-blue mb-1 font-mono text-xs">// Solution:</h4>
+                  <p className="text-text-secondary text-sm">{project.solution}</p>
                 </div>
               )}
             </motion.div>
@@ -258,16 +238,13 @@ function ProjectCard({ project }: ProjectCardProps) {
               transition={{ duration: 0.3, delay: 0.1 }}
               className="mb-4 overflow-hidden"
             >
-              <h4 className="mb-2 flex items-center gap-2 font-mono text-xs text-accent-gold">
+              <h4 className="text-accent-gold mb-2 flex items-center gap-2 font-mono text-xs">
                 <Star className="h-3 w-3" />
                 // Impact:
               </h4>
               <ul className="space-y-1">
                 {project.impact.map((item, idx) => (
-                  <li
-                    key={idx}
-                    className="flex gap-2 text-sm text-text-secondary"
-                  >
+                  <li key={idx} className="text-text-secondary flex gap-2 text-sm">
                     <span className="text-accent-gold">▸</span>
                     <span>{item}</span>
                   </li>
@@ -279,17 +256,10 @@ function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Technologies */}
         <div>
-          <h4 className="mb-3 font-mono text-xs text-accent-gold">
-            // Tech Stack:
-          </h4>
+          <h4 className="text-accent-gold mb-3 font-mono text-xs">// Tech Stack:</h4>
           <BadgeGroup>
             {project.technologies.slice(0, isExpanded ? undefined : 4).map((tech) => (
-              <Badge
-                key={tech}
-                variant="secondary"
-                size="sm"
-                className="font-mono text-xs"
-              >
+              <Badge key={tech} variant="secondary" size="sm" className="font-mono text-xs">
                 {tech}
               </Badge>
             ))}
@@ -305,7 +275,7 @@ function ProjectCard({ project }: ProjectCardProps) {
       {/* Card Footer */}
       <CardFooter className="border-t-0 p-4 pt-0">
         <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-xs text-text-muted">
+          <div className="text-text-muted flex items-center gap-2 text-xs">
             <Calendar className="h-3 w-3" />
             <span>{project.year}</span>
           </div>

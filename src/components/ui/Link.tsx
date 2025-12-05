@@ -6,8 +6,7 @@ import { cn } from '@/lib/utils'
 
 interface LinkProps extends Omit<
   AnchorHTMLAttributes<HTMLAnchorElement>,
-  | 'onDrag' | 'onDragStart' | 'onDragEnd'
-  | 'onAnimationStart' | 'onAnimationEnd'
+  'onDrag' | 'onDragStart' | 'onDragEnd' | 'onAnimationStart' | 'onAnimationEnd'
 > {
   children: ReactNode
   href: string
@@ -27,15 +26,15 @@ const variantClasses = {
 
 /**
  * Link component with external link handling and animations
- * 
+ *
  * @example
  * <Link href="/about">About Me</Link>
- * 
+ *
  * @example
  * <Link href="https://github.com" external>
  *   GitHub
  * </Link>
- * 
+ *
  * @example
  * <Link href="#projects" variant="nav" showUnderline>
  *   Projects
@@ -75,9 +74,10 @@ export const Link = forwardRef<HTMLAnchorElement, LinkProps>(
         className={cn(
           'inline-flex items-center gap-1',
           'transition-all duration-300',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:ring-offset-2 focus-visible:ring-offset-primary rounded-sm',
+          'focus-visible:ring-accent-gold focus-visible:ring-offset-primary rounded-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none',
           variantClasses[variant],
-          showUnderline && 'relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100',
+          showUnderline &&
+            'relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100',
           className
         )}
         {...externalProps}
@@ -122,11 +122,7 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         ref={ref}
         variant="nav"
         showUnderline
-        className={cn(
-          'font-medium',
-          active && 'text-accent-gold after:scale-x-100',
-          className
-        )}
+        className={cn('font-medium', active && 'text-accent-gold after:scale-x-100', className)}
         {...props}
       >
         {children}
@@ -164,26 +160,26 @@ export const SocialLink = forwardRef<HTMLAnchorElement, SocialLinkProps>(
         className={cn(
           // Base styles
           'group relative inline-flex items-center justify-center',
-          'rounded-sm overflow-hidden',
+          'overflow-hidden rounded-sm',
           'transition-all duration-300 ease-out',
           // Background and border
           'bg-secondary/50 backdrop-blur-sm',
-          'border border-border-subtle',
+          'border-border-subtle border',
           'hover:border-accent-gold/50',
           // Colors
           'text-text-secondary hover:text-accent-gold',
           // Shadow
-          'shadow-sm hover:shadow-md hover:shadow-accent-gold/10',
+          'hover:shadow-accent-gold/10 shadow-sm hover:shadow-md',
           // Focus styles for accessibility
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-gold',
-          'focus-visible:ring-offset-2 focus-visible:ring-offset-primary',
+          'focus-visible:ring-accent-gold focus-visible:ring-2 focus-visible:outline-none',
+          'focus-visible:ring-offset-primary focus-visible:ring-offset-2',
           className
         )}
         {...props}
       >
         {/* Hover glow effect */}
-        <span className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-accent-gold/0 via-accent-gold/5 to-accent-gold/0" />
-        
+        <span className="from-accent-gold/0 via-accent-gold/5 to-accent-gold/0 absolute inset-0 bg-gradient-to-br opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
         {/* Icon with smooth transition */}
         <span className="relative z-10 transition-transform duration-300 group-hover:rotate-6">
           {icon}
@@ -205,20 +201,13 @@ interface ButtonLinkProps extends Omit<LinkProps, 'variant'> {
 
 export const ButtonLink = forwardRef<HTMLAnchorElement, ButtonLinkProps>(
   (
-    {
-      variant = 'primary',
-      size = 'md',
-      className,
-      children,
-      leftIcon,
-      rightIcon,
-      ...props
-    },
+    { variant = 'primary', size = 'md', className, children, leftIcon, rightIcon, ...props },
     ref
   ) => {
     const variantStyles = {
       primary: 'bg-accent-gold text-primary hover:bg-accent-gold-light',
-      secondary: 'border border-text-secondary text-text-secondary hover:border-accent-gold hover:text-accent-gold',
+      secondary:
+        'border border-text-secondary text-text-secondary hover:border-accent-gold hover:text-accent-gold',
     }
 
     const sizeStyles = {
