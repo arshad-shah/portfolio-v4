@@ -1,0 +1,49 @@
+{
+  "name": {
+    "first": "Arshad",
+    "last": "Shah"
+  },
+  "title": "Software Engineer & Full-Stack Developer",
+  "headline": "Crafting Elegant Digital Solutions",
+  "description": "I'm a software engineer passionate about building scalable web applications and educational technology solutions. Currently working at HMH, where I focus on microfrontend architecture, developer experience, and real-time integrations. I specialize in creating high-performance systems that serve millions of users while maintaining exceptional reliability and user experience.",
+  "location": {
+    "city": "Dublin",
+    "country": "Ireland",
+    "display": "Dublin, Ireland"
+  },
+  "email": "arshad@arshadshah.com",
+  "tagline": "Building thoughtful software with precision and care",
+  "technologies": [
+    "React",
+    "TypeScript",
+    "Spring Boot",
+    "GraphQL",
+    "PostgreSQL",
+    "Kubernetes",
+    "Hasura",
+    "Microfrontends"
+  ],
+  "availability": {
+    "status": "Employed (Open to opportunities)",
+    "openTo": [
+      "Interesting projects",
+      "Collaboration opportunities",
+      "Technical discussions",
+      "Consulting opportunities"
+    ],
+    "workingHours": "Monday - Friday, 9:00 AM - 6:00 PM GMT",
+    "responseTime": "Within 24 hours"
+  },
+  "expertise": [
+    "Full-Stack Web Development",
+    "Mobile Application Development",
+    "Microfrontend Architecture",
+    "API Development & Integration",
+    "Chrome Extension Development",
+    "UI/UX Engineering",
+    "Database Design & Optimization",
+    "Performance Engineering",
+    "DevOps & Cloud Deployment",
+    "System Design & Architecture"
+  ]
+}
