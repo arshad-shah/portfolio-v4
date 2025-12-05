@@ -11,15 +11,16 @@ import { useEffect, useState } from 'react'
  * const animation = prefersReducedMotion ? {} : { animate: { x: 100 } }
  */
 export function usePreferredMotion(): 'reduce' | 'no-preference' {
-  const [motion, setMotion] = useState<'reduce' | 'no-preference'>('no-preference')
+  const [motion, setMotion] = useState<'reduce' | 'no-preference'>(() => {
+    if (typeof window === 'undefined') return 'no-preference'
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    return mediaQuery.matches ? 'reduce' : 'no-preference'
+  })
 
   useEffect(() => {
     if (typeof window === 'undefined') return
 
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-
-    // Set initial value
-    setMotion(mediaQuery.matches ? 'reduce' : 'no-preference')
 
     // Update on change
     const handleChange = (event: MediaQueryListEvent) => {
@@ -55,7 +56,7 @@ export function usePrefersReducedMotion(): boolean {
  *   animate: { opacity: 1 } 
  * })
  */
-export function useMotionConfig<T extends Record<string, any>>(
+export function useMotionConfig<T extends Record<string, unknown>>(
   animationConfig: T
 ): T | Record<string, never> {
   const prefersReducedMotion = usePrefersReducedMotion()
@@ -66,7 +67,7 @@ export function useMotionConfig<T extends Record<string, any>>(
  * Hook to get conditional animation variants
  * Returns full variants if motion allowed, simplified if reduced motion preferred
  */
-export function useAccessibleAnimation<T extends Record<string, any>>(
+export function useAccessibleAnimation<T extends Record<string, unknown>>(
   fullAnimation: T,
   reducedAnimation?: Partial<T>
 ): T {
@@ -86,16 +87,18 @@ export function useAccessibleAnimation<T extends Record<string, any>>(
   const motionKeys = ['x', 'y', 'scale', 'rotate', 'rotateX', 'rotateY', 'rotateZ']
 
   Object.keys(accessible).forEach((key) => {
-    if (typeof accessible[key] === 'object' && accessible[key] !== null) {
+    const value = accessible[key]
+    if (typeof value === 'object' && value !== null) {
+      const objValue = value as Record<string, unknown>
       motionKeys.forEach((motionKey) => {
-        if (motionKey in accessible[key]) {
-          delete accessible[key][motionKey]
+        if (motionKey in objValue) {
+          delete objValue[motionKey]
         }
       })
 
       // Also update transition to be instant
-      if ('transition' in accessible[key]) {
-        accessible[key].transition = { duration: 0 }
+      if ('transition' in objValue) {
+        objValue.transition = { duration: 0 }
       }
     }
   })

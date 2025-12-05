@@ -23,8 +23,8 @@ export function useScrollDirection(options: UseScrollDirectionOptions = {}) {
   const { threshold = 10, throttleMs = 100 } = options
 
   const [scrollDirection, setScrollDirection] = useState<ScrollDirection>(null)
-  const [scrollY, setScrollY] = useState(0)
-  const [prevScrollY, setPrevScrollY] = useState(0)
+  const [scrollY, setScrollY] = useState(() => typeof window !== 'undefined' ? window.scrollY : 0)
+  const [prevScrollY, setPrevScrollY] = useState(() => typeof window !== 'undefined' ? window.scrollY : 0)
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -49,10 +49,6 @@ export function useScrollDirection(options: UseScrollDirectionOptions = {}) {
       setPrevScrollY(currentScrollY)
     }, throttleMs)
 
-    // Set initial scroll position
-    setScrollY(window.scrollY)
-    setPrevScrollY(window.scrollY)
-
     window.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => {
@@ -69,7 +65,9 @@ export function useScrollDirection(options: UseScrollDirectionOptions = {}) {
  * @returns boolean indicating if scrolled past threshold
  */
 export function useScrollPast(threshold: number = 100): boolean {
-  const [isPast, setIsPast] = useState(false)
+  const [isPast, setIsPast] = useState(() => 
+    typeof window !== 'undefined' ? window.scrollY > threshold : false
+  )
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -77,9 +75,6 @@ export function useScrollPast(threshold: number = 100): boolean {
     const handleScroll = throttle(() => {
       setIsPast(window.scrollY > threshold)
     }, 100)
-
-    // Set initial state
-    setIsPast(window.scrollY > threshold)
 
     window.addEventListener('scroll', handleScroll, { passive: true })
 

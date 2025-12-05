@@ -33,9 +33,6 @@ export function useMediaQuery(query: string | keyof typeof BREAKPOINTS): boolean
       setMatches(event.matches)
     }
 
-    // Set initial value
-    setMatches(mediaQueryList.matches)
-
     // Add event listener
     mediaQueryList.addEventListener('change', handleChange)
 

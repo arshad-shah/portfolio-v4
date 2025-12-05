@@ -86,60 +86,10 @@ export const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
       )
     }
 
-    // Filter out motion-specific props for regular span
-    const {
-      initial,
-      animate,
-      exit,
-      variants,
-      transition,
-      whileHover,
-      whileTap,
-      whileFocus,
-      whileDrag,
-      whileInView,
-      drag,
-      dragConstraints,
-      dragElastic,
-      dragMomentum,
-      dragTransition,
-      dragPropagation,
-      dragControls,
-      dragListener,
-      dragSnapToOrigin,
-      layout,
-      layoutId,
-      layoutDependency,
-      layoutScroll,
-      onDrag,
-      onDragStart,
-      onDragEnd,
-      onDirectionLock,
-      onViewportEnter,
-      onViewportLeave,
-      onAnimationStart,
-      onAnimationComplete,
-      onUpdate,
-      onDragTransitionEnd,
-      onLayoutAnimationStart,
-      onLayoutAnimationComplete,
-      onTap,
-      onTapStart,
-      onTapCancel,
-      onPan,
-      onPanStart,
-      onPanEnd,
-      onHoverStart,
-      onHoverEnd,
-      custom,
-      style,
-      transformTemplate,
-      transformValues,
-      ...htmlProps
-    } = props as any
-
+    // For non-animated badges, just render a regular span
+    // Motion props will be ignored by the DOM
     return (
-      <span ref={ref} className={baseClasses} {...htmlProps}>
+      <span ref={ref} className={baseClasses}>
         {children}
       </span>
     )
@@ -219,7 +169,8 @@ interface BadgeGroupProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export const BadgeGroup = forwardRef<HTMLDivElement, BadgeGroupProps>(
-  ({ children, className, animated = false, ...props }, ref) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  ({ children, className, animated: _animated = false, ...props }, ref) => {
     return (
       <div
         ref={ref}

@@ -50,6 +50,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     ref
   ) => {
     const animation = useAccessibleAnimation(cardHover)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const MotionComponent = motion[Component as keyof typeof motion] as any
 
     const baseClasses = cn(

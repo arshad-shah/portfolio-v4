@@ -50,7 +50,7 @@ export function Contact({ data }: ContactProps) {
   }
 
   // Icon mapping
-  const iconMap: Record<string, any> = {
+  const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
     GitHub: Github,
     LinkedIn: Linkedin,
     Email: Mail,

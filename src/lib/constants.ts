@@ -284,7 +284,7 @@ export const Z_INDEX = {
 export const PATTERNS = {
   email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
   url: /^https?:\/\/.+/,
-  phone: /^[\d\s\-\+\(\)]+$/,
+  phone: /^[\d\s\-+()]+$/,
   github: /^https?:\/\/(www\.)?github\.com\/.+/,
   linkedin: /^https?:\/\/(www\.)?linkedin\.com\/.+/,
 } as const
