@@ -17,9 +17,6 @@ const Projects = lazy(() =>
 const Contact = lazy(() =>
   import('@/components/sections/Contact').then((m) => ({ default: m.Contact }))
 )
-const Footer = lazy(() =>
-  import('@/components/sections/Footer').then((m) => ({ default: m.Footer }))
-)
 
 // Import data with type safety
 import personalDataRaw from '@/data/personal.json'
@@ -90,11 +87,6 @@ function App() {
               <Contact data={contactData} />
             </Suspense>
           </main>
-
-          {/* Footer */}
-          <Suspense fallback={null}>
-            <Footer />
-          </Suspense>
         </div>
       </HelmetProvider>
     </ErrorBoundary>
