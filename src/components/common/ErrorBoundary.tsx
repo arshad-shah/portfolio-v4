@@ -53,11 +53,11 @@ export class ErrorBoundary extends Component<Props, State> {
             <h1 className="font-display text-text-primary mb-4 text-2xl font-bold">
               Something went wrong
             </h1>
-            <p className="text-text-secondary mb-8 max-w-md mx-auto">
+            <p className="text-text-secondary mx-auto mb-8 max-w-md">
               An unexpected error occurred. Please try refreshing the page.
             </p>
             {process.env.NODE_ENV === 'development' && this.state.error && (
-              <pre className="bg-secondary text-text-muted mb-8 max-w-lg mx-auto overflow-auto rounded p-4 text-left text-sm">
+              <pre className="bg-secondary text-text-muted mx-auto mb-8 max-w-lg overflow-auto rounded p-4 text-left text-sm">
                 {this.state.error.message}
               </pre>
             )}
@@ -69,10 +69,7 @@ export class ErrorBoundary extends Component<Props, State> {
               >
                 Try Again
               </Button>
-              <Button
-                variant="secondary"
-                onClick={() => window.location.reload()}
-              >
+              <Button variant="secondary" onClick={() => window.location.reload()}>
                 Refresh Page
               </Button>
             </div>

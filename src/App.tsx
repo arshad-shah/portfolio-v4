@@ -15,7 +15,12 @@ import personalDataRaw from '@/data/personal.json'
 import experienceDataRaw from '@/data/experience.json'
 import projectsDataRaw from '@/data/projects.json'
 import contactDataRaw from '@/data/contact.json'
-import type { Personal, Experience as ExperienceType, Project, Contact as ContactType } from '@/types/index'
+import type {
+  Personal,
+  Experience as ExperienceType,
+  Project,
+  Contact as ContactType,
+} from '@/types/index'
 
 // Type-safe data assertions using satisfies for compile-time validation
 const personalData = personalDataRaw satisfies Personal
@@ -39,7 +44,7 @@ function App() {
         {/* Skip to main content link for accessibility */}
         <a
           href="#main-content"
-          className="bg-accent-gold text-primary fixed left-4 top-4 z-[100] -translate-y-full rounded px-4 py-2 font-medium transition-transform focus:translate-y-0"
+          className="bg-accent-gold text-primary fixed top-4 left-4 z-[100] -translate-y-full rounded px-4 py-2 font-medium transition-transform focus:translate-y-0"
         >
           Skip to main content
         </a>

@@ -129,7 +129,13 @@ export function Projects({ data }: ProjectsProps) {
           <Button
             variant="secondary"
             size="lg"
-            onClick={() => window.open('https://github.com/arshad-shah?tab=repositories', '_blank', 'noopener,noreferrer')}
+            onClick={() =>
+              window.open(
+                'https://github.com/arshad-shah?tab=repositories',
+                '_blank',
+                'noopener,noreferrer'
+              )
+            }
             rightIcon={<ExternalLink className="h-5 w-5" />}
           >
             View All Projects on GitHub

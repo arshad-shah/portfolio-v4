@@ -119,7 +119,8 @@ export function SEO({
               '@type': 'PostalAddress',
               addressLocality: personalData.location.city,
               addressRegion: personalData.location.region,
-              addressCountry: personalData.location.country === 'Ireland' ? 'IE' : personalData.location.country,
+              addressCountry:
+                personalData.location.country === 'Ireland' ? 'IE' : personalData.location.country,
             },
             email: personalData.email,
             sameAs: personalData.socialProfiles,

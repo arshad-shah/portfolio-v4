@@ -165,7 +165,9 @@ export function Hero({ data }: HeroProps) {
                 <Button
                   variant="secondary"
                   size="lg"
-                  onClick={() => window.open(EXTERNAL_LINKS.resume, '_blank', 'noopener,noreferrer')}
+                  onClick={() =>
+                    window.open(EXTERNAL_LINKS.resume, '_blank', 'noopener,noreferrer')
+                  }
                   rightIcon={<Download className="h-5 w-5" />}
                 >
                   Resume

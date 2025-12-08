@@ -72,9 +72,7 @@ export function Footer() {
 
           {/* Copyright & Tagline */}
           <div className="text-center">
-            <p className="text-text-secondary mb-2 text-sm">
-              {contactData.footer.tagline}
-            </p>
+            <p className="text-text-secondary mb-2 text-sm">{contactData.footer.tagline}</p>
             <p className="text-text-muted flex items-center justify-center gap-1 text-sm">
               <span>&copy; {currentYear}</span>
               <span>{contactData.footer.copyright}.</span>
