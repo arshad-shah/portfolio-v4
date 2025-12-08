@@ -278,59 +278,13 @@ export function Contact({ data }: ContactProps) {
           <Button
             variant="primary"
             size="lg"
-            onClick={() => window.open(data.resume.path, '_blank')}
+            onClick={() => window.open(data.resume.path, '_blank', 'noopener,noreferrer')}
             rightIcon={<Award className="h-5 w-5" />}
           >
             Download Resume
           </Button>
         </motion.div>
       </Container>
-
-      {/* Footer */}
-      <footer className="border-border-subtle mt-24 border-t pt-12">
-        <Container>
-          <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
-            <div className="text-center md:text-left">
-              <div className="font-display text-text-primary mb-2 text-lg font-bold">
-                <span className="text-accent-gold">{data.footer.copyright.charAt(0)}</span>
-                {data.footer.copyright.slice(1)}
-              </div>
-              <p className="text-text-secondary text-sm">{data.footer.tagline}</p>
-            </div>
-
-            <div className="text-center md:text-right">
-              <p className="text-text-muted text-sm">
-                Crafted with <span className="text-accent-gold">{'<code/>'}</span> and{' '}
-                <span className="text-red-500">♥</span>
-              </p>
-              <p className="text-text-muted mt-1 text-xs">
-                © {data.footer.year === 'auto' ? new Date().getFullYear() : data.footer.year}{' '}
-                {data.footer.copyright} • All Rights Reserved
-              </p>
-              <p className="text-text-muted mt-1 text-xs">
-                Built with React, TypeScript, Vite & Tailwind CSS
-              </p>
-            </div>
-          </div>
-
-          {/* Additional Links (Optional) */}
-          <div className="border-border-subtle mt-8 flex justify-center gap-6 border-t pt-6">
-            {data.social_links.map((link) => {
-              const IconComponent = iconMap[link.platform] || Mail
-              return (
-                <SocialLink
-                  key={link.platform}
-                  platform={link.platform}
-                  href={link.url}
-                  icon={<IconComponent className="h-4 w-4" />}
-                  label={link.label}
-                  className="h-8 w-8 opacity-70 hover:opacity-100"
-                />
-              )
-            })}
-          </div>
-        </Container>
-      </footer>
     </AnimatedSection>
   )
 }
