@@ -9,9 +9,22 @@
   "location": {
     "city": "Dublin",
     "country": "Ireland",
+    "region": "Leinster",
     "display": "Dublin, Ireland"
   },
   "email": "arshad@arshadshah.com",
+  "worksFor": {
+    "name": "Houghton Mifflin Harcourt",
+    "url": "https://www.hmhco.com"
+  },
+  "alumniOf": {
+    "name": "Technological University Dublin",
+    "url": "https://www.tudublin.ie"
+  },
+  "socialProfiles": [
+    "https://github.com/arshad-shah",
+    "https://www.linkedin.com/in/arshadshah"
+  ],
   "tagline": "Building thoughtful software with precision and care",
   "technologies": [
     "React",

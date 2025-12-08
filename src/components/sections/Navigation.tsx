@@ -6,7 +6,7 @@ import { Menu, X, Download } from 'lucide-react'
 import { Container } from '@/components/common/Container'
 import { NavLink, ButtonLink } from '@/components/ui/Link'
 import { IconButton } from '@/components/ui/Button'
-import { cn } from '@/lib/utils'
+import { cn, scrollToElement } from '@/lib/utils'
 import { NAV_ITEMS, EXTERNAL_LINKS } from '@/lib/constants'
 import { useScrollDirection, useScrollPast } from '@/hooks/useScrollDirection'
 import { useClickOutside } from '@/hooks/useClickOutside'
@@ -62,33 +62,17 @@ export function Navigation() {
   // Handle navigation click
   const handleNavClick = (href: string) => {
     if (href.startsWith('#')) {
-      const element = document.getElementById(href.substring(1))
-      if (element) {
-        // Close menu first if mobile
-        if (mobileMenuOpen) {
-          setMobileMenuOpen(false)
-          // Wait for menu animation to complete before scrolling
-          setTimeout(() => {
-            const offset = 80
-            const elementPosition = element.getBoundingClientRect().top
-            const offsetPosition = elementPosition + window.pageYOffset - offset
-
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth',
-            })
-          }, 300) // Match the menu animation duration
-        } else {
-          // Desktop - scroll immediately
-          const offset = 80
-          const elementPosition = element.getBoundingClientRect().top
-          const offsetPosition = elementPosition + window.pageYOffset - offset
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth',
-          })
-        }
+      const sectionId = href.substring(1)
+      // Close menu first if mobile
+      if (mobileMenuOpen) {
+        setMobileMenuOpen(false)
+        // Wait for menu animation to complete before scrolling
+        setTimeout(() => {
+          scrollToElement(sectionId)
+        }, 300) // Match the menu animation duration
+      } else {
+        // Desktop - scroll immediately
+        scrollToElement(sectionId)
       }
     }
   }

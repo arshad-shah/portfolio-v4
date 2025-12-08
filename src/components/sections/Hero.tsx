@@ -8,6 +8,7 @@ import { Badge, BadgeGroup } from '@/components/ui/Badge'
 import { SocialLink } from '@/components/ui/Link'
 import { SOCIAL_LINKS, EXTERNAL_LINKS } from '@/lib/constants'
 import { fadeInUp, fadeInDown, fadeInRight, staggerContainer, staggerItem } from '@/lib/animations'
+import { scrollToElement } from '@/lib/utils'
 import { useAccessibleAnimation } from '@/hooks/usePreferredMotion'
 import { useScrollAnimation } from '@/hooks/useIntersectionObserver'
 
@@ -41,17 +42,7 @@ export function Hero({ data }: HeroProps) {
   const { ref: scrollIndicatorRef, isIntersecting } = useScrollAnimation()
 
   const handleScrollToProjects = () => {
-    const element = document.getElementById('projects')
-    if (element) {
-      const offset = 80
-      const elementPosition = element.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - offset
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      })
-    }
+    scrollToElement('projects')
   }
 
   return (
@@ -174,7 +165,7 @@ export function Hero({ data }: HeroProps) {
                 <Button
                   variant="secondary"
                   size="lg"
-                  onClick={() => window.open(EXTERNAL_LINKS.resume, '_blank')}
+                  onClick={() => window.open(EXTERNAL_LINKS.resume, '_blank', 'noopener,noreferrer')}
                   rightIcon={<Download className="h-5 w-5" />}
                 >
                   Resume
@@ -224,13 +215,18 @@ export function Hero({ data }: HeroProps) {
 
                 {/* Image container */}
                 <div className="bg-secondary relative overflow-hidden">
-                  <img
-                    src="/images/profile.webp"
-                    alt={`${data.name.first} ${data.name.last}`}
-                    className="relative z-10 w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
-                    style={{ aspectRatio: '4/5' }}
-                    loading="eager"
-                  />
+                  <picture>
+                    <source srcSet="/images/profile.webp" type="image/webp" />
+                    <img
+                      src="/images/profile.jpg"
+                      alt={`${data.name.first} ${data.name.last} - Software Engineer`}
+                      width={400}
+                      height={500}
+                      className="relative z-10 w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
+                      loading="eager"
+                      fetchPriority="high"
+                    />
+                  </picture>
 
                   {/* Overlay */}
                   <div className="bg-accent-gold/10 absolute inset-0 z-20 mix-blend-multiply transition-opacity duration-500 hover:opacity-0" />

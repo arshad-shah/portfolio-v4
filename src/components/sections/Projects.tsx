@@ -129,7 +129,7 @@ export function Projects({ data }: ProjectsProps) {
           <Button
             variant="secondary"
             size="lg"
-            onClick={() => window.open('https://github.com/arshad-shah?tab=repositories', '_blank')}
+            onClick={() => window.open('https://github.com/arshad-shah?tab=repositories', '_blank', 'noopener,noreferrer')}
             rightIcon={<ExternalLink className="h-5 w-5" />}
           >
             View All Projects on GitHub
@@ -173,7 +173,7 @@ function ProjectCard({ project }: ProjectCardProps) {
                 size="sm"
                 onClick={(e) => {
                   e.stopPropagation()
-                  window.open(project.links.live!, '_blank')
+                  window.open(project.links.live!, '_blank', 'noopener,noreferrer')
                 }}
                 aria-label="View live project"
               />
@@ -185,7 +185,7 @@ function ProjectCard({ project }: ProjectCardProps) {
                 size="sm"
                 onClick={(e) => {
                   e.stopPropagation()
-                  window.open(project.links.github!, '_blank')
+                  window.open(project.links.github!, '_blank', 'noopener,noreferrer')
                 }}
                 aria-label="View source code"
               />

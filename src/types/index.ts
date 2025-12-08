@@ -11,9 +11,19 @@ export interface Personal {
   location: {
     city: string
     country: string
+    region?: string
     display: string
   }
   email: string
+  worksFor: {
+    name: string
+    url: string
+  }
+  alumniOf: {
+    name: string
+    url: string
+  }
+  socialProfiles: string[]
   tagline: string
   technologies: string[]
   availability: {
