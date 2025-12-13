@@ -57,14 +57,15 @@ export function Projects({ data }: ProjectsProps) {
 
         {/* Filter Buttons */}
         <div className="mb-12 flex justify-center">
-          <div className="border-secondary-light bg-primary inline-flex items-center gap-2 rounded-sm border p-1">
+          <div className="border-secondary-light bg-primary inline-flex max-w-full items-center gap-2 overflow-x-auto rounded-sm border p-1">
             <Filter className="text-accent-gold mx-2 h-4 w-4" />
             {PROJECT_CATEGORIES.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveFilter(category)}
+                aria-pressed={activeFilter === category}
                 className={cn(
-                  'relative rounded-sm px-4 py-2 text-sm font-medium transition-all duration-300',
+                  'relative rounded-sm px-4 py-2 text-sm font-medium whitespace-nowrap transition-all duration-300',
                   activeFilter === category
                     ? 'bg-accent-gold/20 text-accent-gold'
                     : 'text-text-secondary hover:text-text-primary'
@@ -129,7 +130,13 @@ export function Projects({ data }: ProjectsProps) {
           <Button
             variant="secondary"
             size="lg"
-            onClick={() => window.open('https://github.com/arshad-shah?tab=repositories', '_blank')}
+            onClick={() =>
+              window.open(
+                'https://github.com/arshad-shah?tab=repositories',
+                '_blank',
+                'noopener,noreferrer'
+              )
+            }
             rightIcon={<ExternalLink className="h-5 w-5" />}
           >
             View All Projects on GitHub
@@ -149,6 +156,8 @@ interface ProjectCardProps {
 
 function ProjectCard({ project }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
+  const impactPreviewCount = 2
+  const techPreviewCount = 6
 
   return (
     <Card hover padding="none" className="group flex h-full flex-col overflow-hidden">
@@ -173,7 +182,7 @@ function ProjectCard({ project }: ProjectCardProps) {
                 size="sm"
                 onClick={(e) => {
                   e.stopPropagation()
-                  window.open(project.links.live!, '_blank')
+                  window.open(project.links.live!, '_blank', 'noopener,noreferrer')
                 }}
                 aria-label="View live project"
               />
@@ -185,7 +194,7 @@ function ProjectCard({ project }: ProjectCardProps) {
                 size="sm"
                 onClick={(e) => {
                   e.stopPropagation()
-                  window.open(project.links.github!, '_blank')
+                  window.open(project.links.github!, '_blank', 'noopener,noreferrer')
                 }}
                 aria-label="View source code"
               />
@@ -202,6 +211,29 @@ function ProjectCard({ project }: ProjectCardProps) {
 
       {/* Card Content */}
       <CardContent className="flex-1 p-4">
+        {/* Impact preview (collapsed) */}
+        {!isExpanded && project.impact && project.impact.length > 0 && (
+          <div className="mb-4">
+            <h4 className="text-accent-gold mb-2 flex items-center gap-2 font-mono text-xs">
+              <Star className="h-3 w-3" />
+              // Impact:
+            </h4>
+            <ul className="space-y-1">
+              {project.impact.slice(0, impactPreviewCount).map((item, idx) => (
+                <li key={idx} className="text-text-secondary flex gap-2 text-sm">
+                  <span className="text-accent-gold">▸</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            {project.impact.length > impactPreviewCount && (
+              <p className="text-text-muted mt-2 text-xs">
+                +{project.impact.length - impactPreviewCount} more
+              </p>
+            )}
+          </div>
+        )}
+
         {/* Challenge/Solution (if expanded) */}
         <AnimatePresence>
           {isExpanded && (project.challenge || project.solution) && (
@@ -258,14 +290,16 @@ function ProjectCard({ project }: ProjectCardProps) {
         <div>
           <h4 className="text-accent-gold mb-3 font-mono text-xs">// Tech Stack:</h4>
           <BadgeGroup>
-            {project.technologies.slice(0, isExpanded ? undefined : 4).map((tech) => (
-              <Badge key={tech} variant="secondary" size="sm" className="font-mono text-xs">
-                {tech}
-              </Badge>
-            ))}
-            {!isExpanded && project.technologies.length > 4 && (
+            {project.technologies
+              .slice(0, isExpanded ? undefined : techPreviewCount)
+              .map((tech) => (
+                <Badge key={tech} variant="secondary" size="sm" className="font-mono text-xs">
+                  {tech}
+                </Badge>
+              ))}
+            {!isExpanded && project.technologies.length > techPreviewCount && (
               <Badge variant="default" size="sm">
-                +{project.technologies.length - 4}
+                +{project.technologies.length - techPreviewCount}
               </Badge>
             )}
           </BadgeGroup>

@@ -20,10 +20,15 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
+          'react-vendor': ['react', 'react-dom'],
           'framer-motion': ['framer-motion'],
+          icons: ['lucide-react'],
         },
       },
     },
+  },
+  esbuild: {
+    drop: ['console', 'debugger'],
   },
   server: {
     port: 3000,

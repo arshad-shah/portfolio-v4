@@ -1,13 +1,12 @@
 // src/components/sections/Hero.tsx
 
 import { motion } from 'framer-motion'
-import { ArrowRight, MapPin, Download, Github, Linkedin, Mail } from 'lucide-react'
+import { ArrowRight, MapPin, Mail } from 'lucide-react'
 import { Container } from '@/components/common/Container'
 import { Button } from '@/components/ui/Button'
 import { Badge, BadgeGroup } from '@/components/ui/Badge'
-import { SocialLink } from '@/components/ui/Link'
-import { SOCIAL_LINKS, EXTERNAL_LINKS } from '@/lib/constants'
 import { fadeInUp, fadeInDown, fadeInRight, staggerContainer, staggerItem } from '@/lib/animations'
+import { scrollToElement } from '@/lib/utils'
 import { useAccessibleAnimation } from '@/hooks/usePreferredMotion'
 import { useScrollAnimation } from '@/hooks/useIntersectionObserver'
 
@@ -18,6 +17,7 @@ interface HeroProps {
       last: string
     }
     title: string
+    headline?: string
     description: string
     location: {
       display: string
@@ -38,20 +38,16 @@ export function Hero({ data }: HeroProps) {
   const imageAnimation = useAccessibleAnimation(fadeInRight)
   const badgesAnimation = useAccessibleAnimation(staggerContainer)
 
+  const technologiesPreviewCount = 6
+
   const { ref: scrollIndicatorRef, isIntersecting } = useScrollAnimation()
 
   const handleScrollToProjects = () => {
-    const element = document.getElementById('projects')
-    if (element) {
-      const offset = 80
-      const elementPosition = element.getBoundingClientRect().top
-      const offsetPosition = elementPosition + window.pageYOffset - offset
+    scrollToElement('projects')
+  }
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      })
-    }
+  const handleScrollToContact = () => {
+    scrollToElement('contact')
   }
 
   return (
@@ -74,7 +70,9 @@ export function Hero({ data }: HeroProps) {
                 animate="visible"
                 className="mb-4"
               >
-                <span className="text-accent-gold inline-block font-medium">Hello, my name is</span>
+                <span className="text-accent-gold inline-block font-medium">
+                  {data.headline || 'Software Engineer'}
+                </span>
               </motion.div>
 
               {/* Name */}
@@ -124,10 +122,7 @@ export function Hero({ data }: HeroProps) {
                 </div>
                 <div className="bg-text-secondary/30 h-4 w-px" />
                 <div className="flex items-center gap-2">
-                  <span className="relative flex h-2 w-2">
-                    <span className="bg-accent-gold absolute inline-flex h-full w-full animate-ping rounded-full opacity-75" />
-                    <span className="bg-accent-gold relative inline-flex h-2 w-2 rounded-full" />
-                  </span>
+                  <span className="bg-accent-gold inline-flex h-2 w-2 rounded-full" />
                   <span>{data.availability.status}</span>
                 </div>
               </motion.div>
@@ -140,17 +135,27 @@ export function Hero({ data }: HeroProps) {
                 transition={{ delay: 0.5 }}
                 className="mb-8"
               >
-                <p className="text-text-secondary mb-3 text-sm font-medium">
-                  Technologies I work with:
-                </p>
+                <p className="text-text-secondary mb-3 text-sm font-medium">Core stack:</p>
                 <BadgeGroup animated>
-                  {data.technologies.map((tech, index) => (
+                  {data.technologies.slice(0, technologiesPreviewCount).map((tech, index) => (
                     <motion.div key={tech} variants={staggerItem} custom={index}>
                       <Badge variant="secondary" size="sm" className="font-mono">
                         {tech}
                       </Badge>
                     </motion.div>
                   ))}
+
+                  {data.technologies.length > technologiesPreviewCount && (
+                    <motion.div
+                      key="more-tech"
+                      variants={staggerItem}
+                      custom={technologiesPreviewCount}
+                    >
+                      <Badge variant="default" size="sm" className="font-mono">
+                        +{data.technologies.length - technologiesPreviewCount}
+                      </Badge>
+                    </motion.div>
+                  )}
                 </BadgeGroup>
               </motion.div>
 
@@ -174,39 +179,11 @@ export function Hero({ data }: HeroProps) {
                 <Button
                   variant="secondary"
                   size="lg"
-                  onClick={() => window.open(EXTERNAL_LINKS.resume, '_blank')}
-                  rightIcon={<Download className="h-5 w-5" />}
+                  onClick={handleScrollToContact}
+                  rightIcon={<Mail className="h-5 w-5" />}
                 >
-                  Resume
+                  Get in Touch
                 </Button>
-              </motion.div>
-
-              {/* Social Links */}
-              <motion.div
-                variants={contentAnimation}
-                initial="hidden"
-                animate="visible"
-                transition={{ delay: 0.7 }}
-                className="flex items-center gap-4"
-              >
-                <SocialLink
-                  platform="GitHub"
-                  href={SOCIAL_LINKS.github}
-                  icon={<Github className="h-5 w-5" />}
-                  className="h-12 w-12"
-                />
-                <SocialLink
-                  platform="LinkedIn"
-                  href={SOCIAL_LINKS.linkedin}
-                  icon={<Linkedin className="h-5 w-5" />}
-                  className="h-12 w-12"
-                />
-                <SocialLink
-                  platform="Email"
-                  href={SOCIAL_LINKS.email}
-                  icon={<Mail className="h-5 w-5" />}
-                  className="h-12 w-12"
-                />
               </motion.div>
             </div>
 
@@ -224,13 +201,18 @@ export function Hero({ data }: HeroProps) {
 
                 {/* Image container */}
                 <div className="bg-secondary relative overflow-hidden">
-                  <img
-                    src="/images/profile.webp"
-                    alt={`${data.name.first} ${data.name.last}`}
-                    className="relative z-10 w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
-                    style={{ aspectRatio: '4/5' }}
-                    loading="eager"
-                  />
+                  <picture>
+                    <source srcSet="/images/profile.webp" type="image/webp" />
+                    <img
+                      src="/images/profile.jpg"
+                      alt={`${data.name.first} ${data.name.last} - Software Engineer`}
+                      width={400}
+                      height={500}
+                      className="relative z-10 w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
+                      loading="eager"
+                      fetchPriority="high"
+                    />
+                  </picture>
 
                   {/* Overlay */}
                   <div className="bg-accent-gold/10 absolute inset-0 z-20 mix-blend-multiply transition-opacity duration-500 hover:opacity-0" />

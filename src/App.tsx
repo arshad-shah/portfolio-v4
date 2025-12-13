@@ -1,56 +1,119 @@
 // src/App.tsx
 
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import { SEO } from '@/components/common/SEO'
+import { ErrorBoundary } from '@/components/common/ErrorBoundary'
 import { Navigation } from '@/components/sections/Navigation'
 import { Hero } from '@/components/sections/Hero'
-import { Experience } from '@/components/sections/Experience'
-import { Projects } from '@/components/sections/Projects'
-import { Contact } from '@/components/sections/Contact'
 
-// Import data
-import personalData from '@/data/personal.json'
-import experienceData from '@/data/experience.json'
+// Lazy load below-the-fold components for better initial load performance
+const Experience = lazy(() =>
+  import('@/components/sections/Experience').then((m) => ({ default: m.Experience }))
+)
+const Projects = lazy(() =>
+  import('@/components/sections/Projects').then((m) => ({ default: m.Projects }))
+)
+const Contact = lazy(() =>
+  import('@/components/sections/Contact').then((m) => ({ default: m.Contact }))
+)
+const Footer = lazy(() =>
+  import('@/components/sections/Footer').then((m) => ({ default: m.Footer }))
+)
+
+// Import data with type safety
+import personalDataRaw from '@/data/personal.json'
+import experienceDataRaw from '@/data/experience.json'
 import projectsDataRaw from '@/data/projects.json'
 import contactDataRaw from '@/data/contact.json'
-import type { Project, Contact as ContactType } from '@/types/index'
+import type {
+  Personal,
+  Experience as ExperienceType,
+  Project,
+  Contact as ContactType,
+} from '@/types/index'
 
-// Type assertion for projects data
-const projectsData = projectsDataRaw as { projects: Project[] }
-const contactData = contactDataRaw as ContactType
+// Loading fallback component
+function SectionLoader() {
+  return (
+    <div className="flex min-h-[50vh] items-center justify-center">
+      <div className="border-accent-gold h-8 w-8 animate-spin rounded-full border-2 border-t-transparent" />
+    </div>
+  )
+}
+
+// Type-safe data assertions using satisfies for compile-time validation
+const personalData = personalDataRaw satisfies Personal
+const experienceData = experienceDataRaw satisfies { experience: ExperienceType[] }
+const projectsData = projectsDataRaw satisfies { projects: Project[] }
+const contactData = contactDataRaw satisfies ContactType
 
 /**
  * Main App Component
  */
 function App() {
+  const [mountBelowFold, setMountBelowFold] = useState(false)
+
+  // Defer mounting below-the-fold sections until after first paint.
+  // This keeps initial JS work small and avoids showing a Suspense loader immediately.
+  useEffect(() => {
+    const id = window.setTimeout(() => setMountBelowFold(true), 0)
+    return () => window.clearTimeout(id)
+  }, [])
+
   return (
-    <HelmetProvider>
-      <SEO
-        title="Software Engineer & Full-Stack Developer"
-        description={personalData.description}
-        type="profile"
-      />
+    <ErrorBoundary>
+      <HelmetProvider>
+        <SEO
+          title="Software Engineer & Full-Stack Developer"
+          description={personalData.description}
+          type="profile"
+        />
 
-      <div className="bg-primary text-text-primary min-h-screen">
-        {/* Navigation */}
-        <Navigation />
+        {/* Skip to main content link for accessibility - hidden until focused */}
+        <a
+          href="#main-content"
+          className="bg-accent-gold text-primary sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded focus:px-4 focus:py-2 focus:font-medium"
+        >
+          Skip to main content
+        </a>
 
-        {/* Main Content */}
-        <main>
-          {/* Hero Section */}
-          <Hero data={personalData} />
+        <div className="bg-primary text-text-primary min-h-screen">
+          {/* Navigation */}
+          <Navigation />
 
-          {/* Experience Section */}
-          <Experience data={experienceData.experience} />
+          {/* Main Content */}
+          <main id="main-content">
+            {/* Hero Section - loaded immediately */}
+            <Hero data={personalData} />
 
-          {/* Projects Section */}
-          <Projects data={projectsData.projects} />
+            {/* Below-the-fold sections - mounted after first paint and code-split */}
+            {mountBelowFold && (
+              <>
+                <Suspense fallback={<SectionLoader />}>
+                  <Experience data={experienceData.experience} />
+                </Suspense>
 
-          {/* Contact Section */}
-          <Contact data={contactData} />
-        </main>
-      </div>
-    </HelmetProvider>
+                <Suspense fallback={<SectionLoader />}>
+                  <Projects data={projectsData.projects} />
+                </Suspense>
+
+                <Suspense fallback={<SectionLoader />}>
+                  <Contact data={contactData} />
+                </Suspense>
+              </>
+            )}
+          </main>
+
+          {/* Footer */}
+          {mountBelowFold && (
+            <Suspense fallback={null}>
+              <Footer />
+            </Suspense>
+          )}
+        </div>
+      </HelmetProvider>
+    </ErrorBoundary>
   )
 }
 

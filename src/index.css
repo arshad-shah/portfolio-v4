@@ -1,9 +1,6 @@
 /* src/styles/globals.css */
 
-/* Google Fonts - Must come first */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+/* Google Fonts are now loaded via link tags in index.html for better performance */
 
 @import 'tailwindcss';
 
@@ -32,11 +29,32 @@
   --font-mono: 'JetBrains Mono', 'Courier New', monospace;
 
   /* Font Sizes */
+  /*
+    Tailwind v4 generates font-size utilities from --text-* tokens.
+    Keep the old --font-size-* variables for compatibility, but define
+    the canonical --text-* variables so utilities like `text-display`
+    actually work.
+  */
   --font-size-hero: 4rem;
   --font-size-display: 2.5rem;
   --font-size-h1: 2rem;
   --font-size-h2: 1.5rem;
   --font-size-h3: 1.25rem;
+
+  --text-hero: var(--font-size-hero);
+  --text-hero--line-height: 1.05;
+
+  --text-display: var(--font-size-display);
+  --text-display--line-height: 1.15;
+
+  --text-h1: var(--font-size-h1);
+  --text-h1--line-height: 1.2;
+
+  --text-h2: var(--font-size-h2);
+  --text-h2--line-height: 1.25;
+
+  --text-h3: var(--font-size-h3);
+  --text-h3--line-height: 1.3;
 
   /* Spacing */
   --spacing-18: 4.5rem;

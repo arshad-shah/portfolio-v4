@@ -2,6 +2,7 @@
 
 import { Helmet } from 'react-helmet-async'
 import { SITE_CONFIG } from '@/lib/constants'
+import personalData from '@/data/personal.json'
 
 interface SEOProps {
   title?: string
@@ -77,6 +78,15 @@ export function SEO({
       )}
       {type === 'article' && <meta property="article:author" content={author} />}
 
+      {/* Twitter Card */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@arshadshah" />
+      <meta name="twitter:creator" content="@arshadshah" />
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={fullImageUrl} />
+      <meta name="twitter:image:alt" content={`${SITE_CONFIG.name} - Portfolio`} />
+
       {/* Canonical URL */}
       <link rel="canonical" href={fullUrl} />
 
@@ -97,15 +107,23 @@ export function SEO({
             jobTitle: 'Software Engineer',
             worksFor: {
               '@type': 'Organization',
-              name: 'Houghton Mifflin Harcourt',
+              name: personalData.worksFor.name,
+              url: personalData.worksFor.url,
             },
-            alumniOf: 'Technological University Dublin',
+            alumniOf: {
+              '@type': 'EducationalOrganization',
+              name: personalData.alumniOf.name,
+              url: personalData.alumniOf.url,
+            },
             address: {
               '@type': 'PostalAddress',
-              addressLocality: 'Dublin',
-              addressCountry: 'IE',
+              addressLocality: personalData.location.city,
+              addressRegion: personalData.location.region,
+              addressCountry:
+                personalData.location.country === 'Ireland' ? 'IE' : personalData.location.country,
             },
-            sameAs: ['https://github.com/arshad-shah', 'https://www.linkedin.com/in/arshadshah'],
+            email: personalData.email,
+            sameAs: personalData.socialProfiles,
           })}
         </script>
       )}

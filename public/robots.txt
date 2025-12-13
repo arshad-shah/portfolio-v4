@@ -1,0 +1,14 @@
+# Robots.txt for arshadshah.com
+# Allow all crawlers to access all content
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://arshadshah.com/sitemap.xml
+
+# Crawl-delay (optional, be nice to servers)
+Crawl-delay: 1
+
+# Disallow patterns (none for now - public portfolio)
+# Disallow: /private/
