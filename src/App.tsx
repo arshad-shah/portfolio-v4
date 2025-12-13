@@ -1,6 +1,6 @@
 // src/App.tsx
 
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import { SEO } from '@/components/common/SEO'
 import { ErrorBoundary } from '@/components/common/ErrorBoundary'
@@ -52,6 +52,15 @@ const contactData = contactDataRaw satisfies ContactType
  * Main App Component
  */
 function App() {
+  const [mountBelowFold, setMountBelowFold] = useState(false)
+
+  // Defer mounting below-the-fold sections until after first paint.
+  // This keeps initial JS work small and avoids showing a Suspense loader immediately.
+  useEffect(() => {
+    const id = window.setTimeout(() => setMountBelowFold(true), 0)
+    return () => window.clearTimeout(id)
+  }, [])
+
   return (
     <ErrorBoundary>
       <HelmetProvider>
@@ -78,23 +87,30 @@ function App() {
             {/* Hero Section - loaded immediately */}
             <Hero data={personalData} />
 
-            {/* Below-the-fold sections - lazy loaded */}
-            <Suspense fallback={<SectionLoader />}>
-              {/* Experience Section */}
-              <Experience data={experienceData.experience} />
+            {/* Below-the-fold sections - mounted after first paint and code-split */}
+            {mountBelowFold && (
+              <>
+                <Suspense fallback={<SectionLoader />}>
+                  <Experience data={experienceData.experience} />
+                </Suspense>
 
-              {/* Projects Section */}
-              <Projects data={projectsData.projects} />
+                <Suspense fallback={<SectionLoader />}>
+                  <Projects data={projectsData.projects} />
+                </Suspense>
 
-              {/* Contact Section */}
-              <Contact data={contactData} />
-            </Suspense>
+                <Suspense fallback={<SectionLoader />}>
+                  <Contact data={contactData} />
+                </Suspense>
+              </>
+            )}
           </main>
 
           {/* Footer */}
-          <Suspense fallback={null}>
-            <Footer />
-          </Suspense>
+          {mountBelowFold && (
+            <Suspense fallback={null}>
+              <Footer />
+            </Suspense>
+          )}
         </div>
       </HelmetProvider>
     </ErrorBoundary>

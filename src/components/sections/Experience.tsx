@@ -24,20 +24,46 @@ interface ExperienceProps {
  */
 export function Experience({ data }: ExperienceProps) {
   const [activeJob, setActiveJob] = useState(0)
-  const [expandedJobs, setExpandedJobs] = useState<Set<number>>(new Set([0]))
+  const [expandedAchievements, setExpandedAchievements] = useState<Set<number>>(new Set())
+  const [expandedResponsibilities, setExpandedResponsibilities] = useState<Set<number>>(new Set())
+  const [expandedTechnologies, setExpandedTechnologies] = useState<Set<number>>(new Set())
   const isMobile = useIsMobile()
+
+  const responsibilitiesPreviewCount = 4
+  const achievementsPreviewCount = 3
+  const technologiesPreviewCount = 8
 
   const containerAnimation = useAccessibleAnimation(staggerContainer)
   const itemAnimation = useAccessibleAnimation(staggerItem)
 
-  const toggleJobExpansion = (index: number) => {
-    const newExpanded = new Set(expandedJobs)
-    if (newExpanded.has(index)) {
-      newExpanded.delete(index)
+  const toggleAchievementExpansion = (index: number) => {
+    const next = new Set(expandedAchievements)
+    if (next.has(index)) {
+      next.delete(index)
     } else {
-      newExpanded.add(index)
+      next.add(index)
     }
-    setExpandedJobs(newExpanded)
+    setExpandedAchievements(next)
+  }
+
+  const toggleResponsibilities = (index: number) => {
+    const next = new Set(expandedResponsibilities)
+    if (next.has(index)) {
+      next.delete(index)
+    } else {
+      next.add(index)
+    }
+    setExpandedResponsibilities(next)
+  }
+
+  const toggleTechnologies = (index: number) => {
+    const next = new Set(expandedTechnologies)
+    if (next.has(index)) {
+      next.delete(index)
+    } else {
+      next.add(index)
+    }
+    setExpandedTechnologies(next)
   }
 
   // Get all unique technologies
@@ -63,9 +89,6 @@ export function Experience({ data }: ExperienceProps) {
                     key={job.id}
                     onClick={() => {
                       setActiveJob(index)
-                      if (!expandedJobs.has(index)) {
-                        toggleJobExpansion(index)
-                      }
                     }}
                     variants={itemAnimation}
                     initial="hidden"
@@ -207,6 +230,26 @@ export function Experience({ data }: ExperienceProps) {
 
                   <CardContent className="pt-4">
                     <p className="text-text-secondary">{data[activeJob].description}</p>
+
+                    {/* Impact snapshot keeps key outcomes scannable */}
+                    {data[activeJob].achievements && data[activeJob].achievements.length > 0 && (
+                      <div className="border-accent-gold/30 bg-secondary/40 mt-6 rounded-sm border p-4">
+                        <h4 className="text-accent-gold mb-3 flex items-center gap-2 font-mono text-sm">
+                          <Briefcase className="h-4 w-4" />
+                          // Impact snapshot
+                        </h4>
+                        <ul className="text-text-secondary space-y-2 text-sm">
+                          {data[activeJob].achievements
+                            .slice(0, achievementsPreviewCount)
+                            .map((item, idx) => (
+                              <li key={idx} className="flex gap-2">
+                                <span className="text-accent-gold">▸</span>
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                        </ul>
+                      </div>
+                    )}
                   </CardContent>
                 </Card>
 
@@ -221,22 +264,39 @@ export function Experience({ data }: ExperienceProps) {
                     animate="visible"
                     className="space-y-4"
                   >
-                    {data[activeJob].responsibilities.map((responsibility, idx) => (
-                      <motion.li
-                        key={idx}
-                        variants={itemAnimation}
-                        custom={idx}
-                        className="group flex gap-3 transition-all hover:-translate-y-0.5"
-                      >
-                        <div className="bg-secondary group-hover:bg-accent-gold/20 mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-sm transition-colors">
-                          <ChevronRight className="text-accent-gold h-4 w-4" />
-                        </div>
-                        <span className="text-text-secondary group-hover:text-text-primary">
-                          {responsibility}
-                        </span>
-                      </motion.li>
-                    ))}
+                    {data[activeJob].responsibilities
+                      .slice(
+                        0,
+                        expandedResponsibilities.has(activeJob)
+                          ? data[activeJob].responsibilities.length
+                          : responsibilitiesPreviewCount
+                      )
+                      .map((responsibility, idx) => (
+                        <motion.li
+                          key={idx}
+                          variants={itemAnimation}
+                          custom={idx}
+                          className="group flex gap-3 transition-all hover:-translate-y-0.5"
+                        >
+                          <div className="bg-secondary group-hover:bg-accent-gold/20 mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-sm transition-colors">
+                            <ChevronRight className="text-accent-gold h-4 w-4" />
+                          </div>
+                          <span className="text-text-secondary group-hover:text-text-primary">
+                            {responsibility}
+                          </span>
+                        </motion.li>
+                      ))}
                   </motion.ul>
+
+                  {data[activeJob].responsibilities.length > responsibilitiesPreviewCount && (
+                    <button
+                      type="button"
+                      onClick={() => toggleResponsibilities(activeJob)}
+                      className="text-accent-gold mt-4 text-sm font-medium hover:underline"
+                    >
+                      {expandedResponsibilities.has(activeJob) ? 'Show fewer' : 'Show more'}
+                    </button>
+                  )}
                 </Card>
 
                 {/* Achievements (if available) */}
@@ -252,18 +312,35 @@ export function Experience({ data }: ExperienceProps) {
                       animate="visible"
                       className="space-y-3"
                     >
-                      {data[activeJob].achievements!.map((achievement, idx) => (
-                        <motion.li
-                          key={idx}
-                          variants={itemAnimation}
-                          custom={idx}
-                          className="text-text-secondary flex gap-3 text-sm"
-                        >
-                          <span className="text-accent-gold">▸</span>
-                          <span>{achievement}</span>
-                        </motion.li>
-                      ))}
+                      {data[activeJob]
+                        .achievements!.slice(
+                          0,
+                          expandedAchievements.has(activeJob)
+                            ? data[activeJob].achievements!.length
+                            : achievementsPreviewCount
+                        )
+                        .map((achievement, idx) => (
+                          <motion.li
+                            key={idx}
+                            variants={itemAnimation}
+                            custom={idx}
+                            className="text-text-secondary flex gap-3 text-sm"
+                          >
+                            <span className="text-accent-gold">▸</span>
+                            <span>{achievement}</span>
+                          </motion.li>
+                        ))}
                     </motion.ul>
+
+                    {data[activeJob].achievements!.length > achievementsPreviewCount && (
+                      <button
+                        type="button"
+                        onClick={() => toggleAchievementExpansion(activeJob)}
+                        className="text-accent-gold mt-4 text-sm font-medium hover:underline"
+                      >
+                        {expandedAchievements.has(activeJob) ? 'Show fewer' : 'Show more'}
+                      </button>
+                    )}
                   </Card>
                 )}
 
@@ -271,19 +348,36 @@ export function Experience({ data }: ExperienceProps) {
                 <Card padding="lg">
                   <h4 className="text-accent-gold mb-4 font-mono text-sm">// Technologies Used:</h4>
                   <BadgeGroup>
-                    {data[activeJob].technologies.map((tech, idx) => (
-                      <Badge
-                        key={tech}
-                        variant="secondary"
-                        size="sm"
-                        animated
-                        index={idx}
-                        className="font-mono"
-                      >
-                        {tech}
-                      </Badge>
-                    ))}
+                    {data[activeJob].technologies
+                      .slice(
+                        0,
+                        expandedTechnologies.has(activeJob)
+                          ? data[activeJob].technologies.length
+                          : technologiesPreviewCount
+                      )
+                      .map((tech, idx) => (
+                        <Badge
+                          key={tech}
+                          variant="secondary"
+                          size="sm"
+                          animated
+                          index={idx}
+                          className="font-mono"
+                        >
+                          {tech}
+                        </Badge>
+                      ))}
                   </BadgeGroup>
+
+                  {data[activeJob].technologies.length > technologiesPreviewCount && (
+                    <button
+                      type="button"
+                      onClick={() => toggleTechnologies(activeJob)}
+                      className="text-accent-gold mt-4 text-sm font-medium hover:underline"
+                    >
+                      {expandedTechnologies.has(activeJob) ? 'Show fewer' : 'Show more'}
+                    </button>
+                  )}
                 </Card>
               </motion.div>
             </AnimatePresence>
