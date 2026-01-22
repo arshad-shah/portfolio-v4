@@ -1,6 +1,6 @@
 // src/components/CVDownloadModal.tsx
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   X,
@@ -12,6 +12,7 @@ import {
   Smartphone,
   Sparkles,
   FileDown,
+  Loader2,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { IconButton } from '@/components/ui/Button'
@@ -20,7 +21,18 @@ import { useKeyPress } from '@/hooks/useKeyPress'
 import { useAccessibleAnimation } from '@/hooks/usePreferredMotion'
 import { fadeIn, scaleIn, staggerContainer, staggerItem } from '@/lib/animations'
 import { Z_INDEX } from '@/lib/constants'
-import cvData from '@/data/cv.json'
+import { roleConfig } from '@/lib/cv-data'
+
+// Lazy load PDF generation to reduce initial bundle size
+const generatePDF = async (roleId: string) => {
+  const [{ pdf }, { CVDocument }] = await Promise.all([
+    import('@react-pdf/renderer'),
+    import('@/components/CVDocument'),
+  ])
+  const config = roleConfig[roleId]
+  if (!config) throw new Error(`Unknown role: ${roleId}`)
+  return pdf(<CVDocument roleId={roleId} config={config} />).toBlob()
+}
 
 interface CVDownloadModalProps {
   isOpen: boolean
@@ -68,8 +80,63 @@ const colorMap: Record<string, { bg: string; border: string; text: string; glow:
   },
 }
 
+// CV variants with metadata
+const cvVariants = [
+  {
+    id: 'software-engineer',
+    title: 'Software Engineer',
+    subtitle: 'Full-spectrum engineering',
+    description: 'Comprehensive overview highlighting system design, performance engineering, and full-stack expertise.',
+    icon: 'Code2',
+    color: 'gold',
+    highlights: ['System Architecture', 'Performance', 'Full-Stack'],
+    recommended: true,
+  },
+  {
+    id: 'fullstack-developer',
+    title: 'Full-Stack Developer',
+    subtitle: 'End-to-end solutions',
+    description: 'Balanced focus on frontend and backend technologies, API development, and database design.',
+    icon: 'Layers',
+    color: 'blue',
+    highlights: ['React & Spring Boot', 'API Design', 'Database'],
+    recommended: false,
+  },
+  {
+    id: 'frontend-developer',
+    title: 'Frontend Developer',
+    subtitle: 'UI/UX focused',
+    description: 'Emphasis on React, TypeScript, microfrontends, and creating exceptional user experiences.',
+    icon: 'Monitor',
+    color: 'cyan',
+    highlights: ['React & TypeScript', 'Microfrontends', 'Performance'],
+    recommended: false,
+  },
+  {
+    id: 'backend-developer',
+    title: 'Backend Developer',
+    subtitle: 'Server-side specialist',
+    description: 'Focus on Spring Boot, microservices, GraphQL, and scalable backend architecture.',
+    icon: 'Server',
+    color: 'green',
+    highlights: ['Spring Boot', 'Microservices', 'GraphQL'],
+    recommended: false,
+  },
+  {
+    id: 'mobile-developer',
+    title: 'Mobile Developer',
+    subtitle: 'Native & cross-platform',
+    description: 'Highlighting Android development with Kotlin, mobile architecture, and native integrations.',
+    icon: 'Smartphone',
+    color: 'purple',
+    highlights: ['Android & Kotlin', 'MVVM', 'Offline-First'],
+    recommended: false,
+  },
+]
+
 export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
   const modalRef = useRef<HTMLDivElement>(null)
+  const [generatingId, setGeneratingId] = useState<string | null>(null)
   const backdropAnimation = useAccessibleAnimation(fadeIn)
   const modalAnimation = useAccessibleAnimation(scaleIn)
   const containerAnimation = useAccessibleAnimation(staggerContainer)
@@ -77,12 +144,12 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
 
   // Close on escape
   useKeyPress('Escape', () => {
-    if (isOpen) onClose()
+    if (isOpen && !generatingId) onClose()
   })
 
   // Close on click outside
   useClickOutside(modalRef, () => {
-    if (isOpen) onClose()
+    if (isOpen && !generatingId) onClose()
   })
 
   // Lock body scroll when modal is open
@@ -97,11 +164,30 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
     }
   }, [isOpen])
 
-  const handleDownload = (path: string, filename: string) => {
-    const link = document.createElement('a')
-    link.href = path
-    link.download = filename
-    link.click()
+  const handleDownload = async (roleId: string) => {
+    const config = roleConfig[roleId]
+    if (!config) return
+
+    setGeneratingId(roleId)
+
+    try {
+      // Generate PDF blob on-the-fly (lazy loaded)
+      const blob = await generatePDF(roleId)
+
+      // Create download link
+      const url = URL.createObjectURL(blob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `Arshad_Shah_CV_${config.title.replace(/\s+/g, '_')}.pdf`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
+    } catch (error) {
+      console.error('Failed to generate PDF:', error)
+    } finally {
+      setGeneratingId(null)
+    }
   }
 
   return (
@@ -118,7 +204,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
           {/* Backdrop */}
           <motion.div
             className="bg-primary/80 absolute inset-0 backdrop-blur-md"
-            onClick={onClose}
+            onClick={() => !generatingId && onClose()}
             aria-hidden="true"
           />
 
@@ -150,11 +236,11 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
                       id="cv-modal-title"
                       className="font-display text-2xl sm:text-3xl font-bold text-text-primary"
                     >
-                      {cvData.title}
+                      Download CV
                     </h2>
                   </div>
                   <p className="text-text-secondary text-sm sm:text-base max-w-xl">
-                    {cvData.subtitle}
+                    Choose the version tailored for your target role
                   </p>
                 </div>
                 <IconButton
@@ -163,6 +249,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
                   onClick={onClose}
                   aria-label="Close modal"
                   className="flex-shrink-0"
+                  disabled={!!generatingId}
                 />
               </div>
             </div>
@@ -174,13 +261,16 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
               animate="visible"
               className="p-6 sm:p-8"
             >
-              <p className="text-text-muted text-sm mb-6">{cvData.description}</p>
+              <p className="text-text-muted text-sm mb-6">
+                Each CV is dynamically generated with role-specific skills, experience highlights, and projects to maximize relevance.
+              </p>
 
               {/* CV Cards Grid */}
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {cvData.variants.map((variant) => {
+                {cvVariants.map((variant) => {
                   const Icon = iconMap[variant.icon] || Code2
                   const colors = colorMap[variant.color] || colorMap.gold
+                  const isGenerating = generatingId === variant.id
 
                   return (
                     <motion.div
@@ -241,11 +331,13 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
 
                       {/* Download Button */}
                       <button
-                        onClick={() => handleDownload(variant.path, variant.filename)}
+                        onClick={() => handleDownload(variant.id)}
+                        disabled={!!generatingId}
                         className={cn(
                           'w-full flex items-center justify-center gap-2 py-2.5 px-4',
                           'font-medium text-sm transition-all duration-300',
                           'border',
+                          'disabled:opacity-50 disabled:cursor-not-allowed',
                           variant.recommended
                             ? 'bg-accent-gold text-primary hover:bg-accent-gold-light border-accent-gold'
                             : cn(
@@ -256,8 +348,17 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
                           'focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:outline-none'
                         )}
                       >
-                        <Download className="w-4 h-4" />
-                        Download CV
+                        {isGenerating ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Generating...
+                          </>
+                        ) : (
+                          <>
+                            <Download className="w-4 h-4" />
+                            Download CV
+                          </>
+                        )}
                       </button>
                     </motion.div>
                   )
@@ -267,7 +368,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
               {/* Footer Note */}
               <div className="mt-8 pt-6 border-t border-border-subtle">
                 <p className="text-text-muted text-xs text-center">
-                  Last updated: {cvData.lastUpdated} · All CVs are in PDF format
+                  CVs are generated on-demand with ATS-optimized formatting • Last updated: January 2025
                 </p>
               </div>
             </motion.div>
