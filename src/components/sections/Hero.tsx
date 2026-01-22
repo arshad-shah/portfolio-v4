@@ -1,10 +1,12 @@
 // src/components/sections/Hero.tsx
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, MapPin, Mail } from 'lucide-react'
+import { ArrowRight, MapPin, Mail, FileText } from 'lucide-react'
 import { Container } from '@/components/common/Container'
 import { Button } from '@/components/ui/Button'
 import { Badge, BadgeGroup } from '@/components/ui/Badge'
+import { CVDownloadModal } from '@/components/ui/CVDownloadModal'
 import { fadeInUp, fadeInDown, fadeInRight, staggerContainer, staggerItem } from '@/lib/animations'
 import { scrollToElement } from '@/lib/utils'
 import { useAccessibleAnimation } from '@/hooks/usePreferredMotion'
@@ -33,6 +35,8 @@ interface HeroProps {
  * Hero section - Landing area with profile and introduction
  */
 export function Hero({ data }: HeroProps) {
+  const [isCVModalOpen, setIsCVModalOpen] = useState(false)
+
   const titleAnimation = useAccessibleAnimation(fadeInDown)
   const contentAnimation = useAccessibleAnimation(fadeInUp)
   const imageAnimation = useAccessibleAnimation(fadeInRight)
@@ -48,6 +52,10 @@ export function Hero({ data }: HeroProps) {
 
   const handleScrollToContact = () => {
     scrollToElement('contact')
+  }
+
+  const handleOpenCVModal = () => {
+    setIsCVModalOpen(true)
   }
 
   return (
@@ -179,6 +187,15 @@ export function Hero({ data }: HeroProps) {
                 <Button
                   variant="secondary"
                   size="lg"
+                  onClick={handleOpenCVModal}
+                  rightIcon={<FileText className="h-5 w-5" />}
+                >
+                  Download CV
+                </Button>
+
+                <Button
+                  variant="ghost"
+                  size="lg"
                   onClick={handleScrollToContact}
                   rightIcon={<Mail className="h-5 w-5" />}
                 >
@@ -244,6 +261,9 @@ export function Hero({ data }: HeroProps) {
           </motion.div>
         </motion.div>
       </Container>
+
+      {/* CV Download Modal */}
+      <CVDownloadModal isOpen={isCVModalOpen} onClose={() => setIsCVModalOpen(false)} />
     </section>
   )
 }

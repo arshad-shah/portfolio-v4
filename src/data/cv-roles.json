@@ -1,0 +1,120 @@
+{
+  "roles": [
+    {
+      "id": "fullstack",
+      "title": "Full-Stack Developer",
+      "subtitle": "End-to-end development expertise",
+      "icon": "Layers",
+      "color": "#4a9eff",
+      "description": "Comprehensive CV showcasing full-stack capabilities across frontend, backend, and infrastructure",
+      "summary": "Full-Stack Software Engineer with 2+ years of experience building scalable web applications and microservices. Specialized in React, TypeScript, Spring Boot, and GraphQL. Proven track record of delivering high-performance systems serving millions of users with 99.9% uptime.",
+      "highlightedSkills": [
+        "React & TypeScript",
+        "Spring Boot & Java",
+        "GraphQL & Hasura",
+        "PostgreSQL & Aurora",
+        "Kubernetes & Docker",
+        "Microfrontends",
+        "CI/CD Pipelines",
+        "Performance Optimization"
+      ],
+      "experienceEmphasis": {
+        "hmh-se": ["all"],
+        "hmh-ase": ["all"]
+      },
+      "projectIds": ["hmh-platform", "db-optimization", "build-optimization", "multi-tool"]
+    },
+    {
+      "id": "frontend",
+      "title": "Frontend Engineer",
+      "subtitle": "React & UI/UX specialist",
+      "icon": "Monitor",
+      "color": "#10b981",
+      "description": "Focused CV highlighting frontend expertise, React ecosystem, and developer experience",
+      "summary": "Frontend Engineer with deep expertise in React, TypeScript, and modern web development. Experienced in building scalable microfrontend architectures, optimizing build performance, and delivering exceptional user experiences. Passionate about developer experience and performance engineering.",
+      "highlightedSkills": [
+        "React & TypeScript",
+        "Microfrontends",
+        "Module Federation",
+        "Webpack & Vite",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Performance Optimization",
+        "Accessibility (a11y)"
+      ],
+      "experienceEmphasis": {
+        "hmh-se": [0, 1, 4, 5],
+        "hmh-ase": [0, 1, 4]
+      },
+      "projectIds": ["hmh-platform", "build-optimization", "multi-tool", "chrome-extension"]
+    },
+    {
+      "id": "backend",
+      "title": "Backend Engineer",
+      "subtitle": "APIs & distributed systems",
+      "icon": "Server",
+      "color": "#f59e0b",
+      "description": "Backend-focused CV emphasizing API development, database optimization, and system design",
+      "summary": "Backend Engineer specializing in building high-performance APIs and distributed systems. Expert in Spring Boot, GraphQL, and PostgreSQL. Proven ability to architect solutions handling 8,000+ RPS with sub-100ms latency. Strong focus on reliability, observability, and scalable architecture.",
+      "highlightedSkills": [
+        "Spring Boot & Java",
+        "GraphQL & Hasura",
+        "PostgreSQL & Aurora",
+        "REST & WebSockets",
+        "Connection Pooling",
+        "Query Optimization",
+        "Microservices",
+        "System Design"
+      ],
+      "experienceEmphasis": {
+        "hmh-se": [0, 3, 5],
+        "hmh-ase": [2, 3]
+      },
+      "projectIds": ["hmh-platform", "db-optimization", "expense-tracker", "nimaz"]
+    },
+    {
+      "id": "devops",
+      "title": "DevOps Engineer",
+      "subtitle": "CI/CD & infrastructure",
+      "icon": "GitBranch",
+      "color": "#8b5cf6",
+      "description": "DevOps-oriented CV focusing on CI/CD, Kubernetes, and build infrastructure",
+      "summary": "DevOps Engineer with hands-on experience in Kubernetes, CI/CD pipelines, and cloud infrastructure. Led migration of 600+ package monorepo build system achieving 65-70% improvement. Expert in GitHub Actions, Concourse, and container orchestration with strong focus on developer experience.",
+      "highlightedSkills": [
+        "Kubernetes & Docker",
+        "GitHub Actions",
+        "Concourse CI/CD",
+        "AWS & Cloud",
+        "Build Optimization",
+        "Datadog & Monitoring",
+        "Infrastructure as Code",
+        "Developer Experience"
+      ],
+      "experienceEmphasis": {
+        "hmh-se": [1, 2, 4],
+        "hmh-ase": [2, 3, 4]
+      },
+      "projectIds": ["build-optimization", "hmh-platform", "db-optimization", "chrome-extension"]
+    }
+  ],
+  "education": {
+    "degree": "BSc (Hons) in Computer Science",
+    "institution": "Technological University Dublin",
+    "location": "Dublin, Ireland",
+    "graduationYear": "2023",
+    "relevantCourses": [
+      "Data Structures & Algorithms",
+      "Software Engineering",
+      "Database Systems",
+      "Web Development",
+      "Mobile Application Development",
+      "Cloud Computing"
+    ]
+  },
+  "certifications": [],
+  "languages": [
+    { "name": "English", "level": "Fluent" },
+    { "name": "Urdu", "level": "Native" },
+    { "name": "Hindi", "level": "Conversational" }
+  ]
+}
