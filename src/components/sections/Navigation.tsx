@@ -1,20 +1,20 @@
 // src/components/sections/Navigation.tsx
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Download } from 'lucide-react'
+import { Menu, X, FileDown } from 'lucide-react'
 import { Container } from '@/components/common/Container'
-import { NavLink, ButtonLink } from '@/components/ui/Link'
-import { IconButton } from '@/components/ui/Button'
+import { NavLink } from '@/components/ui/Link'
+import { Button, IconButton } from '@/components/ui/Button'
 import { cn, scrollToElement } from '@/lib/utils'
-import { NAV_ITEMS, EXTERNAL_LINKS } from '@/lib/constants'
+import { NAV_ITEMS } from '@/lib/constants'
 import { useScrollDirection, useScrollPast } from '@/hooks/useScrollDirection'
 import { useClickOutside } from '@/hooks/useClickOutside'
 import { useKeyPress } from '@/hooks/useKeyPress'
 import { useIsMobile } from '@/hooks/useMediaQuery'
 import { fadeInDown, menuAnimation } from '@/lib/animations'
 import { useAccessibleAnimation } from '@/hooks/usePreferredMotion'
-import { useRef } from 'react'
+import { CVDownloadModal } from '@/components/CVDownloadModal'
 
 /**
  * Navigation component with sticky header and mobile menu
@@ -22,6 +22,7 @@ import { useRef } from 'react'
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('')
+  const [cvModalOpen, setCvModalOpen] = useState(false)
 
   const { scrollDirection } = useScrollDirection({ threshold: 10 })
   const isPastTop = useScrollPast(50)
@@ -130,14 +131,14 @@ export function Navigation() {
                 ))}
               </ul>
 
-              <ButtonLink
-                href={EXTERNAL_LINKS.resume}
+              <Button
                 variant="secondary"
                 size="sm"
-                rightIcon={<Download className="h-4 w-4" />}
+                onClick={() => setCvModalOpen(true)}
+                rightIcon={<FileDown className="h-4 w-4" />}
               >
-                Resume
-              </ButtonLink>
+                Download CV
+              </Button>
             </div>
           )}
 
@@ -191,15 +192,18 @@ export function Navigation() {
                   </ul>
 
                   <div className="border-border-subtle mt-6 border-t pt-6">
-                    <ButtonLink
-                      href={EXTERNAL_LINKS.resume}
+                    <Button
                       variant="secondary"
                       size="md"
-                      className="w-full"
-                      rightIcon={<Download className="h-4 w-4" />}
+                      fullWidth
+                      onClick={() => {
+                        setMobileMenuOpen(false)
+                        setCvModalOpen(true)
+                      }}
+                      rightIcon={<FileDown className="h-4 w-4" />}
                     >
-                      Resume
-                    </ButtonLink>
+                      Download CV
+                    </Button>
                   </div>
                 </nav>
               </Container>
@@ -207,6 +211,8 @@ export function Navigation() {
           )}
         </AnimatePresence>
       )}
+      {/* CV Download Modal */}
+      <CVDownloadModal isOpen={cvModalOpen} onClose={() => setCvModalOpen(false)} />
     </motion.header>
   )
 }
