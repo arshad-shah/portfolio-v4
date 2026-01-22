@@ -7,9 +7,9 @@ import {
   Monitor,
   Server,
   GitBranch,
-  FileText,
-  Sparkles,
+  Smartphone,
   Check,
+  FileText,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { generateCV, getCVRoles } from '@/lib/cv-generator'
@@ -25,6 +25,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Monitor,
   Server,
   GitBranch,
+  Smartphone,
 }
 
 export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
@@ -53,13 +54,25 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
     return () => window.removeEventListener('keydown', handleEscape)
   }, [isOpen, onClose])
 
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isOpen])
+
   const handleDownload = useCallback(async () => {
     if (!selectedRole) return
 
     setIsGenerating(true)
 
     // Small delay for animation
-    await new Promise((resolve) => setTimeout(resolve, 800))
+    await new Promise((resolve) => setTimeout(resolve, 600))
 
     try {
       generateCV(selectedRole)
@@ -68,13 +81,15 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
       // Auto close after success
       setTimeout(() => {
         onClose()
-      }, 1500)
+      }, 1200)
     } catch (error) {
       console.error('Error generating CV:', error)
     } finally {
       setIsGenerating(false)
     }
   }, [selectedRole, onClose])
+
+  const selectedRoleData = roles.find((r) => r.id === selectedRole)
 
   return (
     <AnimatePresence>
@@ -87,7 +102,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
             animate="visible"
             exit="exit"
             onClick={onClose}
-            className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+            className="bg-primary/80 fixed inset-0 z-50 backdrop-blur-sm"
             aria-hidden="true"
           />
 
@@ -104,43 +119,31 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
           >
             {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions, jsx-a11y/click-events-have-key-events */}
             <div
-              className="border-border-subtle bg-primary relative w-full max-w-2xl overflow-hidden border shadow-2xl"
+              className="bg-secondary border-border-subtle relative w-full max-w-2xl overflow-hidden border"
               role="document"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header gradient line */}
-              <div className="from-accent-gold via-accent-blue to-accent-gold absolute top-0 right-0 left-0 h-1 bg-gradient-to-r" />
-
               {/* Close button */}
               <button
                 onClick={onClose}
-                className="text-text-secondary hover:text-accent-gold absolute top-4 right-4 z-10 transition-colors"
+                className="text-text-secondary hover:text-accent-gold hover:bg-secondary-light absolute top-4 right-4 z-10 rounded-sm p-1 transition-colors"
                 aria-label="Close modal"
               >
                 <X className="h-5 w-5" />
               </button>
 
               {/* Content */}
-              <div className="p-6 pt-8 sm:p-8 sm:pt-10">
+              <div className="p-6 sm:p-8">
                 {/* Header */}
-                <div className="mb-8 text-center">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    transition={{ delay: 0.1, type: 'spring', stiffness: 200 }}
-                    className="bg-accent-gold/10 border-accent-gold/30 mx-auto mb-4 inline-flex h-14 w-14 items-center justify-center rounded-full border"
-                  >
-                    <FileText className="text-accent-gold h-7 w-7" />
-                  </motion.div>
+                <div className="mb-6">
                   <h2
                     id="cv-modal-title"
-                    className="font-display text-text-primary mb-2 text-2xl font-bold sm:text-3xl"
+                    className="font-display text-text-primary mb-2 text-xl font-semibold sm:text-2xl"
                   >
-                    Download My CV
+                    Download CV
                   </h2>
-                  <p className="text-text-secondary mx-auto max-w-md text-sm">
-                    Choose a role-tailored CV that highlights the most relevant skills and
-                    experience for your needs
+                  <p className="text-text-secondary text-sm">
+                    Select a role to get a tailored CV with relevant skills and experience.
                   </p>
                 </div>
 
@@ -149,7 +152,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
                   variants={staggerContainer}
                   initial="hidden"
                   animate="visible"
-                  className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2"
+                  className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3"
                 >
                   {roles.map((role) => {
                     const IconComponent = iconMap[role.icon] || Layers
@@ -161,109 +164,103 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
                         variants={staggerItem}
                         onClick={() => setSelectedRole(role.id)}
                         className={cn(
-                          'group relative overflow-hidden border p-4 text-left transition-all duration-300',
+                          'group relative border p-4 text-left transition-all duration-200',
                           isSelected
                             ? 'border-accent-gold bg-accent-gold/5'
-                            : 'border-border-subtle hover:border-accent-gold/50 bg-secondary/30 hover:bg-secondary/50'
+                            : 'border-border-subtle hover:border-accent-gold/50 bg-primary/50 hover:bg-primary'
                         )}
                       >
                         {/* Selection indicator */}
                         <div
                           className={cn(
-                            'absolute top-3 right-3 flex h-5 w-5 items-center justify-center rounded-full border transition-all',
+                            'absolute top-3 right-3 flex h-4 w-4 items-center justify-center rounded-full border transition-all',
                             isSelected
                               ? 'border-accent-gold bg-accent-gold'
                               : 'border-text-secondary/30 bg-transparent'
                           )}
                         >
-                          {isSelected && <Check className="text-primary h-3 w-3" />}
+                          {isSelected && <Check className="text-primary h-2.5 w-2.5" />}
                         </div>
 
                         {/* Icon and title */}
-                        <div className="mb-2 flex items-center gap-3">
+                        <div className="flex items-center gap-3">
                           <div
-                            className="flex h-10 w-10 items-center justify-center rounded-sm transition-colors"
-                            style={{
-                              backgroundColor: `${role.color}15`,
-                              borderColor: `${role.color}30`,
-                            }}
+                            className={cn(
+                              'flex h-9 w-9 items-center justify-center rounded-sm border transition-colors',
+                              isSelected
+                                ? 'border-accent-gold/30 bg-accent-gold/10'
+                                : 'border-border-subtle bg-secondary'
+                            )}
                           >
-                            <IconComponent className="h-5 w-5" style={{ color: role.color }} />
+                            <IconComponent
+                              className={cn(
+                                'h-4 w-4 transition-colors',
+                                isSelected ? 'text-accent-gold' : 'text-text-secondary'
+                              )}
+                            />
                           </div>
-                          <div className="pr-6">
+                          <div className="min-w-0 flex-1 pr-4">
                             <h3
                               className={cn(
-                                'font-semibold transition-colors',
+                                'truncate text-sm font-medium transition-colors',
                                 isSelected ? 'text-accent-gold' : 'text-text-primary'
                               )}
                             >
                               {role.title}
                             </h3>
-                            <p className="text-text-secondary text-xs">{role.subtitle}</p>
+                            <p className="text-text-muted truncate text-xs">{role.subtitle}</p>
                           </div>
                         </div>
-
-                        {/* Description */}
-                        <p className="text-text-secondary text-xs leading-relaxed">
-                          {role.description}
-                        </p>
-
-                        {/* Highlighted skills preview */}
-                        <div className="mt-3 flex flex-wrap gap-1">
-                          {role.highlightedSkills.slice(0, 4).map((skill) => (
-                            <span
-                              key={skill}
-                              className="bg-secondary text-text-secondary rounded-sm px-2 py-0.5 text-[10px]"
-                            >
-                              {skill}
-                            </span>
-                          ))}
-                          {role.highlightedSkills.length > 4 && (
-                            <span className="text-text-secondary/60 px-1 text-[10px]">
-                              +{role.highlightedSkills.length - 4} more
-                            </span>
-                          )}
-                        </div>
-
-                        {/* Hover glow effect */}
-                        <div
-                          className={cn(
-                            'pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300',
-                            isSelected ? 'opacity-100' : 'group-hover:opacity-50'
-                          )}
-                          style={{
-                            background: `radial-gradient(circle at 50% 50%, ${role.color}10 0%, transparent 70%)`,
-                          }}
-                        />
                       </motion.button>
                     )
                   })}
                 </motion.div>
 
-                {/* Info box */}
-                <div className="bg-secondary/50 border-border-subtle mb-6 flex items-start gap-3 border p-4">
-                  <Sparkles className="text-accent-blue h-5 w-5 flex-shrink-0" />
-                  <div className="text-xs">
-                    <p className="text-text-primary mb-1 font-medium">ATS-Optimized Format</p>
-                    <p className="text-text-secondary">
-                      CVs are generated with clean formatting, proper headings, and standard fonts
-                      to ensure maximum compatibility with applicant tracking systems.
-                    </p>
-                  </div>
-                </div>
+                {/* Selected role details */}
+                <AnimatePresence mode="wait">
+                  {selectedRoleData && (
+                    <motion.div
+                      key={selectedRoleData.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="border-border-subtle bg-primary/50 mb-6 border p-4"
+                    >
+                      <p className="text-text-secondary mb-3 text-sm">
+                        {selectedRoleData.description}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {selectedRoleData.highlightedSkills.map((skill) => (
+                          <span
+                            key={skill}
+                            className="bg-secondary border-border-subtle text-text-secondary border px-2 py-0.5 text-xs"
+                          >
+                            {skill}
+                          </span>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* Info text */}
+                <p className="text-text-muted mb-4 flex items-center gap-2 text-xs">
+                  <FileText className="h-3.5 w-3.5" />
+                  <span>ATS-optimized PDF with clean formatting</span>
+                </p>
 
                 {/* Download button */}
-                <motion.button
+                <button
                   onClick={handleDownload}
                   disabled={!selectedRole || isGenerating || isGenerated}
-                  whileTap={{ scale: selectedRole ? 0.98 : 1 }}
                   className={cn(
-                    'relative flex w-full items-center justify-center gap-2 py-4 font-semibold transition-all duration-300',
+                    'flex w-full items-center justify-center gap-2 py-3 text-sm font-medium transition-all duration-200',
                     selectedRole && !isGenerating && !isGenerated
                       ? 'bg-accent-gold text-primary hover:bg-accent-gold-light'
                       : isGenerated
-                        ? 'bg-green-500/20 text-green-400'
-                        : 'bg-secondary text-text-secondary cursor-not-allowed opacity-60'
+                        ? 'bg-accent-gold/20 text-accent-gold'
+                        : 'bg-secondary text-text-muted cursor-not-allowed'
                   )}
                 >
                   {isGenerating ? (
@@ -276,54 +273,22 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
                           ease: 'linear',
                         }}
                       >
-                        <FileText className="h-5 w-5" />
+                        <Download className="h-4 w-4" />
                       </motion.div>
-                      <span>Generating CV...</span>
+                      <span>Generating...</span>
                     </>
                   ) : isGenerated ? (
                     <>
-                      <Check className="h-5 w-5" />
-                      <span>Downloaded Successfully!</span>
+                      <Check className="h-4 w-4" />
+                      <span>Downloaded</span>
                     </>
                   ) : (
                     <>
-                      <Download className="h-5 w-5" />
-                      <span>{selectedRole ? 'Download CV' : 'Select a Role First'}</span>
+                      <Download className="h-4 w-4" />
+                      <span>{selectedRole ? 'Download CV' : 'Select a role'}</span>
                     </>
                   )}
-
-                  {/* Button shine effect */}
-                  {selectedRole && !isGenerating && !isGenerated && (
-                    <motion.div
-                      className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                      animate={{ translateX: ['100%', '-100%'] }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        repeatDelay: 1,
-                      }}
-                    />
-                  )}
-                </motion.button>
-
-                {/* Selected role preview */}
-                <AnimatePresence>
-                  {selectedRole && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      className="text-text-secondary mt-3 text-center text-xs"
-                    >
-                      CV will be downloaded as{' '}
-                      <span className="text-accent-gold font-medium">
-                        Arshad_Shah_
-                        {roles.find((r) => r.id === selectedRole)?.title.replace(/\s+/g, '_')}
-                        _CV.pdf
-                      </span>
-                    </motion.p>
-                  )}
-                </AnimatePresence>
+                </button>
               </div>
             </div>
           </motion.div>

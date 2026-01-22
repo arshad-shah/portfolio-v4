@@ -3,20 +3,19 @@
     {
       "id": "fullstack",
       "title": "Full-Stack Developer",
-      "subtitle": "End-to-end development expertise",
+      "subtitle": "End-to-end development",
       "icon": "Layers",
-      "color": "#4a9eff",
-      "description": "Comprehensive CV showcasing full-stack capabilities across frontend, backend, and infrastructure",
-      "summary": "Full-Stack Software Engineer with 2+ years of experience building scalable web applications and microservices. Specialized in React, TypeScript, Spring Boot, and GraphQL. Proven track record of delivering high-performance systems serving millions of users with 99.9% uptime.",
+      "description": "Complete CV showcasing frontend, backend, and infrastructure expertise",
+      "summary": "Full-Stack Software Engineer with 2+ years of experience building scalable web applications and microservices. Expert in React, TypeScript, Spring Boot, and GraphQL with a proven track record of delivering high-performance systems serving millions of users.",
       "highlightedSkills": [
-        "React & TypeScript",
-        "Spring Boot & Java",
-        "GraphQL & Hasura",
-        "PostgreSQL & Aurora",
-        "Kubernetes & Docker",
-        "Microfrontends",
-        "CI/CD Pipelines",
-        "Performance Optimization"
+        "React",
+        "TypeScript",
+        "Spring Boot",
+        "GraphQL",
+        "PostgreSQL",
+        "Kubernetes",
+        "CI/CD",
+        "Microfrontends"
       ],
       "experienceEmphasis": {
         "hmh-se": ["all"],
@@ -27,20 +26,19 @@
     {
       "id": "frontend",
       "title": "Frontend Engineer",
-      "subtitle": "React & UI/UX specialist",
+      "subtitle": "React & UI specialist",
       "icon": "Monitor",
-      "color": "#10b981",
-      "description": "Focused CV highlighting frontend expertise, React ecosystem, and developer experience",
-      "summary": "Frontend Engineer with deep expertise in React, TypeScript, and modern web development. Experienced in building scalable microfrontend architectures, optimizing build performance, and delivering exceptional user experiences. Passionate about developer experience and performance engineering.",
+      "description": "Frontend-focused CV highlighting React ecosystem and performance optimization",
+      "summary": "Frontend Engineer with deep expertise in React, TypeScript, and modern web development. Experienced in building scalable microfrontend architectures and optimizing build performance for large-scale applications.",
       "highlightedSkills": [
-        "React & TypeScript",
+        "React",
+        "TypeScript",
         "Microfrontends",
         "Module Federation",
-        "Webpack & Vite",
+        "Webpack",
         "Tailwind CSS",
-        "Framer Motion",
-        "Performance Optimization",
-        "Accessibility (a11y)"
+        "Performance",
+        "Accessibility"
       ],
       "experienceEmphasis": {
         "hmh-se": [0, 1, 4, 5],
@@ -51,19 +49,18 @@
     {
       "id": "backend",
       "title": "Backend Engineer",
-      "subtitle": "APIs & distributed systems",
+      "subtitle": "APIs & databases",
       "icon": "Server",
-      "color": "#f59e0b",
-      "description": "Backend-focused CV emphasizing API development, database optimization, and system design",
-      "summary": "Backend Engineer specializing in building high-performance APIs and distributed systems. Expert in Spring Boot, GraphQL, and PostgreSQL. Proven ability to architect solutions handling 8,000+ RPS with sub-100ms latency. Strong focus on reliability, observability, and scalable architecture.",
+      "description": "Backend-focused CV emphasizing API development and system design",
+      "summary": "Backend Engineer specializing in high-performance APIs and distributed systems. Expert in Spring Boot, GraphQL, and PostgreSQL with experience architecting solutions handling 8,000+ RPS with sub-100ms latency.",
       "highlightedSkills": [
-        "Spring Boot & Java",
-        "GraphQL & Hasura",
-        "PostgreSQL & Aurora",
-        "REST & WebSockets",
-        "Connection Pooling",
-        "Query Optimization",
+        "Spring Boot",
+        "Java",
+        "GraphQL",
+        "PostgreSQL",
+        "REST APIs",
         "Microservices",
+        "Query Optimization",
         "System Design"
       ],
       "experienceEmphasis": {
@@ -73,22 +70,44 @@
       "projectIds": ["hmh-platform", "db-optimization", "expense-tracker", "nimaz"]
     },
     {
+      "id": "mobile",
+      "title": "Mobile Developer",
+      "subtitle": "Android & cross-platform",
+      "icon": "Smartphone",
+      "description": "Mobile-focused CV highlighting Android development and app architecture",
+      "summary": "Mobile Developer with expertise in Android development using Kotlin and Jetpack Compose. Published apps on Google Play with focus on clean architecture, performance optimization, and intuitive user experiences.",
+      "highlightedSkills": [
+        "Kotlin",
+        "Android SDK",
+        "Jetpack Compose",
+        "Room Database",
+        "MVVM",
+        "Material Design",
+        "Firebase",
+        "App Publishing"
+      ],
+      "experienceEmphasis": {
+        "hmh-se": [0, 4],
+        "hmh-ase": [0, 1]
+      },
+      "projectIds": ["nimaz", "expense-tracker", "multi-tool", "chrome-extension"]
+    },
+    {
       "id": "devops",
       "title": "DevOps Engineer",
       "subtitle": "CI/CD & infrastructure",
       "icon": "GitBranch",
-      "color": "#8b5cf6",
-      "description": "DevOps-oriented CV focusing on CI/CD, Kubernetes, and build infrastructure",
-      "summary": "DevOps Engineer with hands-on experience in Kubernetes, CI/CD pipelines, and cloud infrastructure. Led migration of 600+ package monorepo build system achieving 65-70% improvement. Expert in GitHub Actions, Concourse, and container orchestration with strong focus on developer experience.",
+      "description": "DevOps-oriented CV focusing on CI/CD pipelines and cloud infrastructure",
+      "summary": "DevOps Engineer with hands-on experience in Kubernetes, CI/CD pipelines, and cloud infrastructure. Led migration of 600+ package monorepo achieving 65-70% build time improvement with strong focus on developer experience.",
       "highlightedSkills": [
-        "Kubernetes & Docker",
+        "Kubernetes",
+        "Docker",
         "GitHub Actions",
-        "Concourse CI/CD",
-        "AWS & Cloud",
-        "Build Optimization",
-        "Datadog & Monitoring",
-        "Infrastructure as Code",
-        "Developer Experience"
+        "Concourse",
+        "AWS",
+        "Datadog",
+        "Build Systems",
+        "Infrastructure"
       ],
       "experienceEmphasis": {
         "hmh-se": [1, 2, 4],
