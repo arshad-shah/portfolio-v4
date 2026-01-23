@@ -15,6 +15,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\""
   },
   "dependencies": {
+    "@react-pdf/renderer": "^4.3.2",
     "@tailwindcss/vite": "^4.1.17",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.25",
