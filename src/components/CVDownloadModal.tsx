@@ -179,10 +179,17 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
       const link = document.createElement('a')
       link.href = url
       link.download = `Arshad_Shah_CV_${config.title.replace(/\s+/g, '_')}.pdf`
+      link.style.display = 'none'
       document.body.appendChild(link)
+
+      // Trigger download
       link.click()
-      document.body.removeChild(link)
-      URL.revokeObjectURL(url)
+
+      // Clean up after a delay to ensure download starts
+      setTimeout(() => {
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      }, 1000)
     } catch (error) {
       console.error('Failed to generate PDF:', error)
     } finally {
