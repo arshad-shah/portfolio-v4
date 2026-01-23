@@ -1,5 +1,5 @@
 // Professional CV PDF Generator using @react-pdf/renderer
-// Generates ATS-optimized, beautifully formatted CVs on-the-fly
+// Generates role-tailored CVs on-the-fly using actual portfolio data
 
 import {
   Document,
@@ -9,10 +9,14 @@ import {
   StyleSheet,
   Link,
 } from '@react-pdf/renderer'
-import type { CVVariant, RoleConfig } from '@/lib/cv-data'
+import type { RoleConfig } from '@/lib/cv-data'
 
-// Use Helvetica (built-in) for reliable PDF generation
-// Custom fonts can be added later if needed
+// Import actual data from portfolio
+import experienceData from '@/data/experience.json'
+import projectsData from '@/data/projects.json'
+import skillsData from '@/data/skills.json'
+import personalData from '@/data/personal.json'
+import contactData from '@/data/contact.json'
 
 // Color palette
 const colors = {
@@ -25,14 +29,13 @@ const colors = {
   white: '#ffffff',
 }
 
-// Consistent spacing system (in points)
+// Spacing system (in points)
 const spacing = {
   xs: 4,
   sm: 6,
   md: 10,
   lg: 14,
   xl: 18,
-  xxl: 24,
 }
 
 // Typography scale
@@ -53,12 +56,10 @@ const styles = StyleSheet.create({
     color: colors.primary,
     backgroundColor: colors.white,
     paddingTop: 32,
-    paddingBottom: 32,
+    paddingBottom: 40,
     paddingHorizontal: 36,
     lineHeight: 1.4,
   },
-
-  // Header styles
   header: {
     marginBottom: spacing.xl,
     paddingBottom: spacing.lg,
@@ -67,21 +68,20 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: fontSize.xxl,
-    fontWeight: 700,
+    fontFamily: 'Helvetica-Bold',
     color: colors.primary,
     marginBottom: spacing.xs,
-    letterSpacing: -0.5,
   },
   title: {
     fontSize: fontSize.lg,
-    fontWeight: 600,
+    fontFamily: 'Helvetica-Bold',
     color: colors.accent,
     marginBottom: spacing.md,
   },
   contactRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: spacing.md,
+    gap: spacing.sm,
   },
   contactItem: {
     fontSize: fontSize.sm,
@@ -95,10 +95,7 @@ const styles = StyleSheet.create({
   contactSeparator: {
     fontSize: fontSize.sm,
     color: colors.muted,
-    marginHorizontal: spacing.xs,
   },
-
-  // Summary styles
   summary: {
     marginBottom: spacing.xl,
     paddingVertical: spacing.md,
@@ -112,14 +109,12 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     lineHeight: 1.6,
   },
-
-  // Section styles
   section: {
     marginBottom: spacing.lg,
   },
   sectionTitle: {
     fontSize: fontSize.md,
-    fontWeight: 700,
+    fontFamily: 'Helvetica-Bold',
     color: colors.primary,
     textTransform: 'uppercase',
     letterSpacing: 1,
@@ -128,8 +123,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
   },
-
-  // Skills styles
   skillsContainer: {
     flexDirection: 'row',
     gap: spacing.md,
@@ -138,14 +131,12 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: spacing.sm,
     backgroundColor: colors.bgLight,
-    borderRadius: 3,
   },
   skillCategoryTitle: {
     fontSize: fontSize.xs,
-    fontWeight: 600,
+    fontFamily: 'Helvetica-Bold',
     color: colors.accent,
     textTransform: 'uppercase',
-    letterSpacing: 0.5,
     marginBottom: spacing.xs,
   },
   skillList: {
@@ -153,8 +144,6 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     lineHeight: 1.5,
   },
-
-  // Experience styles
   experienceItem: {
     marginBottom: spacing.lg,
     paddingLeft: spacing.md,
@@ -169,12 +158,12 @@ const styles = StyleSheet.create({
   },
   experienceTitle: {
     fontSize: fontSize.md,
-    fontWeight: 700,
+    fontFamily: 'Helvetica-Bold',
     color: colors.primary,
   },
   experienceCompany: {
     fontSize: fontSize.md,
-    fontWeight: 600,
+    fontFamily: 'Helvetica-Bold',
     color: colors.accent,
   },
   experienceMeta: {
@@ -200,8 +189,6 @@ const styles = StyleSheet.create({
     color: colors.secondary,
     lineHeight: 1.5,
   },
-
-  // Projects styles
   projectsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -213,11 +200,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.bgLight,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 3,
   },
   projectName: {
     fontSize: fontSize.sm,
-    fontWeight: 700,
+    fontFamily: 'Helvetica-Bold',
     color: colors.primary,
     marginBottom: spacing.xs,
   },
@@ -234,30 +220,27 @@ const styles = StyleSheet.create({
   },
   projectImpact: {
     fontSize: 7,
-    fontWeight: 600,
+    fontFamily: 'Helvetica-Bold',
     color: colors.accent,
   },
-
-  // Education styles
   educationItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-start',
     padding: spacing.md,
     backgroundColor: colors.bgLight,
-    borderRadius: 3,
   },
   educationMain: {
     flex: 1,
   },
   educationDegree: {
     fontSize: fontSize.base,
-    fontWeight: 700,
+    fontFamily: 'Helvetica-Bold',
     color: colors.primary,
   },
   educationSchool: {
     fontSize: fontSize.sm,
-    fontWeight: 500,
+    fontFamily: 'Helvetica-Bold',
     color: colors.accent,
   },
   educationMeta: {
@@ -274,11 +257,9 @@ const styles = StyleSheet.create({
   },
   gradeValue: {
     fontSize: fontSize.base,
-    fontWeight: 700,
+    fontFamily: 'Helvetica-Bold',
     color: colors.accent,
   },
-
-  // Footer
   footer: {
     position: 'absolute',
     bottom: 20,
@@ -293,242 +274,120 @@ const styles = StyleSheet.create({
   },
 })
 
-// CV Content - Improved copy and wording
-const personalInfo = {
-  name: 'Arshad Shah',
-  email: 'arshad@arshadshah.com',
-  location: 'Dublin, Ireland',
-  website: 'arshadshah.com',
-  linkedin: 'linkedin.com/in/arshadshah',
-  github: 'github.com/arshad-shah',
+// Get summary based on role - uses actual personalData.description
+const getSummary = (variant: string): string => {
+  const base = personalData.description
+
+  switch (variant) {
+    case 'frontend':
+      return `Frontend-focused ${base} Specializing in React, TypeScript, microfrontend architecture, and build optimization.`
+    case 'backend':
+      return `Backend-focused ${base} Specializing in Spring Boot, GraphQL, database optimization, and distributed systems.`
+    case 'fullstack':
+      return `Full-stack ${base.replace('Software engineer', 'developer')} Equally proficient in frontend architecture and backend systems.`
+    case 'mobile':
+      return `${base} Additional expertise in Android development with Kotlin, offline-first architecture, and mobile app development.`
+    default:
+      return base
+  }
 }
 
-const education = {
-  degree: 'BSc (Hons) Computer Science',
-  institution: 'Technological University Dublin',
-  location: 'Dublin, Ireland',
-  year: '2019 – 2023',
-  grade: 'First Class Honours',
+// Get skills based on role - uses actual skillsData
+const getSkills = (variant: string) => {
+  const skills = skillsData.technical_skills
+
+  switch (variant) {
+    case 'frontend':
+      return {
+        primary: skills.frontend.skills.slice(0, 6),
+        secondary: skills.devops.skills.slice(0, 6),
+        additional: skills.testing.skills.slice(0, 4),
+      }
+    case 'backend':
+      return {
+        primary: skills.backend.skills.slice(0, 6),
+        secondary: skills.database.skills.slice(0, 6),
+        additional: skills.devops.skills.slice(0, 4),
+      }
+    case 'fullstack':
+      return {
+        primary: [...skills.frontend.skills.slice(0, 3), ...skills.backend.skills.slice(0, 3)],
+        secondary: [...skills.database.skills.slice(0, 3), ...skills.devops.skills.slice(0, 3)],
+        additional: skillsData.core_competencies.slice(0, 4),
+      }
+    case 'mobile':
+      return {
+        primary: skills.mobile.skills.slice(0, 6),
+        secondary: skills.backend.skills.slice(0, 6),
+        additional: skills.database.skills.slice(0, 4),
+      }
+    default:
+      return {
+        primary: [...skills.frontend.skills.slice(0, 3), ...skills.backend.skills.slice(0, 3)],
+        secondary: [...skills.database.skills.slice(0, 3), ...skills.devops.skills.slice(0, 3)],
+        additional: skillsData.core_competencies.slice(0, 4),
+      }
+  }
 }
 
-// Role-specific summaries with improved copy
-const summaries: Record<CVVariant, string> = {
-  default: 'Results-driven Software Engineer with 2+ years of experience delivering high-performance systems at scale. Built and optimized platforms handling 8,250+ requests per second with sub-100ms latency, serving millions of users. Core expertise in React, TypeScript, Spring Boot, and GraphQL, with a strong focus on performance engineering and developer experience. Proven ability to lead technical initiatives that significantly improve build times, system reliability, and team productivity.',
+// Get experience bullets based on role - uses actual experienceData
+type Experience = typeof experienceData.experience[0]
 
-  frontend: 'Frontend Engineer with 2+ years of experience building performant, accessible web applications using React and TypeScript. Specialist in microfrontend architecture, build optimization, and creating exceptional user experiences at scale. Led migration from Babel to SWC across a 600+ package monorepo, achieving 65-70% faster build times. Passionate about developer tooling, web performance, and delivering polished interfaces that delight users.',
+const getExperienceBullets = (exp: Experience, variant: string): string[] => {
+  const allBullets = [...exp.responsibilities, ...exp.achievements]
 
-  backend: 'Backend Engineer with 2+ years of experience architecting high-throughput microservices and APIs. Delivered systems handling 8,250+ RPS at 50% resource utilization through strategic connection pooling and query optimization. Expert in Spring Boot, GraphQL, PostgreSQL, and Kubernetes. Track record of reducing P95 latency by 90% and building production-ready systems with comprehensive observability and zero critical incidents.',
+  // Role-specific keyword priorities for sorting relevance
+  const keywords: Record<string, string[]> = {
+    frontend: ['React', 'TypeScript', 'webpack', 'frontend', 'microfrontend', 'build', 'UI', 'SWC', 'Module Federation', 'PNPM'],
+    backend: ['Spring Boot', 'GraphQL', 'API', 'database', 'PostgreSQL', 'Kubernetes', 'backend', 'service', 'RPS', 'Hasura'],
+    fullstack: ['end-to-end', 'GraphQL', 'React', 'Spring Boot', 'platform', 'integration', 'CI/CD'],
+    mobile: ['mobile', 'Android', 'app', 'real-time', 'engagement', 'classroom'],
+    default: [],
+  }
 
-  fullstack: 'Full-Stack Developer with 2+ years of experience delivering end-to-end solutions from database to user interface. Built platforms serving millions of students with 99.9% uptime at Houghton Mifflin Harcourt. Equally proficient in frontend architecture (React, microfrontends, build optimization) and backend systems (Spring Boot, GraphQL, database performance). Thrives in fast-paced environments requiring ownership across the entire stack.',
+  const roleKeywords = keywords[variant] || keywords.default
 
-  mobile: 'Mobile Developer with expertise in native Android development using Kotlin and modern architectural patterns. Built Nimaz, a production offline-first app with location-based services, background processing, and Material Design 3. Strong foundation in MVVM, Room database, WorkManager, and Coroutines. Passionate about crafting responsive, accessible mobile experiences that work reliably under any network condition.',
+  if (roleKeywords.length === 0) {
+    return allBullets.slice(0, 4)
+  }
+
+  // Score bullets by keyword relevance and sort
+  const scored = allBullets.map(bullet => ({
+    bullet,
+    score: roleKeywords.reduce((acc, kw) => acc + (bullet.toLowerCase().includes(kw.toLowerCase()) ? 1 : 0), 0),
+  }))
+
+  scored.sort((a, b) => b.score - a.score)
+  return scored.slice(0, 4).map(s => s.bullet)
 }
 
-// Role-specific experience highlights with improved action verbs and metrics
-const experienceHighlights: Record<CVVariant, { current: string[]; previous: string[] }> = {
-  default: {
-    current: [
-      'Architected and delivered MAP Growth integration platform with Hasura GraphQL and Spring Boot, achieving 8,250+ RPS with 3,456 concurrent users at 50% resource utilization',
-      'Spearheaded build system migration from Babel to SWC across 600+ package monorepo, reducing build times by 65-70% and saving 200+ developer hours monthly',
-      'Led zero-downtime migration from GitHub Enterprise Server to GitHub Enterprise Cloud, redesigning CI/CD pipelines with GitHub Actions',
-      'Engineered session management services with GraphQL subscriptions, PostgreSQL, and comprehensive Datadog observability',
-    ],
-    previous: [
-      'Built real-time session tracking and analytics collection for ED Platform, enabling data-driven product decisions',
-      'Executed enterprise-wide Google Analytics 4 migration ahead of Universal Analytics sunset with zero tracking gaps',
-      'Deployed containerized services to Kubernetes with health checks, resource limits, and horizontal autoscaling',
-      'Accelerated monorepo builds by 50% through PNPM migration and dependency optimization',
-    ],
-  },
-  frontend: {
-    current: [
-      'Led microfrontend architecture implementation using Webpack Module Federation, enabling independent deployments across 8 engineering teams',
-      'Spearheaded Babel to SWC migration, achieving 65-70% faster builds and near-instant hot module replacement',
-      'Built reusable React component library with TypeScript and Storybook, improving cross-team development velocity by 40%',
-      'Optimized webpack configuration with advanced caching strategies, reducing CI pipeline duration by 35%',
-    ],
-    previous: [
-      'Implemented session management UI with real-time analytics dashboards for product stakeholders',
-      'Led Google Analytics 4 migration, implementing custom event tracking across all product surfaces',
-      'Accelerated local development experience by 50% through PNPM migration and optimized dependency resolution',
-      'Improved Core Web Vitals through code splitting, lazy loading, and bundle size optimization',
-    ],
-  },
-  backend: {
-    current: [
-      'Designed and implemented high-throughput GraphQL backend with Hasura and Spring Boot reactive handlers, achieving 8,250+ RPS',
-      'Optimized Aurora PostgreSQL performance through connection pooling tuning and query optimization, reducing P95 latency by 90%',
-      'Built production-ready session management microservice with comprehensive Datadog metrics, traces, and alerting',
-      'Implemented reactive data pipelines with Spring WebFlux handling thousands of concurrent WebSocket connections',
-    ],
-    previous: [
-      'Deployed containerized microservices to Kubernetes with health probes, resource quotas, and HPA autoscaling',
-      'Designed and implemented Concourse CI/CD pipelines for automated testing, building, and deployment',
-      'Built Node.js services for real-time event processing and analytics aggregation',
-      'Created RESTful APIs with comprehensive OpenAPI documentation and contract testing',
-    ],
-  },
-  fullstack: {
-    current: [
-      'Delivered end-to-end MAP Growth integration: React frontend, Hasura GraphQL middleware, and Spring Boot backend achieving 8,250+ RPS',
-      'Optimized both build pipeline (65-70% faster) and database performance (90% latency reduction) across the stack',
-      'Created hasura-client-map npm package with React hooks, standardizing GraphQL patterns across frontend teams',
-      'Led GitHub Enterprise Cloud migration, redesigning CI/CD for both frontend and backend deployments',
-    ],
-    previous: [
-      'Built full-stack session management: React dashboard with real-time updates and Node.js backend with PostgreSQL',
-      'Executed GA4 migration across frontend tracking and backend event pipelines',
-      'Deployed Kubernetes services with full observability stack integration',
-      'Improved monorepo developer experience for both frontend and backend packages',
-    ],
-  },
-  mobile: {
-    current: [
-      'Delivered cross-platform educational features reaching millions of K-12 students on tablet devices',
-      'Implemented real-time classroom collaboration features using WebSocket connections with graceful offline fallback',
-      'Built responsive, touch-optimized interfaces following WCAG 2.1 AA accessibility guidelines',
-      'Optimized rendering performance for smooth 60fps interactions on resource-constrained classroom tablets',
-    ],
-    previous: [
-      'Developed adaptive layouts supporting portrait/landscape orientations across diverse device sizes',
-      'Implemented cross-platform analytics with consistent event schema across web and native surfaces',
-      'Built offline-capable features with local caching and background sync on connectivity restoration',
-      'Created comprehensive mobile development guidelines adopted across engineering organization',
-    ],
-  },
+// Get projects based on role - uses actual projectsData
+const getProjects = (variant: string) => {
+  const allProjects = projectsData.projects
+
+  // Role-specific project priorities
+  const priorities: Record<string, string[]> = {
+    frontend: ['build-optimization', 'multi-tool', 'hmh-platform'],
+    backend: ['db-optimization', 'hmh-platform', 'chrome-extension'],
+    fullstack: ['hmh-platform', 'db-optimization', 'expense-tracker'],
+    mobile: ['nimaz', 'hmh-platform', 'multi-tool'],
+    default: ['hmh-platform', 'db-optimization', 'build-optimization'],
+  }
+
+  const priorityIds = priorities[variant] || priorities.default
+
+  return priorityIds
+    .map(id => allProjects.find(p => p.id === id))
+    .filter((p): p is typeof allProjects[0] => p !== undefined)
+    .slice(0, 3)
 }
 
-// Role-specific skills
-const skillSets: Record<CVVariant, { primary: string[]; secondary: string[]; additional: string[] }> = {
-  default: {
-    primary: ['React', 'TypeScript', 'Spring Boot', 'GraphQL', 'PostgreSQL', 'Kubernetes'],
-    secondary: ['Node.js', 'Hasura', 'Docker', 'AWS', 'GitHub Actions', 'Datadog'],
-    additional: ['System Design', 'Performance Engineering', 'Microservices', 'CI/CD'],
-  },
-  frontend: {
-    primary: ['React', 'TypeScript', 'JavaScript ES6+', 'HTML5', 'CSS3', 'Tailwind CSS'],
-    secondary: ['Webpack', 'Vite', 'Module Federation', 'SWC', 'Framer Motion', 'Storybook'],
-    additional: ['Web Accessibility', 'Performance Optimization', 'Design Systems', 'Testing Library'],
-  },
-  backend: {
-    primary: ['Spring Boot', 'Java', 'GraphQL', 'PostgreSQL', 'Kubernetes', 'Docker'],
-    secondary: ['Hasura', 'Node.js', 'Redis', 'Kafka', 'AWS', 'Datadog'],
-    additional: ['Database Optimization', 'System Design', 'Microservices', 'Observability'],
-  },
-  fullstack: {
-    primary: ['React', 'TypeScript', 'Spring Boot', 'GraphQL', 'PostgreSQL', 'Kubernetes'],
-    secondary: ['Hasura', 'Node.js', 'Docker', 'Webpack', 'Module Federation', 'AWS'],
-    additional: ['API Design', 'Database Design', 'Performance Engineering', 'CI/CD'],
-  },
-  mobile: {
-    primary: ['Kotlin', 'Android SDK', 'Jetpack Compose', 'Room Database', 'WorkManager', 'Coroutines'],
-    secondary: ['MVVM', 'Material Design 3', 'Location Services', 'Push Notifications', 'Retrofit'],
-    additional: ['Offline-First Architecture', 'App Performance', 'Play Store Deployment', 'PWA'],
-  },
-}
-
-// Role-specific projects with improved descriptions
-const projectSets: Record<CVVariant, Array<{ name: string; description: string; tech: string; impact: string }>> = {
-  default: [
-    {
-      name: 'HMH Learning Platform',
-      description: 'EdTech platform serving millions of K-12 students globally',
-      tech: 'React, Spring Boot, GraphQL, Kubernetes',
-      impact: '8,250+ RPS, 99.9% uptime',
-    },
-    {
-      name: 'Database Optimization',
-      description: 'Aurora PostgreSQL performance tuning initiative',
-      tech: 'PostgreSQL, Hasura, Datadog, Gatling',
-      impact: '90% latency reduction',
-    },
-    {
-      name: 'Build Performance',
-      description: 'Monorepo build system modernization',
-      tech: 'SWC, Webpack, PNPM, TypeScript',
-      impact: '65-70% faster builds',
-    },
-  ],
-  frontend: [
-    {
-      name: 'Microfrontend Architecture',
-      description: 'Module Federation enabling independent team deployments',
-      tech: 'React, Webpack, Module Federation',
-      impact: 'Improved team autonomy',
-    },
-    {
-      name: 'Build Optimization',
-      description: 'Babel to SWC migration with caching strategies',
-      tech: 'SWC, Webpack, PNPM, TypeScript',
-      impact: '65-70% faster builds',
-    },
-    {
-      name: 'Multi-Tool App',
-      description: '22 productivity tools in one React application',
-      tech: 'React, TypeScript, Tailwind, Vite',
-      impact: 'tools.arshadshah.com',
-    },
-  ],
-  backend: [
-    {
-      name: 'Integration Platform',
-      description: 'High-throughput GraphQL API with reactive handlers',
-      tech: 'Spring Boot, Hasura, GraphQL',
-      impact: '8,250+ RPS achieved',
-    },
-    {
-      name: 'Database Optimization',
-      description: 'Connection pooling and query performance tuning',
-      tech: 'Aurora PostgreSQL, Datadog, Gatling',
-      impact: '90% P95 improvement',
-    },
-    {
-      name: 'Session Service',
-      description: 'Production microservice with full observability',
-      tech: 'Spring Boot, PostgreSQL, Kubernetes',
-      impact: 'Zero critical incidents',
-    },
-  ],
-  fullstack: [
-    {
-      name: 'HMH Learning Platform',
-      description: 'End-to-end EdTech solution at scale',
-      tech: 'React, Spring Boot, GraphQL, K8s',
-      impact: 'Millions of users served',
-    },
-    {
-      name: 'Performance Engineering',
-      description: 'Full-stack optimization initiative',
-      tech: 'SWC, PostgreSQL, Webpack, Hasura',
-      impact: '65% build, 90% DB gains',
-    },
-    {
-      name: 'Expense Tracker',
-      description: 'Real-time expense app with Firebase sync',
-      tech: 'React, TypeScript, Firebase',
-      impact: 'Open source project',
-    },
-  ],
-  mobile: [
-    {
-      name: 'Nimaz',
-      description: 'Offline-first Islamic companion app',
-      tech: 'Kotlin, Room, WorkManager',
-      impact: 'nimaz.arshadshah.com',
-    },
-    {
-      name: 'HMH Mobile',
-      description: 'Educational features for classroom tablets',
-      tech: 'React, TypeScript, WebSockets',
-      impact: 'Millions of students',
-    },
-    {
-      name: 'Multi-Tool PWA',
-      description: 'Mobile-optimized productivity tools',
-      tech: 'React, PWA, Tailwind CSS',
-      impact: 'Fully offline-capable',
-    },
-  ],
+// Format date helper
+const formatDate = (dateStr: string | null, current: boolean) => {
+  if (current) return 'Present'
+  if (!dateStr) return ''
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
 }
 
 interface CVDocumentProps {
@@ -536,36 +395,33 @@ interface CVDocumentProps {
   config: RoleConfig
 }
 
-export function CVDocument({ roleId, config }: CVDocumentProps) {
+export function CVDocument({ config }: CVDocumentProps) {
   const variant = config.variant
-  const summary = summaries[variant]
-  const highlights = experienceHighlights[variant]
-  const skills = skillSets[variant]
-  const projects = projectSets[variant]
+  const summary = getSummary(variant)
+  const skills = getSkills(variant)
+  const projects = getProjects(variant)
+
+  const fullName = `${personalData.name.first} ${personalData.name.last}`
+  const linkedIn = contactData.social_links.find(s => s.platform === 'LinkedIn')
+  const github = contactData.social_links.find(s => s.platform === 'GitHub')
 
   return (
-    <Document title={`${personalInfo.name} - ${config.title} CV`} author={personalInfo.name}>
+    <Document title={`${fullName} - ${config.title} CV`} author={fullName}>
       <Page size="A4" style={styles.page}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.name}>{personalInfo.name}</Text>
+          <Text style={styles.name}>{fullName}</Text>
           <Text style={styles.title}>{config.title}</Text>
           <View style={styles.contactRow}>
-            <Text style={styles.contactItem}>{personalInfo.email}</Text>
-            <Text style={styles.contactSeparator}>•</Text>
-            <Text style={styles.contactItem}>{personalInfo.location}</Text>
-            <Text style={styles.contactSeparator}>•</Text>
-            <Link src={`https://${personalInfo.website}`} style={styles.contactLink}>
-              {personalInfo.website}
-            </Link>
-            <Text style={styles.contactSeparator}>•</Text>
-            <Link src={`https://${personalInfo.linkedin}`} style={styles.contactLink}>
-              LinkedIn
-            </Link>
-            <Text style={styles.contactSeparator}>•</Text>
-            <Link src={`https://${personalInfo.github}`} style={styles.contactLink}>
-              GitHub
-            </Link>
+            <Text style={styles.contactItem}>{personalData.email}</Text>
+            <Text style={styles.contactSeparator}> • </Text>
+            <Text style={styles.contactItem}>{contactData.location.display}</Text>
+            <Text style={styles.contactSeparator}> • </Text>
+            <Link src="https://arshadshah.com" style={styles.contactLink}>arshadshah.com</Link>
+            <Text style={styles.contactSeparator}> • </Text>
+            <Link src={linkedIn?.url || ''} style={styles.contactLink}>LinkedIn</Link>
+            <Text style={styles.contactSeparator}> • </Text>
+            <Link src={github?.url || ''} style={styles.contactLink}>GitHub</Link>
           </View>
         </View>
 
@@ -596,62 +452,52 @@ export function CVDocument({ roleId, config }: CVDocumentProps) {
         {/* Experience */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Professional Experience</Text>
-
-          {/* Current Role */}
-          <View style={styles.experienceItem}>
-            <View style={styles.experienceHeader}>
-              <View>
-                <Text style={styles.experienceTitle}>Software Engineer</Text>
-                <Text style={styles.experienceCompany}>Houghton Mifflin Harcourt</Text>
-              </View>
-              <View>
-                <Text style={styles.experienceMeta}>Mar 2024 – Present</Text>
-                <Text style={styles.experienceMeta}>Dublin, Ireland</Text>
-              </View>
-            </View>
-            <View style={styles.bulletList}>
-              {highlights.current.map((item, index) => (
-                <View key={index} style={styles.bulletItem}>
-                  <Text style={styles.bullet}>•</Text>
-                  <Text style={styles.bulletText}>{item}</Text>
+          {experienceData.experience.map((exp) => (
+            <View key={exp.id} style={styles.experienceItem}>
+              <View style={styles.experienceHeader}>
+                <View>
+                  <Text style={styles.experienceTitle}>{exp.position}</Text>
+                  <Text style={styles.experienceCompany}>{exp.company}</Text>
                 </View>
-              ))}
-            </View>
-          </View>
-
-          {/* Previous Role */}
-          <View style={styles.experienceItem}>
-            <View style={styles.experienceHeader}>
-              <View>
-                <Text style={styles.experienceTitle}>Associate Software Engineer</Text>
-                <Text style={styles.experienceCompany}>Houghton Mifflin Harcourt</Text>
-              </View>
-              <View>
-                <Text style={styles.experienceMeta}>Jun 2023 – Mar 2024</Text>
-                <Text style={styles.experienceMeta}>Dublin, Ireland</Text>
-              </View>
-            </View>
-            <View style={styles.bulletList}>
-              {highlights.previous.map((item, index) => (
-                <View key={index} style={styles.bulletItem}>
-                  <Text style={styles.bullet}>•</Text>
-                  <Text style={styles.bulletText}>{item}</Text>
+                <View>
+                  <Text style={styles.experienceMeta}>
+                    {formatDate(exp.startDate, false)} – {formatDate(exp.endDate, exp.current)}
+                  </Text>
+                  <Text style={styles.experienceMeta}>{exp.location}</Text>
                 </View>
-              ))}
+              </View>
+              <View style={styles.bulletList}>
+                {getExperienceBullets(exp, variant).map((bullet, index) => (
+                  <View key={index} style={styles.bulletItem}>
+                    <Text style={styles.bullet}>•</Text>
+                    <Text style={styles.bulletText}>{bullet}</Text>
+                  </View>
+                ))}
+              </View>
             </View>
-          </View>
+          ))}
         </View>
 
         {/* Projects */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Key Projects</Text>
           <View style={styles.projectsGrid}>
-            {projects.map((project, index) => (
-              <View key={index} style={styles.projectCard}>
-                <Text style={styles.projectName}>{project.name}</Text>
-                <Text style={styles.projectDescription}>{project.description}</Text>
-                <Text style={styles.projectTech}>{project.tech}</Text>
-                <Text style={styles.projectImpact}>{project.impact}</Text>
+            {projects.map((project) => (
+              <View key={project.id} style={styles.projectCard}>
+                <Text style={styles.projectName}>{project.title}</Text>
+                <Text style={styles.projectDescription}>
+                  {project.description.length > 100
+                    ? project.description.substring(0, 97) + '...'
+                    : project.description}
+                </Text>
+                <Text style={styles.projectTech}>
+                  {project.technologies.slice(0, 4).join(' • ')}
+                </Text>
+                <Text style={styles.projectImpact}>
+                  {project.impact[0].length > 50
+                    ? project.impact[0].substring(0, 47) + '...'
+                    : project.impact[0]}
+                </Text>
               </View>
             ))}
           </View>
@@ -662,20 +508,20 @@ export function CVDocument({ roleId, config }: CVDocumentProps) {
           <Text style={styles.sectionTitle}>Education</Text>
           <View style={styles.educationItem}>
             <View style={styles.educationMain}>
-              <Text style={styles.educationDegree}>{education.degree}</Text>
-              <Text style={styles.educationSchool}>{education.institution}</Text>
-              <Text style={styles.educationMeta}>{education.year} • {education.location}</Text>
+              <Text style={styles.educationDegree}>BSc (Hons) Computer Science</Text>
+              <Text style={styles.educationSchool}>{personalData.alumniOf.name}</Text>
+              <Text style={styles.educationMeta}>2019 – 2023 • Dublin, Ireland</Text>
             </View>
             <View style={styles.educationGrade}>
               <Text style={styles.gradeLabel}>Grade</Text>
-              <Text style={styles.gradeValue}>{education.grade}</Text>
+              <Text style={styles.gradeValue}>First Class Honours</Text>
             </View>
           </View>
         </View>
 
         {/* Footer */}
         <Text style={styles.footer}>
-          References available upon request • Last updated January 2025
+          References available upon request
         </Text>
       </Page>
     </Document>

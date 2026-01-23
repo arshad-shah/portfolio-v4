@@ -25,26 +25,19 @@ import { roleConfig } from '@/lib/cv-data'
 
 // Lazy load PDF generation to reduce initial bundle size
 const generatePDF = async (roleId: string) => {
-  console.log('Starting PDF generation for:', roleId)
-
   const config = roleConfig[roleId]
   if (!config) throw new Error(`Unknown role: ${roleId}`)
 
-  console.log('Loading react-pdf modules...')
   const [reactPdfModule, cvDocModule] = await Promise.all([
     import('@react-pdf/renderer'),
     import('@/components/CVDocument'),
   ])
 
-  console.log('Modules loaded, creating document...')
   const { pdf } = reactPdfModule
   const { CVDocument } = cvDocModule
 
   const doc = <CVDocument roleId={roleId} config={config} />
-  console.log('Document created, generating blob...')
-
   const blob = await pdf(doc).toBlob()
-  console.log('Blob generated:', blob.size, 'bytes')
 
   return blob
 }
@@ -207,9 +200,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
       }, 1000)
     } catch (error) {
       console.error('Failed to generate PDF:', error)
-      alert(`Failed to generate PDF: ${error instanceof Error ? error.message : 'Unknown error'}`)
     } finally {
-      console.log('Generation complete, resetting state')
       setGeneratingId(null)
     }
   }
@@ -392,7 +383,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
               {/* Footer Note */}
               <div className="mt-8 pt-6 border-t border-border-subtle">
                 <p className="text-text-muted text-xs text-center">
-                  CVs are generated on-demand with ATS-optimized formatting • Last updated: January 2025
+                  CVs are generated on-demand • Last updated: January 2025
                 </p>
               </div>
             </motion.div>
