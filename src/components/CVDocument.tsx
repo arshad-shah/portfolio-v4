@@ -1,5 +1,6 @@
 // Professional CV PDF Generator using @react-pdf/renderer
 // Generates role-tailored CVs on-the-fly using actual portfolio data
+// ATS-optimized layout with clean formatting
 
 import {
   Document,
@@ -18,259 +19,252 @@ import skillsData from '@/data/skills.json'
 import personalData from '@/data/personal.json'
 import contactData from '@/data/contact.json'
 
-// Color palette
+// ATS-friendly color palette (high contrast, simple)
 const colors = {
-  primary: '#1a1a2e',
-  secondary: '#4a4a6a',
-  muted: '#6b7280',
-  accent: '#2563eb',
-  border: '#e5e7eb',
-  bgLight: '#f8fafc',
-  white: '#ffffff',
+  black: '#000000',
+  darkGray: '#333333',
+  gray: '#555555',
+  lightGray: '#888888',
+  link: '#0066cc',
 }
 
-// Spacing system (in points)
-const spacing = {
-  xs: 4,
-  sm: 6,
-  md: 10,
-  lg: 14,
-  xl: 18,
+// Consistent spacing system (in points)
+const sp = {
+  xs: 2,
+  sm: 4,
+  md: 8,
+  lg: 12,
+  xl: 16,
+  xxl: 20,
 }
 
-// Typography scale
-const fontSize = {
-  xs: 8,
-  sm: 9,
-  base: 10,
+// ATS-optimized typography
+const font = {
+  xs: 9,
+  sm: 10,
+  base: 10.5,
   md: 11,
-  lg: 14,
-  xl: 18,
-  xxl: 24,
+  lg: 12,
+  xl: 14,
+  name: 20,
 }
 
 const styles = StyleSheet.create({
+  // Page layout
   page: {
     fontFamily: 'Helvetica',
-    fontSize: fontSize.base,
-    color: colors.primary,
-    backgroundColor: colors.white,
-    paddingTop: 32,
-    paddingBottom: 40,
-    paddingHorizontal: 36,
-    lineHeight: 1.4,
+    fontSize: font.base,
+    color: colors.darkGray,
+    paddingTop: 36,
+    paddingBottom: 36,
+    paddingHorizontal: 48,
+    lineHeight: 1.35,
   },
+
+  // Header section
   header: {
-    marginBottom: spacing.xl,
-    paddingBottom: spacing.lg,
-    borderBottomWidth: 2,
-    borderBottomColor: colors.accent,
+    marginBottom: sp.lg,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.black,
+    paddingBottom: sp.md,
   },
   name: {
-    fontSize: fontSize.xxl,
+    fontSize: font.name,
     fontFamily: 'Helvetica-Bold',
-    color: colors.primary,
-    marginBottom: spacing.xs,
+    color: colors.black,
+    letterSpacing: 0.5,
+    marginBottom: sp.xs,
   },
   title: {
-    fontSize: fontSize.lg,
-    fontFamily: 'Helvetica-Bold',
-    color: colors.accent,
-    marginBottom: spacing.md,
+    fontSize: font.xl,
+    color: colors.gray,
+    marginBottom: sp.md,
   },
-  contactRow: {
+  contactLine: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: spacing.sm,
+    gap: sp.sm,
+    alignItems: 'center',
   },
-  contactItem: {
-    fontSize: fontSize.sm,
-    color: colors.secondary,
+  contactText: {
+    fontSize: font.sm,
+    color: colors.darkGray,
   },
   contactLink: {
-    fontSize: fontSize.sm,
-    color: colors.accent,
+    fontSize: font.sm,
+    color: colors.link,
     textDecoration: 'none',
   },
-  contactSeparator: {
-    fontSize: fontSize.sm,
-    color: colors.muted,
+  contactSep: {
+    fontSize: font.sm,
+    color: colors.lightGray,
+    marginHorizontal: sp.xs,
   },
+
+  // Summary
   summary: {
-    marginBottom: spacing.xl,
-    paddingVertical: spacing.md,
-    paddingHorizontal: spacing.lg,
-    backgroundColor: colors.bgLight,
-    borderLeftWidth: 3,
-    borderLeftColor: colors.accent,
+    marginBottom: sp.lg,
   },
   summaryText: {
-    fontSize: fontSize.base,
-    color: colors.secondary,
-    lineHeight: 1.6,
-  },
-  section: {
-    marginBottom: spacing.lg,
-  },
-  sectionTitle: {
-    fontSize: fontSize.md,
-    fontFamily: 'Helvetica-Bold',
-    color: colors.primary,
-    textTransform: 'uppercase',
-    letterSpacing: 1,
-    marginBottom: spacing.md,
-    paddingBottom: spacing.xs,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
-  skillsContainer: {
-    flexDirection: 'row',
-    gap: spacing.md,
-  },
-  skillCategory: {
-    flex: 1,
-    padding: spacing.sm,
-    backgroundColor: colors.bgLight,
-  },
-  skillCategoryTitle: {
-    fontSize: fontSize.xs,
-    fontFamily: 'Helvetica-Bold',
-    color: colors.accent,
-    textTransform: 'uppercase',
-    marginBottom: spacing.xs,
-  },
-  skillList: {
-    fontSize: fontSize.sm,
-    color: colors.secondary,
+    fontSize: font.base,
+    color: colors.darkGray,
     lineHeight: 1.5,
   },
-  experienceItem: {
-    marginBottom: spacing.lg,
-    paddingLeft: spacing.md,
-    borderLeftWidth: 2,
-    borderLeftColor: colors.border,
+
+  // Section styling
+  section: {
+    marginBottom: sp.lg,
   },
-  experienceHeader: {
+  sectionTitle: {
+    fontSize: font.lg,
+    fontFamily: 'Helvetica-Bold',
+    color: colors.black,
+    textTransform: 'uppercase',
+    letterSpacing: 1.5,
+    marginBottom: sp.sm,
+    paddingBottom: sp.xs,
+    borderBottomWidth: 0.5,
+    borderBottomColor: colors.gray,
+  },
+
+  // Skills (simple comma-separated for ATS)
+  skillsRow: {
+    marginBottom: sp.sm,
+  },
+  skillLabel: {
+    fontSize: font.sm,
+    fontFamily: 'Helvetica-Bold',
+    color: colors.darkGray,
+  },
+  skillText: {
+    fontSize: font.sm,
+    color: colors.gray,
+    lineHeight: 1.4,
+  },
+
+  // Experience
+  expItem: {
+    marginBottom: sp.lg,
+  },
+  expHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: spacing.xs,
+    marginBottom: sp.xs,
   },
-  experienceTitle: {
-    fontSize: fontSize.md,
-    fontFamily: 'Helvetica-Bold',
-    color: colors.primary,
+  expLeft: {
+    flex: 1,
   },
-  experienceCompany: {
-    fontSize: fontSize.md,
-    fontFamily: 'Helvetica-Bold',
-    color: colors.accent,
-  },
-  experienceMeta: {
-    fontSize: fontSize.sm,
-    color: colors.muted,
+  expRight: {
     textAlign: 'right',
   },
+  expPosition: {
+    fontSize: font.md,
+    fontFamily: 'Helvetica-Bold',
+    color: colors.black,
+  },
+  expCompany: {
+    fontSize: font.base,
+    color: colors.gray,
+  },
+  expDate: {
+    fontSize: font.sm,
+    color: colors.gray,
+  },
+  expLocation: {
+    fontSize: font.xs,
+    color: colors.lightGray,
+  },
   bulletList: {
-    marginTop: spacing.sm,
+    marginTop: sp.sm,
+    paddingLeft: sp.md,
   },
   bulletItem: {
     flexDirection: 'row',
-    marginBottom: spacing.xs,
+    marginBottom: sp.xs,
   },
-  bullet: {
-    width: 12,
-    fontSize: fontSize.sm,
-    color: colors.accent,
+  bulletDot: {
+    width: 10,
+    fontSize: font.sm,
+    color: colors.darkGray,
   },
   bulletText: {
     flex: 1,
-    fontSize: fontSize.sm,
-    color: colors.secondary,
-    lineHeight: 1.5,
+    fontSize: font.sm,
+    color: colors.darkGray,
+    lineHeight: 1.4,
   },
-  projectsGrid: {
+
+  // Projects (linear list for ATS)
+  projectItem: {
+    marginBottom: sp.md,
+  },
+  projectHeader: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: spacing.sm,
-  },
-  projectCard: {
-    width: '31%',
-    padding: spacing.sm,
-    backgroundColor: colors.bgLight,
-    borderWidth: 1,
-    borderColor: colors.border,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: sp.xs,
   },
   projectName: {
-    fontSize: fontSize.sm,
+    fontSize: font.base,
     fontFamily: 'Helvetica-Bold',
-    color: colors.primary,
-    marginBottom: spacing.xs,
+    color: colors.black,
   },
-  projectDescription: {
-    fontSize: fontSize.xs,
-    color: colors.secondary,
-    marginBottom: spacing.xs,
+  projectType: {
+    fontSize: font.xs,
+    color: colors.lightGray,
+  },
+  projectDesc: {
+    fontSize: font.sm,
+    color: colors.darkGray,
+    marginBottom: sp.xs,
     lineHeight: 1.4,
   },
   projectTech: {
-    fontSize: 7,
-    color: colors.muted,
-    marginBottom: spacing.xs,
+    fontSize: font.xs,
+    color: colors.gray,
+    fontFamily: 'Helvetica-Oblique',
   },
-  projectImpact: {
-    fontSize: 7,
-    fontFamily: 'Helvetica-Bold',
-    color: colors.accent,
-  },
-  educationItem: {
+
+  // Education
+  eduItem: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    padding: spacing.md,
-    backgroundColor: colors.bgLight,
   },
-  educationMain: {
+  eduLeft: {
     flex: 1,
   },
-  educationDegree: {
-    fontSize: fontSize.base,
-    fontFamily: 'Helvetica-Bold',
-    color: colors.primary,
-  },
-  educationSchool: {
-    fontSize: fontSize.sm,
-    fontFamily: 'Helvetica-Bold',
-    color: colors.accent,
-  },
-  educationMeta: {
-    fontSize: fontSize.xs,
-    color: colors.muted,
-    marginTop: spacing.xs,
-  },
-  educationGrade: {
+  eduRight: {
     textAlign: 'right',
   },
-  gradeLabel: {
-    fontSize: fontSize.xs,
-    color: colors.muted,
-  },
-  gradeValue: {
-    fontSize: fontSize.base,
+  eduDegree: {
+    fontSize: font.base,
     fontFamily: 'Helvetica-Bold',
-    color: colors.accent,
+    color: colors.black,
   },
+  eduSchool: {
+    fontSize: font.sm,
+    color: colors.gray,
+  },
+  eduDate: {
+    fontSize: font.sm,
+    color: colors.gray,
+  },
+  eduGrade: {
+    fontSize: font.sm,
+    color: colors.darkGray,
+  },
+
+  // Footer
   footer: {
-    position: 'absolute',
-    bottom: 20,
-    left: 36,
-    right: 36,
+    marginTop: sp.xl,
+    paddingTop: sp.sm,
+    borderTopWidth: 0.5,
+    borderTopColor: colors.lightGray,
+  },
+  footerText: {
+    fontSize: font.xs,
+    color: colors.lightGray,
     textAlign: 'center',
-    fontSize: fontSize.xs,
-    color: colors.muted,
-    paddingTop: spacing.sm,
-    borderTopWidth: 1,
-    borderTopColor: colors.border,
   },
 })
 
@@ -299,47 +293,69 @@ const getSkills = (variant: string) => {
   switch (variant) {
     case 'frontend':
       return {
-        primary: skills.frontend.skills.slice(0, 6),
-        secondary: skills.devops.skills.slice(0, 6),
-        additional: skills.testing.skills.slice(0, 4),
+        languages: ['TypeScript', 'JavaScript', 'HTML5', 'CSS3'],
+        frameworks: skills.frontend.skills.slice(0, 6),
+        tools: [...skills.devops.skills.slice(0, 4), ...skills.testing.skills.slice(0, 2)],
       }
     case 'backend':
       return {
-        primary: skills.backend.skills.slice(0, 6),
-        secondary: skills.database.skills.slice(0, 6),
-        additional: skills.devops.skills.slice(0, 4),
+        languages: ['Java', 'Kotlin', 'TypeScript', 'SQL'],
+        frameworks: skills.backend.skills.slice(0, 6),
+        tools: [...skills.database.skills.slice(0, 4), ...skills.devops.skills.slice(0, 2)],
       }
     case 'fullstack':
       return {
-        primary: [...skills.frontend.skills.slice(0, 3), ...skills.backend.skills.slice(0, 3)],
-        secondary: [...skills.database.skills.slice(0, 3), ...skills.devops.skills.slice(0, 3)],
-        additional: skillsData.core_competencies.slice(0, 4),
+        languages: ['TypeScript', 'Java', 'Kotlin', 'SQL'],
+        frameworks: [...skills.frontend.skills.slice(0, 3), ...skills.backend.skills.slice(0, 3)],
+        tools: [...skills.database.skills.slice(0, 3), ...skills.devops.skills.slice(0, 3)],
       }
     case 'mobile':
       return {
-        primary: skills.mobile.skills.slice(0, 6),
-        secondary: skills.backend.skills.slice(0, 6),
-        additional: skills.database.skills.slice(0, 4),
+        languages: ['Kotlin', 'Java', 'TypeScript', 'SQL'],
+        frameworks: skills.mobile.skills.slice(0, 6),
+        tools: [...skills.database.skills.slice(0, 3), ...skills.testing.skills.slice(0, 3)],
       }
     default:
       return {
-        primary: [...skills.frontend.skills.slice(0, 3), ...skills.backend.skills.slice(0, 3)],
-        secondary: [...skills.database.skills.slice(0, 3), ...skills.devops.skills.slice(0, 3)],
-        additional: skillsData.core_competencies.slice(0, 4),
+        languages: ['TypeScript', 'Java', 'Kotlin', 'SQL', 'HTML/CSS'],
+        frameworks: [...skills.frontend.skills.slice(0, 3), ...skills.backend.skills.slice(0, 3)],
+        tools: [...skills.database.skills.slice(0, 2), ...skills.devops.skills.slice(0, 4)],
       }
   }
 }
 
 // Get experience bullets based on role - uses actual experienceData
-type Experience = typeof experienceData.experience[0]
+type Experience = (typeof experienceData.experience)[0]
 
 const getExperienceBullets = (exp: Experience, variant: string): string[] => {
   const allBullets = [...exp.responsibilities, ...exp.achievements]
 
   // Role-specific keyword priorities for sorting relevance
   const keywords: Record<string, string[]> = {
-    frontend: ['React', 'TypeScript', 'webpack', 'frontend', 'microfrontend', 'build', 'UI', 'SWC', 'Module Federation', 'PNPM'],
-    backend: ['Spring Boot', 'GraphQL', 'API', 'database', 'PostgreSQL', 'Kubernetes', 'backend', 'service', 'RPS', 'Hasura'],
+    frontend: [
+      'React',
+      'TypeScript',
+      'webpack',
+      'frontend',
+      'microfrontend',
+      'build',
+      'UI',
+      'SWC',
+      'Module Federation',
+      'PNPM',
+    ],
+    backend: [
+      'Spring Boot',
+      'GraphQL',
+      'API',
+      'database',
+      'PostgreSQL',
+      'Kubernetes',
+      'backend',
+      'service',
+      'RPS',
+      'Hasura',
+    ],
     fullstack: ['end-to-end', 'GraphQL', 'React', 'Spring Boot', 'platform', 'integration', 'CI/CD'],
     mobile: ['mobile', 'Android', 'app', 'real-time', 'engagement', 'classroom'],
     default: [],
@@ -352,13 +368,16 @@ const getExperienceBullets = (exp: Experience, variant: string): string[] => {
   }
 
   // Score bullets by keyword relevance and sort
-  const scored = allBullets.map(bullet => ({
+  const scored = allBullets.map((bullet) => ({
     bullet,
-    score: roleKeywords.reduce((acc, kw) => acc + (bullet.toLowerCase().includes(kw.toLowerCase()) ? 1 : 0), 0),
+    score: roleKeywords.reduce(
+      (acc, kw) => acc + (bullet.toLowerCase().includes(kw.toLowerCase()) ? 1 : 0),
+      0
+    ),
   }))
 
   scored.sort((a, b) => b.score - a.score)
-  return scored.slice(0, 4).map(s => s.bullet)
+  return scored.slice(0, 4).map((s) => s.bullet)
 }
 
 // Get projects based on role - uses actual projectsData
@@ -377,8 +396,8 @@ const getProjects = (variant: string) => {
   const priorityIds = priorities[variant] || priorities.default
 
   return priorityIds
-    .map(id => allProjects.find(p => p.id === id))
-    .filter((p): p is typeof allProjects[0] => p !== undefined)
+    .map((id) => allProjects.find((p) => p.id === id))
+    .filter((p): p is (typeof allProjects)[0] => p !== undefined)
     .slice(0, 3)
 }
 
@@ -402,74 +421,84 @@ export function CVDocument({ config }: CVDocumentProps) {
   const projects = getProjects(variant)
 
   const fullName = `${personalData.name.first} ${personalData.name.last}`
-  const linkedIn = contactData.social_links.find(s => s.platform === 'LinkedIn')
-  const github = contactData.social_links.find(s => s.platform === 'GitHub')
+  const linkedIn = contactData.social_links.find((s) => s.platform === 'LinkedIn')
+  const github = contactData.social_links.find((s) => s.platform === 'GitHub')
 
   return (
     <Document title={`${fullName} - ${config.title} CV`} author={fullName}>
       <Page size="A4" style={styles.page}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.name}>{fullName}</Text>
+          <Text style={styles.name}>{fullName.toUpperCase()}</Text>
           <Text style={styles.title}>{config.title}</Text>
-          <View style={styles.contactRow}>
-            <Text style={styles.contactItem}>{personalData.email}</Text>
-            <Text style={styles.contactSeparator}> • </Text>
-            <Text style={styles.contactItem}>{contactData.location.display}</Text>
-            <Text style={styles.contactSeparator}> • </Text>
-            <Link src="https://arshadshah.com" style={styles.contactLink}>arshadshah.com</Link>
-            <Text style={styles.contactSeparator}> • </Text>
-            <Link src={linkedIn?.url || ''} style={styles.contactLink}>LinkedIn</Link>
-            <Text style={styles.contactSeparator}> • </Text>
-            <Link src={github?.url || ''} style={styles.contactLink}>GitHub</Link>
+          <View style={styles.contactLine}>
+            <Text style={styles.contactText}>{personalData.email}</Text>
+            <Text style={styles.contactSep}>|</Text>
+            <Text style={styles.contactText}>{contactData.location.display}</Text>
+            <Text style={styles.contactSep}>|</Text>
+            <Link src="https://arshadshah.com" style={styles.contactLink}>
+              arshadshah.com
+            </Link>
+            <Text style={styles.contactSep}>|</Text>
+            <Link src={linkedIn?.url || ''} style={styles.contactLink}>
+              LinkedIn
+            </Link>
+            <Text style={styles.contactSep}>|</Text>
+            <Link src={github?.url || ''} style={styles.contactLink}>
+              GitHub
+            </Link>
           </View>
         </View>
 
-        {/* Summary */}
+        {/* Professional Summary */}
         <View style={styles.summary}>
           <Text style={styles.summaryText}>{summary}</Text>
         </View>
 
-        {/* Skills */}
+        {/* Technical Skills */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Technical Skills</Text>
-          <View style={styles.skillsContainer}>
-            <View style={styles.skillCategory}>
-              <Text style={styles.skillCategoryTitle}>Core</Text>
-              <Text style={styles.skillList}>{skills.primary.join(' • ')}</Text>
-            </View>
-            <View style={styles.skillCategory}>
-              <Text style={styles.skillCategoryTitle}>Proficient</Text>
-              <Text style={styles.skillList}>{skills.secondary.join(' • ')}</Text>
-            </View>
-            <View style={styles.skillCategory}>
-              <Text style={styles.skillCategoryTitle}>Additional</Text>
-              <Text style={styles.skillList}>{skills.additional.join(' • ')}</Text>
-            </View>
+          <View style={styles.skillsRow}>
+            <Text>
+              <Text style={styles.skillLabel}>Languages: </Text>
+              <Text style={styles.skillText}>{skills.languages.join(', ')}</Text>
+            </Text>
+          </View>
+          <View style={styles.skillsRow}>
+            <Text>
+              <Text style={styles.skillLabel}>Frameworks & Libraries: </Text>
+              <Text style={styles.skillText}>{skills.frameworks.join(', ')}</Text>
+            </Text>
+          </View>
+          <View style={styles.skillsRow}>
+            <Text>
+              <Text style={styles.skillLabel}>Tools & Platforms: </Text>
+              <Text style={styles.skillText}>{skills.tools.join(', ')}</Text>
+            </Text>
           </View>
         </View>
 
-        {/* Experience */}
+        {/* Professional Experience */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Professional Experience</Text>
           {experienceData.experience.map((exp) => (
-            <View key={exp.id} style={styles.experienceItem}>
-              <View style={styles.experienceHeader}>
-                <View>
-                  <Text style={styles.experienceTitle}>{exp.position}</Text>
-                  <Text style={styles.experienceCompany}>{exp.company}</Text>
+            <View key={exp.id} style={styles.expItem}>
+              <View style={styles.expHeader}>
+                <View style={styles.expLeft}>
+                  <Text style={styles.expPosition}>{exp.position}</Text>
+                  <Text style={styles.expCompany}>{exp.company}</Text>
                 </View>
-                <View>
-                  <Text style={styles.experienceMeta}>
-                    {formatDate(exp.startDate, false)} – {formatDate(exp.endDate, exp.current)}
+                <View style={styles.expRight}>
+                  <Text style={styles.expDate}>
+                    {formatDate(exp.startDate, false)} - {formatDate(exp.endDate, exp.current)}
                   </Text>
-                  <Text style={styles.experienceMeta}>{exp.location}</Text>
+                  <Text style={styles.expLocation}>{exp.location}</Text>
                 </View>
               </View>
               <View style={styles.bulletList}>
                 {getExperienceBullets(exp, variant).map((bullet, index) => (
                   <View key={index} style={styles.bulletItem}>
-                    <Text style={styles.bullet}>•</Text>
+                    <Text style={styles.bulletDot}>•</Text>
                     <Text style={styles.bulletText}>{bullet}</Text>
                   </View>
                 ))}
@@ -478,51 +507,44 @@ export function CVDocument({ config }: CVDocumentProps) {
           ))}
         </View>
 
-        {/* Projects */}
+        {/* Key Projects */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Key Projects</Text>
-          <View style={styles.projectsGrid}>
-            {projects.map((project) => (
-              <View key={project.id} style={styles.projectCard}>
+          {projects.map((project) => (
+            <View key={project.id} style={styles.projectItem}>
+              <View style={styles.projectHeader}>
                 <Text style={styles.projectName}>{project.title}</Text>
-                <Text style={styles.projectDescription}>
-                  {project.description.length > 100
-                    ? project.description.substring(0, 97) + '...'
-                    : project.description}
-                </Text>
-                <Text style={styles.projectTech}>
-                  {project.technologies.slice(0, 4).join(' • ')}
-                </Text>
-                <Text style={styles.projectImpact}>
-                  {project.impact[0].length > 50
-                    ? project.impact[0].substring(0, 47) + '...'
-                    : project.impact[0]}
-                </Text>
+                <Text style={styles.projectType}>{project.type}</Text>
               </View>
-            ))}
-          </View>
+              <Text style={styles.projectDesc}>
+                {project.challenge} {project.solution}
+              </Text>
+              <Text style={styles.projectTech}>
+                Technologies: {project.technologies.slice(0, 6).join(', ')}
+              </Text>
+            </View>
+          ))}
         </View>
 
         {/* Education */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Education</Text>
-          <View style={styles.educationItem}>
-            <View style={styles.educationMain}>
-              <Text style={styles.educationDegree}>BSc (Hons) Computer Science</Text>
-              <Text style={styles.educationSchool}>{personalData.alumniOf.name}</Text>
-              <Text style={styles.educationMeta}>2019 – 2023 • Dublin, Ireland</Text>
+          <View style={styles.eduItem}>
+            <View style={styles.eduLeft}>
+              <Text style={styles.eduDegree}>BSc (Hons) Computer Science</Text>
+              <Text style={styles.eduSchool}>{personalData.alumniOf.name}</Text>
             </View>
-            <View style={styles.educationGrade}>
-              <Text style={styles.gradeLabel}>Grade</Text>
-              <Text style={styles.gradeValue}>2.1</Text>
+            <View style={styles.eduRight}>
+              <Text style={styles.eduDate}>2019 - 2023</Text>
+              <Text style={styles.eduGrade}>Second Class Honours (2.1)</Text>
             </View>
           </View>
         </View>
 
         {/* Footer */}
-        <Text style={styles.footer}>
-          References available upon request
-        </Text>
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>References available upon request</Text>
+        </View>
       </Page>
     </Document>
   )
