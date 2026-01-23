@@ -25,13 +25,28 @@ import { roleConfig } from '@/lib/cv-data'
 
 // Lazy load PDF generation to reduce initial bundle size
 const generatePDF = async (roleId: string) => {
-  const [{ pdf }, { CVDocument }] = await Promise.all([
+  console.log('Starting PDF generation for:', roleId)
+
+  const config = roleConfig[roleId]
+  if (!config) throw new Error(`Unknown role: ${roleId}`)
+
+  console.log('Loading react-pdf modules...')
+  const [reactPdfModule, cvDocModule] = await Promise.all([
     import('@react-pdf/renderer'),
     import('@/components/CVDocument'),
   ])
-  const config = roleConfig[roleId]
-  if (!config) throw new Error(`Unknown role: ${roleId}`)
-  return pdf(<CVDocument roleId={roleId} config={config} />).toBlob()
+
+  console.log('Modules loaded, creating document...')
+  const { pdf } = reactPdfModule
+  const { CVDocument } = cvDocModule
+
+  const doc = <CVDocument roleId={roleId} config={config} />
+  console.log('Document created, generating blob...')
+
+  const blob = await pdf(doc).toBlob()
+  console.log('Blob generated:', blob.size, 'bytes')
+
+  return blob
 }
 
 interface CVDownloadModalProps {
@@ -192,7 +207,9 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
       }, 1000)
     } catch (error) {
       console.error('Failed to generate PDF:', error)
+      alert(`Failed to generate PDF: ${error instanceof Error ? error.message : 'Unknown error'}`)
     } finally {
+      console.log('Generation complete, resetting state')
       setGeneratingId(null)
     }
   }

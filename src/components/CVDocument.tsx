@@ -8,20 +8,11 @@ import {
   View,
   StyleSheet,
   Link,
-  Font,
 } from '@react-pdf/renderer'
 import type { CVVariant, RoleConfig } from '@/lib/cv-data'
 
-// Register fonts for professional typography
-Font.register({
-  family: 'Inter',
-  fonts: [
-    { src: 'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hjp-Ek-_EeA.woff2', fontWeight: 400 },
-    { src: 'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fAZ9hjp-Ek-_EeA.woff2', fontWeight: 500 },
-    { src: 'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYAZ9hjp-Ek-_EeA.woff2', fontWeight: 600 },
-    { src: 'https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hjp-Ek-_EeA.woff2', fontWeight: 700 },
-  ],
-})
+// Use Helvetica (built-in) for reliable PDF generation
+// Custom fonts can be added later if needed
 
 // Color palette
 const colors = {
@@ -57,7 +48,7 @@ const fontSize = {
 
 const styles = StyleSheet.create({
   page: {
-    fontFamily: 'Inter',
+    fontFamily: 'Helvetica',
     fontSize: fontSize.base,
     color: colors.primary,
     backgroundColor: colors.white,
