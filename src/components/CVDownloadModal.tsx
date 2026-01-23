@@ -255,7 +255,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
                     </h2>
                   </div>
                   <p className="text-text-secondary text-sm sm:text-base max-w-xl">
-                    Choose the version tailored for your target role
+                    Select the format that best matches the role you're hiring for
                   </p>
                 </div>
                 <IconButton
@@ -277,7 +277,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
               className="p-6 sm:p-8"
             >
               <p className="text-text-muted text-sm mb-6">
-                Each CV is dynamically generated with role-specific skills, experience highlights, and projects to maximize relevance.
+                Each CV highlights relevant skills, experience, and projects tailored to the selected role.
               </p>
 
               {/* CV Cards Grid */}
