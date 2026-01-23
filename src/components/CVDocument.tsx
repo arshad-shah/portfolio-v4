@@ -514,7 +514,7 @@ export function CVDocument({ config }: CVDocumentProps) {
             </View>
             <View style={styles.educationGrade}>
               <Text style={styles.gradeLabel}>Grade</Text>
-              <Text style={styles.gradeValue}>First Class Honours</Text>
+              <Text style={styles.gradeValue}>2.1</Text>
             </View>
           </View>
         </View>

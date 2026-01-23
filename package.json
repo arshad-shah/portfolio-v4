@@ -12,9 +12,7 @@
     "preview": "vite preview",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\"",
-    "generate:cv": "node scripts/cv-generator/generate-pdfs.js",
-    "generate:cv:html": "node scripts/cv-generator/generate-pdfs.js --html-only"
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css}\""
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.3.2",
@@ -42,7 +40,6 @@
     "postcss": "^8.5.6",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "puppeteer-core": "^24.36.0",
     "tailwindcss": "^4.0.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
