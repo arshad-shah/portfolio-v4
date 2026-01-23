@@ -2,14 +2,7 @@
 // Generates role-tailored CVs on-the-fly using actual portfolio data
 // ATS-optimized layout with clean formatting
 
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  Link,
-} from '@react-pdf/renderer'
+import { Document, Page, Text, View, StyleSheet, Link } from '@react-pdf/renderer'
 import type { RoleConfig } from '@/lib/cv-data'
 
 // Import actual data from portfolio
@@ -356,7 +349,15 @@ const getExperienceBullets = (exp: Experience, variant: string): string[] => {
       'RPS',
       'Hasura',
     ],
-    fullstack: ['end-to-end', 'GraphQL', 'React', 'Spring Boot', 'platform', 'integration', 'CI/CD'],
+    fullstack: [
+      'end-to-end',
+      'GraphQL',
+      'React',
+      'Spring Boot',
+      'platform',
+      'integration',
+      'CI/CD',
+    ],
     mobile: ['mobile', 'Android', 'app', 'real-time', 'engagement', 'classroom'],
     default: [],
   }

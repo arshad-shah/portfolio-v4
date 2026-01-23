@@ -9,7 +9,7 @@ export const personalInfo = {
   website: 'arshadshah.com',
   linkedin: 'linkedin.com/in/arshadshah',
   github: 'github.com/arshad-shah',
-};
+}
 
 export const education = {
   degree: 'BSc (Hons) in Computer Science',
@@ -17,14 +17,14 @@ export const education = {
   location: 'Dublin, Ireland',
   year: '2019 - 2023',
   grade: 'First Class Honours',
-};
+}
 
 export interface ExperienceItem {
-  company: string;
-  position: string;
-  location: string;
-  period: string;
-  highlights: Record<string, string[]>;
+  company: string
+  position: string
+  location: string
+  period: string
+  highlights: Record<string, string[]>
 }
 
 export const experience: ExperienceItem[] = [
@@ -104,21 +104,22 @@ export const experience: ExperienceItem[] = [
       ],
     },
   },
-];
+]
 
 export interface ProjectItem {
-  name: string;
-  description: string;
-  technologies: string[];
-  impact: string;
-  link?: string;
+  name: string
+  description: string
+  technologies: string[]
+  impact: string
+  link?: string
 }
 
 export const projects: Record<string, ProjectItem[]> = {
   default: [
     {
       name: 'HMH Learning Platform',
-      description: 'High-performance EdTech platform serving millions of students with sub-100ms P99 latency',
+      description:
+        'High-performance EdTech platform serving millions of students with sub-100ms P99 latency',
       technologies: ['React', 'TypeScript', 'Spring Boot', 'GraphQL', 'Kubernetes'],
       impact: '8,250+ RPS, 99.9% uptime',
     },
@@ -219,9 +220,12 @@ export const projects: Record<string, ProjectItem[]> = {
       impact: 'Fully responsive',
     },
   ],
-};
+}
 
-export const skills: Record<string, { primary: string[]; secondary: string[]; additional: string[] }> = {
+export const skills: Record<
+  string,
+  { primary: string[]; secondary: string[]; additional: string[] }
+> = {
   default: {
     primary: ['React', 'TypeScript', 'Spring Boot', 'GraphQL', 'PostgreSQL', 'Kubernetes'],
     secondary: ['Node.js', 'Hasura', 'Docker', 'AWS', 'Git', 'CI/CD'],
@@ -230,7 +234,12 @@ export const skills: Record<string, { primary: string[]; secondary: string[]; ad
   frontend: {
     primary: ['React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS'],
     secondary: ['Webpack', 'Vite', 'Module Federation', 'SWC', 'Framer Motion', 'Next.js'],
-    additional: ['State Management', 'Web Accessibility', 'Performance Optimization', 'Responsive Design'],
+    additional: [
+      'State Management',
+      'Web Accessibility',
+      'Performance Optimization',
+      'Responsive Design',
+    ],
   },
   backend: {
     primary: ['Spring Boot', 'Java', 'GraphQL', 'PostgreSQL', 'Kubernetes', 'Docker'],
@@ -244,10 +253,16 @@ export const skills: Record<string, { primary: string[]; secondary: string[]; ad
   },
   mobile: {
     primary: ['Kotlin', 'Android SDK', 'MVVM', 'Room Database', 'WorkManager', 'Jetpack Compose'],
-    secondary: ['React Native', 'Material Design', 'Location Services', 'Push Notifications', 'Coroutines'],
+    secondary: [
+      'React Native',
+      'Material Design',
+      'Location Services',
+      'Push Notifications',
+      'Coroutines',
+    ],
     additional: ['Offline-First Architecture', 'Mobile Performance', 'App Store Deployment', 'PWA'],
   },
-};
+}
 
 export const summaries: Record<string, string> = {
   default: `Software Engineer with 2+ years of experience building high-performance, scalable systems at Houghton Mifflin Harcourt. Expertise in full-stack development with React, TypeScript, Spring Boot, and GraphQL. Delivered production systems handling 8,250+ RPS with sub-100ms latency. Passionate about developer experience, performance engineering, and building reliable software.`,
@@ -259,16 +274,16 @@ export const summaries: Record<string, string> = {
   fullstack: `Full-Stack Developer with 2+ years of experience delivering end-to-end solutions at Houghton Mifflin Harcourt. Expert in React, TypeScript, Spring Boot, and GraphQL. Built platforms serving millions of students with 99.9% uptime. Proven track record in frontend architecture and backend systems.`,
 
   mobile: `Mobile Developer with experience in native Android development using Kotlin and cross-platform solutions. Built Nimaz, an offline-first Islamic companion app with location-based features and reliable background processing. Skilled in MVVM architecture, Room database, WorkManager, and creating responsive, accessible mobile experiences.`,
-};
+}
 
-export type CVVariant = 'default' | 'frontend' | 'backend' | 'fullstack' | 'mobile';
+export type CVVariant = 'default' | 'frontend' | 'backend' | 'fullstack' | 'mobile'
 
 export interface RoleConfig {
-  id: string;
-  title: string;
-  variant: CVVariant;
-  color: string;
-  colorRgb: string;
+  id: string
+  title: string
+  variant: CVVariant
+  color: string
+  colorRgb: string
 }
 
 export const roleConfig: Record<string, RoleConfig> = {
@@ -307,4 +322,4 @@ export const roleConfig: Record<string, RoleConfig> = {
     color: '#a855f7',
     colorRgb: '168, 85, 247',
   },
-};
+}

@@ -94,7 +94,8 @@ const cvVariants = [
     id: 'software-engineer',
     title: 'Software Engineer',
     subtitle: 'Full-spectrum engineering',
-    description: 'Comprehensive overview highlighting system design, performance engineering, and full-stack expertise.',
+    description:
+      'Comprehensive overview highlighting system design, performance engineering, and full-stack expertise.',
     icon: 'Code2',
     color: 'gold',
     highlights: ['System Architecture', 'Performance', 'Full-Stack'],
@@ -104,7 +105,8 @@ const cvVariants = [
     id: 'fullstack-developer',
     title: 'Full-Stack Developer',
     subtitle: 'End-to-end solutions',
-    description: 'Balanced focus on frontend and backend technologies, API development, and database design.',
+    description:
+      'Balanced focus on frontend and backend technologies, API development, and database design.',
     icon: 'Layers',
     color: 'blue',
     highlights: ['React & Spring Boot', 'API Design', 'Database'],
@@ -114,7 +116,8 @@ const cvVariants = [
     id: 'frontend-developer',
     title: 'Frontend Developer',
     subtitle: 'UI/UX focused',
-    description: 'Emphasis on React, TypeScript, microfrontends, and creating exceptional user experiences.',
+    description:
+      'Emphasis on React, TypeScript, microfrontends, and creating exceptional user experiences.',
     icon: 'Monitor',
     color: 'cyan',
     highlights: ['React & TypeScript', 'Microfrontends', 'Performance'],
@@ -134,7 +137,8 @@ const cvVariants = [
     id: 'mobile-developer',
     title: 'Mobile Developer',
     subtitle: 'Native & cross-platform',
-    description: 'Highlighting Android development with Kotlin, mobile architecture, and native integrations.',
+    description:
+      'Highlighting Android development with Kotlin, mobile architecture, and native integrations.',
     icon: 'Smartphone',
     color: 'purple',
     highlights: ['Android & Kotlin', 'MVVM', 'Offline-First'],
@@ -231,8 +235,8 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
             animate="visible"
             exit="exit"
             className={cn(
-              'relative w-full max-w-4xl max-h-[90vh] overflow-y-auto',
-              'bg-secondary border border-border-subtle',
+              'relative max-h-[90vh] w-full max-w-4xl overflow-y-auto',
+              'bg-secondary border-border-subtle border',
               'shadow-2xl shadow-black/50'
             )}
             role="dialog"
@@ -240,27 +244,27 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
             aria-labelledby="cv-modal-title"
           >
             {/* Header */}
-            <div className="sticky top-0 bg-secondary/95 backdrop-blur-sm border-b border-border-subtle p-6 sm:p-8">
+            <div className="bg-secondary/95 border-border-subtle sticky top-0 border-b p-6 backdrop-blur-sm sm:p-8">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <div className="p-2 bg-accent-gold/10 border border-accent-gold/20">
-                      <FileDown className="w-5 h-5 text-accent-gold" />
+                  <div className="mb-2 flex items-center gap-3">
+                    <div className="bg-accent-gold/10 border-accent-gold/20 border p-2">
+                      <FileDown className="text-accent-gold h-5 w-5" />
                     </div>
                     <h2
                       id="cv-modal-title"
-                      className="font-display text-2xl sm:text-3xl font-bold text-text-primary"
+                      className="font-display text-text-primary text-2xl font-bold sm:text-3xl"
                     >
                       Download CV
                     </h2>
                   </div>
-                  <p className="text-text-secondary text-sm sm:text-base max-w-xl">
+                  <p className="text-text-secondary max-w-xl text-sm sm:text-base">
                     Select the format that best matches the role you're hiring for
                   </p>
                 </div>
                 <IconButton
                   variant="ghost"
-                  icon={<X className="w-5 h-5" />}
+                  icon={<X className="h-5 w-5" />}
                   onClick={onClose}
                   aria-label="Close modal"
                   className="flex-shrink-0"
@@ -276,8 +280,9 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
               animate="visible"
               className="p-6 sm:p-8"
             >
-              <p className="text-text-muted text-sm mb-6">
-                Each CV highlights relevant skills, experience, and projects tailored to the selected role.
+              <p className="text-text-muted mb-6 text-sm">
+                Each CV highlights relevant skills, experience, and projects tailored to the
+                selected role.
               </p>
 
               {/* CV Cards Grid */}
@@ -294,48 +299,48 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
                       className={cn(
                         'group relative flex flex-col p-5',
                         'border transition-all duration-300',
-                        'hover:shadow-lg hover:-translate-y-1',
+                        'hover:-translate-y-1 hover:shadow-lg',
                         colors.border,
                         colors.glow,
-                        variant.recommended && 'ring-1 ring-accent-gold/50'
+                        variant.recommended && 'ring-accent-gold/50 ring-1'
                       )}
                     >
                       {/* Recommended Badge */}
                       {variant.recommended && (
-                        <div className="absolute -top-3 left-4 px-3 py-1 bg-accent-gold text-primary text-xs font-semibold flex items-center gap-1">
-                          <Sparkles className="w-3 h-3" />
+                        <div className="bg-accent-gold text-primary absolute -top-3 left-4 flex items-center gap-1 px-3 py-1 text-xs font-semibold">
+                          <Sparkles className="h-3 w-3" />
                           Recommended
                         </div>
                       )}
 
                       {/* Icon & Title */}
-                      <div className="flex items-start gap-3 mb-3">
-                        <div className={cn('p-2.5 border', colors.bg, colors.border)}>
-                          <Icon className={cn('w-5 h-5', colors.text)} />
+                      <div className="mb-3 flex items-start gap-3">
+                        <div className={cn('border p-2.5', colors.bg, colors.border)}>
+                          <Icon className={cn('h-5 w-5', colors.text)} />
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <h3 className="font-display font-semibold text-text-primary text-lg leading-tight">
+                        <div className="min-w-0 flex-1">
+                          <h3 className="font-display text-text-primary text-lg leading-tight font-semibold">
                             {variant.title}
                           </h3>
-                          <p className={cn('text-xs font-medium mt-0.5', colors.text)}>
+                          <p className={cn('mt-0.5 text-xs font-medium', colors.text)}>
                             {variant.subtitle}
                           </p>
                         </div>
                       </div>
 
                       {/* Description */}
-                      <p className="text-text-secondary text-sm leading-relaxed mb-4 flex-1">
+                      <p className="text-text-secondary mb-4 flex-1 text-sm leading-relaxed">
                         {variant.description}
                       </p>
 
                       {/* Highlights */}
-                      <div className="flex flex-wrap gap-1.5 mb-4">
+                      <div className="mb-4 flex flex-wrap gap-1.5">
                         {variant.highlights.map((highlight) => (
                           <span
                             key={highlight}
                             className={cn(
                               'px-2 py-0.5 text-xs font-medium',
-                              'border border-border-subtle bg-primary/50',
+                              'border-border-subtle bg-primary/50 border',
                               'text-text-muted'
                             )}
                           >
@@ -349,28 +354,24 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
                         onClick={() => handleDownload(variant.id)}
                         disabled={!!generatingId}
                         className={cn(
-                          'w-full flex items-center justify-center gap-2 py-2.5 px-4',
-                          'font-medium text-sm transition-all duration-300',
+                          'flex w-full items-center justify-center gap-2 px-4 py-2.5',
+                          'text-sm font-medium transition-all duration-300',
                           'border',
-                          'disabled:opacity-50 disabled:cursor-not-allowed',
+                          'disabled:cursor-not-allowed disabled:opacity-50',
                           variant.recommended
                             ? 'bg-accent-gold text-primary hover:bg-accent-gold-light border-accent-gold'
-                            : cn(
-                                'bg-transparent hover:bg-white/5',
-                                colors.border,
-                                colors.text
-                              ),
-                          'focus-visible:ring-2 focus-visible:ring-accent-gold focus-visible:outline-none'
+                            : cn('bg-transparent hover:bg-white/5', colors.border, colors.text),
+                          'focus-visible:ring-accent-gold focus-visible:ring-2 focus-visible:outline-none'
                         )}
                       >
                         {isGenerating ? (
                           <>
-                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <Loader2 className="h-4 w-4 animate-spin" />
                             Generating...
                           </>
                         ) : (
                           <>
-                            <Download className="w-4 h-4" />
+                            <Download className="h-4 w-4" />
                             Download CV
                           </>
                         )}
@@ -381,8 +382,8 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
               </div>
 
               {/* Footer Note */}
-              <div className="mt-8 pt-6 border-t border-border-subtle">
-                <p className="text-text-muted text-xs text-center">
+              <div className="border-border-subtle mt-8 border-t pt-6">
+                <p className="text-text-muted text-center text-xs">
                   CVs are generated on-demand • Last updated: January 2025
                 </p>
               </div>
