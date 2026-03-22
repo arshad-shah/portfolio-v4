@@ -35,34 +35,34 @@ export const experience: ExperienceItem[] = [
     period: 'Mar 2026 - Present',
     highlights: {
       default: [
-        'Architecting platform-wide observability with Datadog, reducing mean-time-to-detection by 60% across services',
-        'Leading federated GraphQL gateway design unifying 12+ microservices behind a single composable schema',
-        'Mentoring 4 engineers through structured code reviews, architecture sessions, and pair programming',
-        'Cut CI pipeline duration by 45% via parallelisation and intelligent caching strategies',
+        'Rebuilt RCE platform from scratch using modern tech, reducing bundle size from 10MB to 500KB (95% reduction)',
+        'Optimized internal EPUB parser using low-level algorithm improvements, cutting parse time from 8s to under 3s on large books',
+        'Added enhanced customization capabilities across the RCE platform for content authoring',
+        'Maintaining and managing multiple backend services for real-time test-to-proctor API integrations',
       ],
       frontend: [
-        'Leading federated GraphQL gateway design to simplify client-side data fetching across 12+ services',
-        'Driving performance budgets and automated regression detection in frontend CI/CD pipelines',
-        'Mentoring 4 engineers on React architecture patterns, code quality, and testing best practices',
-        'Spearheading Module Federation optimization for faster microfrontend deployments',
+        'Rebuilt RCE platform from scratch with modern React, reducing bundle size from 10MB to 500KB (95% reduction)',
+        'Optimized internal EPUB parser with low-level algorithm improvements, reducing parse time from 8s to under 3s',
+        'Added enhanced content customization capabilities expanding authoring features for educators',
+        'Architected clean component structure enabling faster feature development and maintenance',
       ],
       backend: [
-        'Architecting platform-wide observability with Datadog, reducing mean-time-to-detection by 60%',
-        'Leading federated GraphQL gateway design unifying 12+ microservices behind a single schema',
-        'Drove zero-downtime database migration serving 15,000+ concurrent users with no data loss',
-        'Driving adoption of infrastructure-as-code with Terraform across teams',
+        'Maintaining and managing multiple backend services for real-time test-to-proctor API integrations',
+        'Optimized EPUB parser using low-level algorithm improvements, cutting parse time from 8s to under 3s',
+        'Ensuring reliability of proctoring services handling concurrent test sessions at scale',
+        'Rebuilt RCE platform backend integrations with cleaner architecture and modern patterns',
       ],
       fullstack: [
-        'Leading federated GraphQL gateway unifying 12+ microservices behind a single composable schema',
-        'Architecting observability strategy with Datadog, reducing MTTD by 60% across services',
-        'Mentoring 4 engineers through code reviews, architecture sessions, and pair programming',
-        'Cut CI pipeline duration by 45% via parallelisation and intelligent caching strategies',
+        'Rebuilt RCE platform from scratch, reducing bundle size from 10MB to 500KB with modern architecture',
+        'Optimized internal EPUB parser with low-level algorithm improvements (8s → under 3s on large books)',
+        'Maintaining multiple backend services for real-time test-to-proctor API integrations',
+        'Added enhanced customization capabilities across the RCE platform',
       ],
       mobile: [
-        'Leading cross-platform feature architecture for educational content delivery on tablets',
-        'Driving performance budgets for mobile-optimized web experiences serving millions of students',
-        'Mentoring engineers on responsive design, progressive enhancement, and offline patterns',
-        'Spearheading automated testing for mobile-critical user flows',
+        'Rebuilt RCE platform with responsive design optimized for tablet content authoring',
+        'Optimized EPUB parser performance for faster content rendering on mobile devices',
+        'Maintained backend services for real-time test proctoring across device types',
+        'Ensured enhanced customization features work seamlessly on mobile form factors',
       ],
     },
   },
@@ -162,11 +162,11 @@ export const projects: Record<string, ProjectItem[]> = {
       impact: '8,250+ RPS, 99.9% uptime',
     },
     {
-      name: 'Federated GraphQL Gateway',
+      name: 'RCE Platform Rebuild',
       description:
-        'Unified 12+ microservices behind a single composable schema with zero client disruption',
-      technologies: ['GraphQL Federation', 'Apollo Gateway', 'Spring Boot', 'TypeScript'],
-      impact: '35% less client data-fetching code',
+        'Ground-up rebuild of Rich Content Editor, reducing bundle from 10MB to 500KB',
+      technologies: ['React', 'TypeScript', 'Webpack', 'Module Federation'],
+      impact: '95% bundle size reduction',
     },
     {
       name: 'Database Performance Optimization',
@@ -210,10 +210,10 @@ export const projects: Record<string, ProjectItem[]> = {
       impact: '90% latency reduction',
     },
     {
-      name: 'Federated GraphQL Gateway',
-      description: 'Unified 12+ microservices behind composable schema',
-      technologies: ['GraphQL Federation', 'Spring Boot', 'Kubernetes'],
-      impact: 'Decoupled service deployments',
+      name: 'Test Proctor API Services',
+      description: 'Backend services for real-time test-to-proctor integrations',
+      technologies: ['Spring Boot', 'GraphQL', 'Kubernetes', 'Datadog'],
+      impact: 'Zero-downtime during peak testing',
     },
   ],
   fullstack: [
@@ -224,10 +224,10 @@ export const projects: Record<string, ProjectItem[]> = {
       impact: 'Millions of students served',
     },
     {
-      name: 'Federated GraphQL Gateway',
-      description: 'Unified API layer across 12+ microservices',
-      technologies: ['GraphQL Federation', 'Apollo Gateway', 'TypeScript'],
-      impact: '35% less client code',
+      name: 'RCE Platform Rebuild',
+      description: 'Ground-up rebuild reducing bundle from 10MB to 500KB',
+      technologies: ['React', 'TypeScript', 'Webpack', 'GraphQL'],
+      impact: '95% bundle size reduction',
     },
     {
       name: 'Expense Tracker',
@@ -267,7 +267,7 @@ export const skills: Record<
 > = {
   default: {
     primary: ['React', 'TypeScript', 'Spring Boot', 'GraphQL', 'PostgreSQL', 'Kubernetes'],
-    secondary: ['Node.js', 'Hasura', 'Docker', 'AWS', 'Terraform', 'CI/CD'],
+    secondary: ['Node.js', 'Hasura', 'Docker', 'AWS', 'CI/CD', 'Datadog'],
     additional: ['System Design', 'Performance Engineering', 'Technical Leadership', 'Mentoring'],
   },
   frontend: {
@@ -283,7 +283,7 @@ export const skills: Record<
   backend: {
     primary: ['Spring Boot', 'Java', 'GraphQL', 'PostgreSQL', 'Kubernetes', 'Docker'],
     secondary: ['Hasura', 'Node.js', 'REST APIs', 'Microservices', 'Redis', 'AWS'],
-    additional: ['Database Optimization', 'Connection Pooling', 'System Design', 'Terraform'],
+    additional: ['Database Optimization', 'Connection Pooling', 'System Design', 'CI/CD'],
   },
   fullstack: {
     primary: ['React', 'TypeScript', 'Spring Boot', 'GraphQL', 'PostgreSQL', 'Kubernetes'],
@@ -304,15 +304,15 @@ export const skills: Record<
 }
 
 export const summaries: Record<string, string> = {
-  default: `Senior Software Engineer with 3+ years of progressive experience at Houghton Mifflin Harcourt, currently leading architecture and cross-team initiatives for platforms serving millions of K-12 students. Expert in full-stack development with React, TypeScript, Spring Boot, and GraphQL. Track record of delivering high-throughput systems (8,250+ RPS, sub-100ms latency), driving large-scale migrations, and mentoring engineering teams. Passionate about system design, performance engineering, and developer experience.`,
+  default: `Senior Software Engineer with 3+ years of progressive experience at Houghton Mifflin Harcourt. Rebuilt the RCE platform from scratch (10MB → 500KB), optimized EPUB parsing performance (8s → under 3s), and delivered high-throughput systems handling 8,250+ RPS. Expert in React, TypeScript, Spring Boot, and GraphQL. Proven track record in platform engineering, performance optimization, and maintaining real-time backend services at scale.`,
 
-  frontend: `Senior Frontend Engineer with 3+ years of experience specializing in React, TypeScript, and modern web architecture. Expert in microfrontend systems, build optimization, and creating exceptional user experiences at scale. Achieved 65-70% build time reduction through Babel to SWC migration in a 600+ package monorepo. Currently leading frontend architecture and mentoring engineers on best practices.`,
+  frontend: `Senior Frontend Engineer with 3+ years specializing in React, TypeScript, and modern web architecture. Rebuilt the RCE platform from scratch, achieving a 95% bundle size reduction (10MB → 500KB). Expert in microfrontend systems, build optimization (65-70% faster builds via Babel → SWC migration), and performance-critical platform engineering.`,
 
-  backend: `Senior Backend Engineer with 3+ years of experience building high-throughput microservices with Spring Boot, GraphQL, and distributed systems. Achieved 8,250+ RPS at 50% resource utilization through connection pooling and query optimization. Currently leading federated GraphQL gateway design and platform-wide observability initiatives.`,
+  backend: `Senior Backend Engineer with 3+ years building high-throughput microservices with Spring Boot, GraphQL, and distributed systems. Achieved 8,250+ RPS at 50% resource utilization. Currently maintaining multiple backend services for real-time test-to-proctor API integrations and optimizing content delivery pipelines.`,
 
-  fullstack: `Senior Full-Stack Developer with 3+ years of experience delivering end-to-end platforms at Houghton Mifflin Harcourt. Expert in React, TypeScript, Spring Boot, and GraphQL Federation. Built systems serving millions of students with 99.9% uptime. Currently driving cross-team architecture initiatives and mentoring engineers.`,
+  fullstack: `Senior Full-Stack Developer with 3+ years delivering end-to-end platforms at Houghton Mifflin Harcourt. Rebuilt the RCE platform from scratch (95% bundle reduction), optimized EPUB parsing (62% faster), and built systems serving millions with 99.9% uptime. Expert in React, TypeScript, Spring Boot, and GraphQL.`,
 
-  mobile: `Senior Software Engineer with mobile development expertise, including native Android with Kotlin and cross-platform solutions. Built Nimaz, an offline-first Islamic companion app with location-based features and reliable background processing. Currently leading mobile-optimized feature delivery for educational platforms serving millions of students.`,
+  mobile: `Senior Software Engineer with mobile development expertise, including native Android with Kotlin and cross-platform solutions. Built Nimaz, an offline-first Islamic companion app with location-based features and reliable background processing. Currently delivering mobile-optimized features and content authoring experiences for educational platforms.`,
 }
 
 export type CVVariant = 'default' | 'frontend' | 'backend' | 'fullstack' | 'mobile'

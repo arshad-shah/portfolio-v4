@@ -127,7 +127,6 @@ export const SITE_CONFIG = {
     'React Developer',
     'TypeScript',
     'Spring Boot',
-    'GraphQL Federation',
     'Distributed Systems',
     'Performance Engineering',
     'Technical Leadership',

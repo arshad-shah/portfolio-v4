@@ -28,7 +28,6 @@
         "Spring WebFlux",
         "Node.js",
         "GraphQL",
-        "GraphQL Federation",
         "REST APIs",
         "Hasura",
         "WebSockets",
@@ -63,7 +62,6 @@
         "Kubernetes",
         "Docker",
         "AWS",
-        "Terraform",
         "CI/CD Pipelines",
         "Concourse CI",
         "GitHub Actions",
@@ -110,13 +108,13 @@
         "Technical Leadership",
         "System Design",
         "Architecture Decision Records",
-        "RFC Process",
+        "Platform Engineering",
         "Code Review",
         "Mentoring",
         "Cross-Team Collaboration",
         "Technical Roadmapping",
         "Performance Budgets",
-        "Schema Governance"
+        "Performance Optimization"
       ]
     }
   },
@@ -158,6 +156,6 @@
     "Performance Optimization Techniques",
     "Rust for Systems Programming",
     "Machine Learning Integration",
-    "GraphQL Federation"
+    "GraphQL"
   ]
 }

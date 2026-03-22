@@ -8,36 +8,34 @@
       "startDate": "2026-03",
       "endDate": null,
       "current": true,
-      "description": "Driving technical strategy and architecture across the Ed Platform organisation. Owning cross-team initiatives that improve system reliability, developer velocity, and platform scalability for millions of K-12 students worldwide.",
+      "description": "Rebuilt the RCE (Rich Content Editor) platform from scratch with modern architecture, optimized the internal EPUB parser for large-scale content delivery, and maintained backend services powering real-time test proctoring integrations.",
       "responsibilities": [
-        "Architecting platform-wide observability strategy with Datadog, reducing mean-time-to-detection by 60% across services",
-        "Leading the design and rollout of a federated GraphQL gateway unifying 12+ microservices behind a single schema",
-        "Mentoring 4 engineers through structured code reviews, architecture sessions, and pair programming",
-        "Driving adoption of infrastructure-as-code with Terraform, standardizing cloud provisioning across teams",
-        "Spearheading performance budgets and automated regression detection in CI/CD pipelines",
-        "Collaborating with product and design to shape technical roadmaps and define system boundaries"
+        "Rebuilt the RCE platform from scratch using modern technologies, reducing bundle size from 10MB to 500KB through cleaner architecture and aggressive optimization",
+        "Optimized HMH's internal EPUB parser using low-level algorithm improvements, reducing parse time on large books from 8 seconds to under 3 seconds",
+        "Added support for enhanced content customization capabilities across the RCE platform",
+        "Maintaining and managing multiple backend services for real-time test-to-proctor API integrations",
+        "Ensuring reliability and performance of proctoring services handling concurrent test sessions at scale"
       ],
       "technologies": [
         "React",
         "TypeScript",
         "Spring Boot",
-        "GraphQL Federation",
+        "GraphQL",
         "Hasura",
         "Aurora PostgreSQL",
         "Kubernetes",
-        "Terraform",
         "Datadog",
         "GitHub Actions",
         "Module Federation",
-        "Redis",
+        "EPUB",
         "Docker",
         "AWS"
       ],
       "achievements": [
-        "Reduced platform P99 latency by 40% through end-to-end performance audit and targeted optimizations",
-        "Established engineering-wide RFC process adopted by 3 teams for architectural decision-making",
-        "Cut CI pipeline duration by 45% via parallelisation and intelligent caching strategies",
-        "Drove zero-downtime database migration serving 15,000+ concurrent users with no data loss"
+        "Reduced RCE platform bundle size by 95% — from 10MB to 500KB — through a ground-up rebuild with modern tech",
+        "Improved EPUB parsing speed by 62% on large books (8s → under 3s) via low-level algorithm optimization",
+        "Delivered enhanced customization features for the RCE, expanding content authoring capabilities",
+        "Maintained zero-downtime across multiple backend proctoring services during peak testing periods"
       ]
     },
     {

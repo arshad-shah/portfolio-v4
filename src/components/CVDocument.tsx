@@ -284,11 +284,11 @@ const styles = StyleSheet.create({
 // Get summary based on role
 const getSummary = (variant: string): string => {
   const summaries: Record<string, string> = {
-    default: `Senior Software Engineer with 3+ years of progressive experience at Houghton Mifflin Harcourt, currently leading architecture and cross-team initiatives for platforms serving millions of K-12 students. Expert in full-stack development with React, TypeScript, Spring Boot, and GraphQL. Track record of delivering high-throughput systems (8,250+ RPS, sub-100ms latency), driving large-scale migrations, and mentoring engineering teams.`,
-    frontend: `Senior Frontend Engineer with 3+ years specializing in React, TypeScript, and modern web architecture. Expert in microfrontend systems, build optimization, and exceptional user experiences at scale. Achieved 65-70% build time reduction in a 600+ package monorepo. Currently leading frontend architecture and mentoring engineers.`,
-    backend: `Senior Backend Engineer with 3+ years building high-throughput microservices with Spring Boot, GraphQL, and distributed systems. Achieved 8,250+ RPS at 50% resource utilization. Currently leading federated GraphQL gateway design and platform-wide observability.`,
-    fullstack: `Senior Full-Stack Developer with 3+ years delivering end-to-end platforms at HMH. Expert in React, TypeScript, Spring Boot, and GraphQL Federation. Built systems serving millions with 99.9% uptime. Currently driving cross-team architecture and mentoring engineers.`,
-    mobile: `Senior Software Engineer with mobile development expertise in native Android (Kotlin) and cross-platform solutions. Built Nimaz, an offline-first app with location-based features. Currently leading mobile-optimized feature delivery for educational platforms serving millions.`,
+    default: `Senior Software Engineer with 3+ years of progressive experience at Houghton Mifflin Harcourt. Rebuilt the RCE platform from scratch (10MB → 500KB), optimized EPUB parsing performance (8s → under 3s), and delivered high-throughput systems handling 8,250+ RPS. Expert in React, TypeScript, Spring Boot, and GraphQL. Proven track record in platform engineering, performance optimization, and maintaining real-time backend services at scale.`,
+    frontend: `Senior Frontend Engineer with 3+ years specializing in React, TypeScript, and modern web architecture. Rebuilt the RCE platform from scratch achieving 95% bundle size reduction (10MB → 500KB). Expert in microfrontend systems, build optimization (65-70% faster builds via Babel → SWC), and performance-critical platform engineering.`,
+    backend: `Senior Backend Engineer with 3+ years building high-throughput microservices with Spring Boot, GraphQL, and distributed systems. Achieved 8,250+ RPS at 50% resource utilization. Currently maintaining multiple backend services for real-time test-to-proctor API integrations and optimizing content delivery pipelines.`,
+    fullstack: `Senior Full-Stack Developer with 3+ years delivering end-to-end platforms at HMH. Rebuilt the RCE platform from scratch (95% bundle reduction), optimized EPUB parsing (62% faster), and built systems serving millions with 99.9% uptime. Expert in React, TypeScript, Spring Boot, and GraphQL.`,
+    mobile: `Senior Software Engineer with mobile development expertise in native Android (Kotlin) and cross-platform solutions. Built Nimaz, an offline-first app with location-based features. Currently delivering mobile-optimized features and content authoring experiences for educational platforms.`,
   }
   return summaries[variant] || summaries.default
 }
@@ -378,10 +378,10 @@ const getProjects = (variant: string) => {
 
   const priorities: Record<string, string[]> = {
     frontend: ['build-optimization', 'multi-tool', 'hmh-platform'],
-    backend: ['db-optimization', 'hmh-platform', 'graphql-federation'],
-    fullstack: ['hmh-platform', 'graphql-federation', 'expense-tracker'],
+    backend: ['db-optimization', 'hmh-platform', 'rce-rebuild'],
+    fullstack: ['hmh-platform', 'rce-rebuild', 'expense-tracker'],
     mobile: ['nimaz', 'hmh-platform', 'multi-tool'],
-    default: ['hmh-platform', 'graphql-federation', 'db-optimization'],
+    default: ['hmh-platform', 'rce-rebuild', 'db-optimization'],
   }
 
   const priorityIds = priorities[variant] || priorities.default

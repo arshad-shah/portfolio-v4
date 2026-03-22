@@ -5,7 +5,7 @@
   },
   "title": "Senior Software Engineer",
   "headline": "Engineering high-impact systems at scale",
-  "description": "Senior Software Engineer with 3+ years at HMH, leading the architecture and delivery of platforms serving millions of students. I specialize in building high-throughput distributed systems, driving large-scale migrations, and mentoring engineering teams — all while keeping developer experience sharp.",
+  "description": "Senior Software Engineer with 3+ years at HMH. I rebuilt the RCE platform from scratch (10MB → 500KB), optimized the internal EPUB parser (8s → under 3s), and delivered high-throughput systems handling 8,250+ RPS. I maintain backend services for real-time test proctoring and continuously push for better performance and developer experience.",
   "location": {
     "city": "Dublin",
     "country": "Ireland",
