@@ -28,6 +28,7 @@
         "Spring WebFlux",
         "Node.js",
         "GraphQL",
+        "GraphQL Federation",
         "REST APIs",
         "Hasura",
         "WebSockets",
@@ -62,14 +63,14 @@
         "Kubernetes",
         "Docker",
         "AWS",
+        "Terraform",
         "CI/CD Pipelines",
         "Concourse CI",
         "GitHub Actions",
         "Infrastructure as Code",
         "Monitoring & Logging (Datadog)",
         "Cloud Architecture",
-        "Container Orchestration",
-        "Terraform"
+        "Container Orchestration"
       ]
     },
     "testing": {
@@ -103,33 +104,31 @@
         "Offline-First Apps"
       ]
     },
-    "tools": {
-      "label": "Tools & Platforms",
+    "leadership": {
+      "label": "Leadership & Architecture",
       "skills": [
-        "Git",
-        "GitHub",
-        "VS Code",
-        "IntelliJ IDEA",
-        "Datadog",
-        "Postman",
-        "Chrome DevTools",
-        "Linux/Unix",
-        "Figma",
-        "JIRA",
-        "Confluence",
-        "Slack"
+        "Technical Leadership",
+        "System Design",
+        "Architecture Decision Records",
+        "RFC Process",
+        "Code Review",
+        "Mentoring",
+        "Cross-Team Collaboration",
+        "Technical Roadmapping",
+        "Performance Budgets",
+        "Schema Governance"
       ]
     }
   },
   "core_competencies": [
-    "Microfrontend Architecture",
+    "Distributed Systems Architecture",
     "Performance Engineering",
-    "System Design & Architecture",
+    "Technical Leadership",
+    "Microfrontend Architecture",
     "Database Optimization",
     "Reactive Programming",
     "Cloud Architecture (AWS)",
     "Developer Experience (DX)",
-    "Technical Leadership",
     "Full-Stack Development",
     "Scalable System Design",
     "API Design & Integration",
@@ -138,7 +137,7 @@
   "soft_skills": [
     "Problem Solving",
     "Technical Communication",
-    "Team Collaboration",
+    "Team Leadership",
     "Code Review",
     "Mentorship",
     "Agile Methodologies (Scrum, Kanban)",

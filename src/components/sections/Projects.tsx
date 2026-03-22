@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Github, Filter, Star, Calendar } from 'lucide-react'
+import { ExternalLink, Github, Star, Calendar, ArrowUpRight } from 'lucide-react'
 import { Container } from '@/components/common/Container'
 import { SectionHeader } from '@/components/common/SectionHeader'
 import { AnimatedSection } from '@/components/common/AnimatedSection'
@@ -14,7 +14,7 @@ import {
   CardContent,
   CardFooter,
 } from '@/components/ui/Card'
-import { Badge, BadgeGroup, StatusBadge } from '@/components/ui/Badge'
+import { Badge, BadgeGroup } from '@/components/ui/Badge'
 import { Button, IconButton } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
 import { PROJECT_CATEGORIES } from '@/lib/constants'
@@ -49,36 +49,30 @@ export function Projects({ data }: ProjectsProps) {
   return (
     <AnimatedSection id="projects" className="bg-secondary py-24">
       <Container>
-        <SectionHeader>
-          <span className="text-accent-gold mr-2 font-mono">{'<'}</span>
+        <SectionHeader
+          subtitle="Selected work showcasing architecture, performance, and craft"
+        >
+          <span className="text-accent-gold font-mono">{'<'}</span>
           <span className="text-text-primary">Projects</span>
-          <span className="text-accent-gold ml-2 font-mono">{'/>'}</span>
+          <span className="text-accent-gold font-mono">{' />'}</span>
         </SectionHeader>
 
-        {/* Filter Buttons */}
+        {/* Filter Tabs */}
         <div className="mb-12 flex justify-center">
-          <div className="border-secondary-light bg-primary inline-flex max-w-full items-center gap-2 overflow-x-auto rounded-sm border p-1">
-            <Filter className="text-accent-gold mx-2 h-4 w-4" />
+          <div className="border-border-subtle bg-primary/80 inline-flex items-center gap-1 border p-1 backdrop-blur-sm">
             {PROJECT_CATEGORIES.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveFilter(category)}
                 aria-pressed={activeFilter === category}
                 className={cn(
-                  'relative rounded-sm px-4 py-2 text-sm font-medium whitespace-nowrap transition-all duration-300',
+                  'relative px-5 py-2 text-sm font-medium transition-all duration-300',
                   activeFilter === category
-                    ? 'bg-accent-gold/20 text-accent-gold'
+                    ? 'bg-accent-gold/15 text-accent-gold'
                     : 'text-text-secondary hover:text-text-primary'
                 )}
               >
-                <span className="relative z-10">{category}</span>
-                {activeFilter === category && (
-                  <motion.div
-                    layoutId="activeFilter"
-                    className="bg-accent-gold/20 absolute inset-0 rounded-sm"
-                    transition={{ type: 'spring', duration: 0.5 }}
-                  />
-                )}
+                {category}
               </button>
             ))}
           </div>
@@ -89,7 +83,7 @@ export function Projects({ data }: ProjectsProps) {
           variants={containerAnimation}
           initial="hidden"
           animate="visible"
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
         >
           <AnimatePresence mode="popLayout">
             {sortedProjects.map((project, index) => (
@@ -119,12 +113,12 @@ export function Projects({ data }: ProjectsProps) {
           </motion.div>
         )}
 
-        {/* View All Projects Link */}
+        {/* View All */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.3 }}
           className="mt-12 flex justify-center"
         >
           <Button
@@ -137,9 +131,9 @@ export function Projects({ data }: ProjectsProps) {
                 'noopener,noreferrer'
               )
             }
-            rightIcon={<ExternalLink className="h-5 w-5" />}
+            rightIcon={<ArrowUpRight className="h-4 w-4" />}
           >
-            View All Projects on GitHub
+            All Projects on GitHub
           </Button>
         </motion.div>
       </Container>
@@ -148,7 +142,7 @@ export function Projects({ data }: ProjectsProps) {
 }
 
 /**
- * Individual Project Card Component
+ * Individual Project Card
  */
 interface ProjectCardProps {
   project: Project
@@ -156,29 +150,29 @@ interface ProjectCardProps {
 
 function ProjectCard({ project }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
-  const impactPreviewCount = 2
-  const techPreviewCount = 6
 
   return (
     <Card hover padding="none" className="group flex h-full flex-col overflow-hidden">
-      {/* Card Header */}
-      <CardHeader className="border-border-subtle border-b p-4">
+      {/* Header */}
+      <CardHeader className="border-border-subtle border-b p-5">
         <div className="mb-3 flex items-start justify-between">
           <div className="flex items-center gap-2">
-            <div className="bg-accent-gold/20 rounded-sm p-2">
-              <Github className="text-accent-gold h-4 w-4" />
-            </div>
-            <Badge variant="default" size="sm">
+            {project.featured && (
+              <span className="bg-accent-gold/15 text-accent-gold flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
+                <Star className="h-3 w-3" />
+                Featured
+              </span>
+            )}
+            <span className="text-text-muted bg-secondary px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider">
               {project.type}
-            </Badge>
+            </span>
           </div>
 
-          <div className="flex gap-2">
-            {project.featured && <StatusBadge status="featured" size="sm" />}
+          <div className="flex gap-1.5">
             {project.links.live && (
               <IconButton
                 variant="ghost"
-                icon={<ExternalLink className="h-4 w-4" />}
+                icon={<ExternalLink className="h-3.5 w-3.5" />}
                 size="sm"
                 onClick={(e) => {
                   e.stopPropagation()
@@ -190,7 +184,7 @@ function ProjectCard({ project }: ProjectCardProps) {
             {project.links.github && (
               <IconButton
                 variant="ghost"
-                icon={<Github className="h-4 w-4" />}
+                icon={<Github className="h-3.5 w-3.5" />}
                 size="sm"
                 onClick={(e) => {
                   e.stopPropagation()
@@ -202,126 +196,101 @@ function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </div>
 
-        <CardTitle className="group-hover:text-accent-gold mb-2 line-clamp-2 transition-colors">
+        <CardTitle className="group-hover:text-accent-gold mb-2 text-lg transition-colors">
           {project.title}
         </CardTitle>
 
-        <CardDescription className="line-clamp-2 text-sm">{project.description}</CardDescription>
+        <CardDescription className="line-clamp-2 text-sm leading-relaxed">
+          {project.description}
+        </CardDescription>
       </CardHeader>
 
-      {/* Card Content */}
-      <CardContent className="flex-1 p-4">
-        {/* Impact preview (collapsed) */}
+      {/* Content */}
+      <CardContent className="flex-1 p-5">
+        {/* Impact — compact */}
         {!isExpanded && project.impact && project.impact.length > 0 && (
           <div className="mb-4">
-            <h4 className="text-accent-gold mb-2 flex items-center gap-2 font-mono text-xs">
-              <Star className="h-3 w-3" />
-              // Impact:
-            </h4>
-            <ul className="space-y-1">
-              {project.impact.slice(0, impactPreviewCount).map((item, idx) => (
+            <ul className="space-y-1.5">
+              {project.impact.slice(0, 2).map((item, idx) => (
                 <li key={idx} className="text-text-secondary flex gap-2 text-sm">
-                  <span className="text-accent-gold">▸</span>
-                  <span>{item}</span>
+                  <span className="text-accent-gold flex-shrink-0">▹</span>
+                  <span className="line-clamp-1">{item}</span>
                 </li>
               ))}
             </ul>
-            {project.impact.length > impactPreviewCount && (
-              <p className="text-text-muted mt-2 text-xs">
-                +{project.impact.length - impactPreviewCount} more
-              </p>
-            )}
           </div>
         )}
 
-        {/* Challenge/Solution (if expanded) */}
+        {/* Expanded details */}
         <AnimatePresence>
-          {isExpanded && (project.challenge || project.solution) && (
+          {isExpanded && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="mb-4 space-y-3 overflow-hidden"
+              transition={{ duration: 0.25 }}
+              className="mb-4 space-y-4 overflow-hidden"
             >
               {project.challenge && (
                 <div>
-                  <h4 className="text-accent-gold mb-1 font-mono text-xs">// Challenge:</h4>
+                  <h4 className="text-accent-gold mb-1 font-mono text-xs font-medium">Challenge</h4>
                   <p className="text-text-secondary text-sm">{project.challenge}</p>
                 </div>
               )}
               {project.solution && (
                 <div>
-                  <h4 className="text-accent-blue mb-1 font-mono text-xs">// Solution:</h4>
+                  <h4 className="text-accent-blue mb-1 font-mono text-xs font-medium">Solution</h4>
                   <p className="text-text-secondary text-sm">{project.solution}</p>
+                </div>
+              )}
+              {project.impact && project.impact.length > 0 && (
+                <div>
+                  <h4 className="text-emerald-400 mb-1.5 font-mono text-xs font-medium">Impact</h4>
+                  <ul className="space-y-1.5">
+                    {project.impact.map((item, idx) => (
+                      <li key={idx} className="text-text-secondary flex gap-2 text-sm">
+                        <span className="text-emerald-400 flex-shrink-0">▹</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               )}
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Impact (if expanded) */}
-        <AnimatePresence>
-          {isExpanded && project.impact && project.impact.length > 0 && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, delay: 0.1 }}
-              className="mb-4 overflow-hidden"
-            >
-              <h4 className="text-accent-gold mb-2 flex items-center gap-2 font-mono text-xs">
-                <Star className="h-3 w-3" />
-                // Impact:
-              </h4>
-              <ul className="space-y-1">
-                {project.impact.map((item, idx) => (
-                  <li key={idx} className="text-text-secondary flex gap-2 text-sm">
-                    <span className="text-accent-gold">▸</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Technologies */}
-        <div>
-          <h4 className="text-accent-gold mb-3 font-mono text-xs">// Tech Stack:</h4>
-          <BadgeGroup>
-            {project.technologies
-              .slice(0, isExpanded ? undefined : techPreviewCount)
-              .map((tech) => (
-                <Badge key={tech} variant="secondary" size="sm" className="font-mono text-xs">
-                  {tech}
-                </Badge>
-              ))}
-            {!isExpanded && project.technologies.length > techPreviewCount && (
-              <Badge variant="default" size="sm">
-                +{project.technologies.length - techPreviewCount}
+        {/* Tech */}
+        <BadgeGroup>
+          {project.technologies
+            .slice(0, isExpanded ? undefined : 5)
+            .map((tech) => (
+              <Badge key={tech} variant="secondary" size="sm" className="font-mono text-xs">
+                {tech}
               </Badge>
-            )}
-          </BadgeGroup>
-        </div>
+            ))}
+          {!isExpanded && project.technologies.length > 5 && (
+            <Badge variant="default" size="sm" className="text-xs">
+              +{project.technologies.length - 5}
+            </Badge>
+          )}
+        </BadgeGroup>
       </CardContent>
 
-      {/* Card Footer */}
-      <CardFooter className="border-t-0 p-4 pt-0">
-        <div className="flex items-center justify-between gap-4">
-          <div className="text-text-muted flex items-center gap-2 text-xs">
+      {/* Footer */}
+      <CardFooter className="border-border-subtle border-t p-5 pt-4">
+        <div className="flex items-center justify-between">
+          <div className="text-text-muted flex items-center gap-1.5 font-mono text-xs">
             <Calendar className="h-3 w-3" />
-            <span>{project.year}</span>
+            {project.year}
           </div>
 
-          <Button
-            variant="ghost"
-            size="sm"
+          <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="text-xs"
+            className="text-accent-gold hover:text-accent-gold-light text-xs font-medium transition-colors"
           >
-            {isExpanded ? 'Show Less' : 'View Details'}
-          </Button>
+            {isExpanded ? 'Less' : 'Details'}
+          </button>
         </div>
       </CardFooter>
     </Card>

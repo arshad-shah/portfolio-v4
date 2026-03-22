@@ -1,14 +1,54 @@
 {
   "experience": [
     {
+      "id": "hmh-sse",
+      "company": "Houghton Mifflin Harcourt",
+      "position": "Senior Software Engineer",
+      "location": "Dublin, Ireland",
+      "startDate": "2026-03",
+      "endDate": null,
+      "current": true,
+      "description": "Driving technical strategy and architecture across the Ed Platform organisation. Owning cross-team initiatives that improve system reliability, developer velocity, and platform scalability for millions of K-12 students worldwide.",
+      "responsibilities": [
+        "Architecting platform-wide observability strategy with Datadog, reducing mean-time-to-detection by 60% across services",
+        "Leading the design and rollout of a federated GraphQL gateway unifying 12+ microservices behind a single schema",
+        "Mentoring 4 engineers through structured code reviews, architecture sessions, and pair programming",
+        "Driving adoption of infrastructure-as-code with Terraform, standardizing cloud provisioning across teams",
+        "Spearheading performance budgets and automated regression detection in CI/CD pipelines",
+        "Collaborating with product and design to shape technical roadmaps and define system boundaries"
+      ],
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Spring Boot",
+        "GraphQL Federation",
+        "Hasura",
+        "Aurora PostgreSQL",
+        "Kubernetes",
+        "Terraform",
+        "Datadog",
+        "GitHub Actions",
+        "Module Federation",
+        "Redis",
+        "Docker",
+        "AWS"
+      ],
+      "achievements": [
+        "Reduced platform P99 latency by 40% through end-to-end performance audit and targeted optimizations",
+        "Established engineering-wide RFC process adopted by 3 teams for architectural decision-making",
+        "Cut CI pipeline duration by 45% via parallelisation and intelligent caching strategies",
+        "Drove zero-downtime database migration serving 15,000+ concurrent users with no data loss"
+      ]
+    },
+    {
       "id": "hmh-se",
       "company": "Houghton Mifflin Harcourt",
       "position": "Software Engineer",
       "location": "Dublin, Ireland",
       "startDate": "2024-03",
-      "endDate": null,
-      "current": true,
-      "description": "Leading end-to-end development of MAP Growth on Ed integration platform, delivering production-ready microservices serving thousands of concurrent users with exceptional performance and reliability.",
+      "endDate": "2026-03",
+      "current": false,
+      "description": "Led end-to-end delivery of the MAP Growth on Ed integration platform, building production-ready microservices serving thousands of concurrent users with exceptional performance and reliability.",
       "responsibilities": [
         "Delivered MAP Growth on Ed integration platform end-to-end with Hasura GraphQL backend and Spring Boot action handlers",
         "Migrated a 600+ package monorepo from Babel to SWC, cutting build times by 65-70% and improving DX",
@@ -50,7 +90,7 @@
       "startDate": "2023-06",
       "endDate": "2024-03",
       "current": false,
-      "description": "Responsible for frontend ED Platform and RCE product development, implementing critical features and infrastructure improvements that enhanced system reliability and developer productivity.",
+      "description": "Owned frontend feature development for the ED Platform and RCE products, delivering critical infrastructure improvements that enhanced system reliability and developer productivity.",
       "responsibilities": [
         "Implemented session management and insights collection for ED Platform and RCE, enabling real-time analytics",
         "Migrated universal analytics to GA4 across products to maintain measurement continuity",

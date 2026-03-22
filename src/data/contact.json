@@ -1,7 +1,7 @@
 {
-  "heading": "Get in touch",
-  "subheading": "Open to the right opportunities and collaborations",
-  "description": "Currently employed full-time at HMH. Happy to chat about roles, freelance work, or interesting technical problems—reach out via email or LinkedIn.",
+  "heading": "Let's connect",
+  "subheading": "Open to senior-level opportunities and technical collaboration",
+  "description": "Currently a Senior Software Engineer at HMH. Always interested in challenging roles, architecture discussions, and opportunities to lead high-impact engineering teams.",
   "email": {
     "address": "arshad@arshadshah.com",
     "display": "arshad@arshadshah.com"
@@ -33,32 +33,29 @@
     }
   ],
   "availability": {
-    "status": "Employed (Open to opportunities)",
+    "status": "Open to Senior+ roles",
     "status_type": "available",
     "open_to": [
-      "Interesting projects and technical challenges",
-      "Collaboration opportunities",
-      "Technical discussions and mentorship",
-      "Consulting opportunities",
-      "Speaking engagements"
+      "Senior / Staff Engineer positions",
+      "Technical leadership roles",
+      "Architecture & system design consulting",
+      "Mentorship & speaking engagements"
     ],
     "response_time": "Within 24 hours",
     "working_hours": "Monday - Friday, 9:00 AM - 6:00 PM GMT",
     "preferred_contact": "Email or LinkedIn"
   },
   "expertise": [
-    "Full-Stack Web Development",
-    "Mobile Application Development",
+    "Distributed Systems & Architecture",
+    "Performance Engineering",
+    "Technical Leadership & Mentoring",
     "Microfrontend Architecture",
-    "API Development & Integration",
-    "Chrome Extension Development",
-    "UI/UX Engineering",
+    "Full-Stack Development",
+    "API Design & Integration",
     "Database Design & Optimization",
-    "Performance Engineering & Optimization",
-    "DevOps & Cloud Deployment",
-    "System Design & Architecture",
+    "DevOps & Cloud Infrastructure",
     "Developer Experience (DX)",
-    "Technical Leadership & Mentorship"
+    "Mobile Application Development"
   ],
   "location": {
     "city": "Dublin",
@@ -69,7 +66,7 @@
   "resume": {
     "filename": "Arshad_Shah_Resume.pdf",
     "path": "/resume.pdf",
-    "last_updated": "2024-12"
+    "last_updated": "2025-03"
   },
   "footer": {
     "copyright": "Arshad Shah",

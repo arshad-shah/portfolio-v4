@@ -37,6 +37,38 @@
       "year": 2025
     },
     {
+      "id": "graphql-federation",
+      "title": "Federated GraphQL Gateway",
+      "category": "Professional",
+      "type": "Platform Architecture",
+      "description": "Designed and led the rollout of a federated GraphQL gateway that unified 12+ microservices behind a single, composable schema — simplifying client integration and enabling independent service evolution.",
+      "challenge": "Multiple teams maintained separate GraphQL endpoints with duplicated types and inconsistent schemas, leading to client complexity and deployment coupling.",
+      "solution": "Adopted Apollo Federation with a managed gateway, established schema governance via CI linting, and migrated services incrementally with zero client disruption.",
+      "impact": [
+        "Unified 12+ microservice APIs into a single composable graph",
+        "Reduced client-side data-fetching code by 35% across frontend apps",
+        "Enabled independent service deployments without coordinated releases",
+        "Established schema governance process adopted across 3 engineering teams"
+      ],
+      "technologies": [
+        "GraphQL Federation",
+        "Apollo Gateway",
+        "Spring Boot",
+        "TypeScript",
+        "Hasura",
+        "GitHub Actions",
+        "Docker",
+        "Kubernetes"
+      ],
+      "links": {
+        "live": null,
+        "github": null,
+        "case_study": null
+      },
+      "featured": true,
+      "year": 2025
+    },
+    {
       "id": "db-optimization",
       "title": "Database Performance Optimization",
       "category": "Professional",
@@ -45,7 +77,7 @@
       "challenge": "Severe latency spikes during peak hours caused by connection exhaustion and inefficient query patterns.",
       "solution": "Tuned Hasura connection pooling, optimized query patterns and indexes, and added Datadog monitoring to track connection usage and performance.",
       "impact": [
-        "90% reduction in P95 latency - from 7+ seconds to sub-100ms during peak load",
+        "90% reduction in P95 latency — from 7+ seconds to sub-100ms during peak load",
         "Eliminated all connection timeout errors affecting user experience",
         "Reduced database load by 70% through query optimization and caching",
         "Improved user experience for millions of students during critical testing periods"
@@ -74,10 +106,10 @@
       "category": "Professional",
       "type": "Developer Experience",
       "description": "Dramatically improved build performance across massive 600+ package monorepo by migrating from Babel to SWC and optimizing webpack configurations, achieving 65-70% reduction in build times.",
-      "challenge": "10–15 minute builds in a 600+ package monorepo slowed developer feedback and CI.",
+      "challenge": "10-15 minute builds in a 600+ package monorepo slowed developer feedback and CI.",
       "solution": "Migrated Babel to SWC, optimized webpack caching/splitting, moved to PNPM, and resolved dependency/symlink issues impacting builds.",
       "impact": [
-        "65-70% reduction in build times - from 10-15 minutes to 3-5 minutes",
+        "65-70% reduction in build times — from 10-15 minutes to 3-5 minutes",
         "Saved hundreds of developer hours monthly across entire engineering team",
         "Improved CI/CD pipeline efficiency with faster feedback loops",
         "Enhanced developer experience with near-instant hot module replacement"
@@ -105,7 +137,7 @@
       "title": "API Testing Chrome Extension",
       "category": "Tools",
       "type": "Developer Tool",
-      "description": "Chrome extension for intercepting and testing API requests in real-time. Features include request modification, authentication handling, comprehensive response inspection, and request replay functionality for enhanced development workflow.",
+      "description": "Chrome extension for intercepting and testing API requests in real-time. Features include request modification, authentication handling, comprehensive response inspection, and request replay functionality.",
       "challenge": "Test and debug API requests without switching tools or modifying app code.",
       "solution": "Built a Chrome extension with request interception and a React UI for modifying/replaying requests, plus IndexedDB history and auth header injection.",
       "impact": [
@@ -128,7 +160,7 @@
         "github": null,
         "case_study": null
       },
-      "featured": true,
+      "featured": false,
       "year": 2025
     },
     {
@@ -136,7 +168,7 @@
       "title": "Multi-Tool React Application",
       "category": "Personal",
       "type": "Web Application",
-      "description": "Comprehensive collection of 22 lightweight React-based productivity and development tools with beautiful modern design. Features password generation, color testing, unit converters, JSON formatters, and various utilities - all in a single fast-loading application.",
+      "description": "Comprehensive collection of 22 lightweight React-based productivity and development tools with beautiful modern design. Features password generation, color testing, unit converters, JSON formatters, and various utilities.",
       "challenge": "Ship an offline-friendly tool suite with fast loads and minimal dependencies.",
       "solution": "Built a modular React app with code splitting, local storage persistence, and Web Crypto-based utilities to keep the initial bundle small.",
       "impact": [

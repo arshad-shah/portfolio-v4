@@ -1,7 +1,7 @@
 // src/components/sections/Hero.tsx
 
 import { motion } from 'framer-motion'
-import { ArrowRight, MapPin, Mail } from 'lucide-react'
+import { ArrowRight, MapPin, Mail, Sparkles } from 'lucide-react'
 import { Container } from '@/components/common/Container'
 import { Button } from '@/components/ui/Button'
 import { Badge, BadgeGroup } from '@/components/ui/Badge'
@@ -30,15 +30,13 @@ interface HeroProps {
 }
 
 /**
- * Hero section - Landing area with profile and introduction
+ * Hero section — Landing area with profile and introduction
  */
 export function Hero({ data }: HeroProps) {
   const titleAnimation = useAccessibleAnimation(fadeInDown)
   const contentAnimation = useAccessibleAnimation(fadeInUp)
   const imageAnimation = useAccessibleAnimation(fadeInRight)
   const badgesAnimation = useAccessibleAnimation(staggerContainer)
-
-  const technologiesPreviewCount = 6
 
   const { ref: scrollIndicatorRef, isIntersecting } = useScrollAnimation()
 
@@ -54,24 +52,34 @@ export function Hero({ data }: HeroProps) {
     <section className="bg-primary relative min-h-screen pt-20">
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="bg-accent-gold/5 absolute top-20 left-1/4 h-64 w-64 rounded-full blur-3xl" />
-        <div className="bg-accent-blue/5 absolute right-1/4 bottom-20 h-64 w-64 rounded-full blur-3xl" />
+        <div className="bg-accent-gold/3 absolute -top-32 left-1/3 h-[500px] w-[500px] rounded-full blur-[120px]" />
+        <div className="bg-accent-blue/3 absolute -right-20 bottom-0 h-[400px] w-[400px] rounded-full blur-[100px]" />
+        {/* Grid pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage:
+              'linear-gradient(rgba(212,165,116,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(212,165,116,0.3) 1px, transparent 1px)',
+            backgroundSize: '64px 64px',
+          }}
+        />
       </div>
 
       <Container className="relative">
         <div className="flex min-h-[calc(100vh-5rem)] flex-col justify-center py-12 md:py-20">
-          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-16">
-            {/* Content - Left Side */}
+          <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-20">
+            {/* Content — Left Side */}
             <div className="lg:col-span-7">
-              {/* Label */}
+              {/* Status badge */}
               <motion.div
                 variants={titleAnimation}
                 initial="hidden"
                 animate="visible"
-                className="mb-4"
+                className="mb-6"
               >
-                <span className="text-accent-gold inline-block font-medium">
-                  {data.headline || 'Software Engineer'}
+                <span className="border-accent-gold/20 bg-accent-gold/5 text-accent-gold inline-flex items-center gap-2 border px-4 py-1.5 text-sm font-medium">
+                  <Sparkles className="h-3.5 w-3.5" />
+                  {data.availability.status}
                 </span>
               </motion.div>
 
@@ -81,9 +89,12 @@ export function Hero({ data }: HeroProps) {
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 0.1 }}
-                className="font-display text-text-primary lg:text-hero mb-2 text-5xl font-bold md:text-6xl"
+                className="font-display text-text-primary lg:text-hero mb-4 text-5xl font-bold tracking-tight md:text-6xl"
               >
-                {data.name.first} <span className="text-accent-gold">{data.name.last}</span>.
+                {data.name.first}{' '}
+                <span className="from-accent-gold to-accent-gold-light bg-gradient-to-r bg-clip-text text-transparent">
+                  {data.name.last}
+                </span>
               </motion.h1>
 
               {/* Title */}
@@ -92,10 +103,23 @@ export function Hero({ data }: HeroProps) {
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 0.2 }}
-                className="font-display text-text-secondary lg:text-display mb-6 text-3xl font-bold md:text-4xl"
+                className="font-display text-text-secondary mb-2 text-2xl font-semibold md:text-3xl"
               >
                 {data.title}
               </motion.h2>
+
+              {/* Headline */}
+              {data.headline && (
+                <motion.p
+                  variants={contentAnimation}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: 0.25 }}
+                  className="text-accent-gold/80 mb-6 font-mono text-sm"
+                >
+                  {'// '}{data.headline}
+                </motion.p>
+              )}
 
               {/* Description */}
               <motion.p
@@ -103,28 +127,21 @@ export function Hero({ data }: HeroProps) {
                 initial="hidden"
                 animate="visible"
                 transition={{ delay: 0.3 }}
-                className="text-text-secondary mb-6 max-w-xl text-lg leading-relaxed"
+                className="text-text-secondary mb-8 max-w-xl text-lg leading-relaxed"
               >
                 {data.description}
               </motion.p>
 
-              {/* Location & Availability */}
+              {/* Location */}
               <motion.div
                 variants={contentAnimation}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 0.4 }}
-                className="text-text-secondary mb-8 flex flex-wrap items-center gap-4 text-sm"
+                transition={{ delay: 0.35 }}
+                className="text-text-secondary mb-8 flex items-center gap-2 text-sm"
               >
-                <div className="flex items-center gap-2">
-                  <MapPin className="text-accent-gold h-4 w-4" />
-                  <span>{data.location.display}</span>
-                </div>
-                <div className="bg-text-secondary/30 h-4 w-px" />
-                <div className="flex items-center gap-2">
-                  <span className="bg-accent-gold inline-flex h-2 w-2 rounded-full" />
-                  <span>{data.availability.status}</span>
-                </div>
+                <MapPin className="text-accent-gold h-4 w-4" />
+                <span>{data.location.display}</span>
               </motion.div>
 
               {/* Technologies */}
@@ -132,30 +149,17 @@ export function Hero({ data }: HeroProps) {
                 variants={badgesAnimation}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 0.5 }}
-                className="mb-8"
+                transition={{ delay: 0.4 }}
+                className="mb-10"
               >
-                <p className="text-text-secondary mb-3 text-sm font-medium">Core stack:</p>
                 <BadgeGroup animated>
-                  {data.technologies.slice(0, technologiesPreviewCount).map((tech, index) => (
+                  {data.technologies.map((tech, index) => (
                     <motion.div key={tech} variants={staggerItem} custom={index}>
                       <Badge variant="secondary" size="sm" className="font-mono">
                         {tech}
                       </Badge>
                     </motion.div>
                   ))}
-
-                  {data.technologies.length > technologiesPreviewCount && (
-                    <motion.div
-                      key="more-tech"
-                      variants={staggerItem}
-                      custom={technologiesPreviewCount}
-                    >
-                      <Badge variant="default" size="sm" className="font-mono">
-                        +{data.technologies.length - technologiesPreviewCount}
-                      </Badge>
-                    </motion.div>
-                  )}
                 </BadgeGroup>
               </motion.div>
 
@@ -164,8 +168,8 @@ export function Hero({ data }: HeroProps) {
                 variants={contentAnimation}
                 initial="hidden"
                 animate="visible"
-                transition={{ delay: 0.6 }}
-                className="mb-8 flex flex-wrap items-center gap-4"
+                transition={{ delay: 0.5 }}
+                className="flex flex-wrap items-center gap-4"
               >
                 <Button
                   variant="primary"
@@ -187,7 +191,7 @@ export function Hero({ data }: HeroProps) {
               </motion.div>
             </div>
 
-            {/* Image - Right Side */}
+            {/* Image — Right Side */}
             <div className="lg:col-span-5">
               <motion.div
                 variants={imageAnimation}
@@ -196,8 +200,9 @@ export function Hero({ data }: HeroProps) {
                 transition={{ delay: 0.4 }}
                 className="relative mx-auto max-w-sm lg:max-w-none"
               >
-                {/* Border decoration */}
-                <div className="border-accent-gold absolute inset-0 translate-x-6 translate-y-6 border-2 transition-transform duration-300 hover:translate-x-4 hover:translate-y-4" />
+                {/* Decorative frame */}
+                <div className="border-accent-gold/20 absolute -inset-3 border" />
+                <div className="border-accent-gold/10 absolute -inset-6 border" />
 
                 {/* Image container */}
                 <div className="bg-secondary relative overflow-hidden">
@@ -205,17 +210,32 @@ export function Hero({ data }: HeroProps) {
                     <source srcSet="/images/profile.webp" type="image/webp" />
                     <img
                       src="/images/profile.jpg"
-                      alt={`${data.name.first} ${data.name.last} - Software Engineer`}
+                      alt={`${data.name.first} ${data.name.last} — Senior Software Engineer`}
                       width={400}
                       height={500}
-                      className="relative z-10 w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
+                      className="relative z-10 w-full object-cover grayscale transition-all duration-700 hover:grayscale-0"
                       loading="eager"
                       fetchPriority="high"
                     />
                   </picture>
 
                   {/* Overlay */}
-                  <div className="bg-accent-gold/10 absolute inset-0 z-20 mix-blend-multiply transition-opacity duration-500 hover:opacity-0" />
+                  <div className="bg-accent-gold/10 absolute inset-0 z-20 mix-blend-multiply transition-opacity duration-700 hover:opacity-0" />
+                </div>
+
+                {/* Stats card overlay */}
+                <div className="border-border-subtle bg-primary/90 absolute -right-4 -bottom-4 z-30 border p-4 backdrop-blur-sm">
+                  <div className="text-accent-gold font-mono text-xs">
+                    <p>
+                      <span className="text-text-muted">years</span> → <span className="font-semibold">3+</span>
+                    </p>
+                    <p>
+                      <span className="text-text-muted">rps</span> → <span className="font-semibold">8,250+</span>
+                    </p>
+                    <p>
+                      <span className="text-text-muted">uptime</span> → <span className="font-semibold">99.9%</span>
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -230,7 +250,7 @@ export function Hero({ data }: HeroProps) {
           animate={isIntersecting ? 'visible' : 'hidden'}
           className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex"
         >
-          <span className="text-text-muted text-xs">Scroll down</span>
+          <span className="text-text-muted text-xs font-mono">scroll</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{

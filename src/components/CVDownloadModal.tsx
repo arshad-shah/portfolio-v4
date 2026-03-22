@@ -91,51 +91,52 @@ const colorMap: Record<string, { bg: string; border: string; text: string; glow:
 // CV variants with metadata
 const cvVariants = [
   {
-    id: 'software-engineer',
-    title: 'Software Engineer',
-    subtitle: 'Full-spectrum engineering',
+    id: 'senior-software-engineer',
+    title: 'Senior Software Engineer',
+    subtitle: 'Full-spectrum engineering & leadership',
     description:
-      'Comprehensive overview highlighting system design, performance engineering, and full-stack expertise.',
+      'Comprehensive overview highlighting system design, performance engineering, technical leadership, and full-stack expertise.',
     icon: 'Code2',
     color: 'gold',
-    highlights: ['System Architecture', 'Performance', 'Full-Stack'],
+    highlights: ['System Architecture', 'Leadership', 'Full-Stack'],
     recommended: true,
   },
   {
     id: 'fullstack-developer',
-    title: 'Full-Stack Developer',
+    title: 'Senior Full-Stack Developer',
     subtitle: 'End-to-end solutions',
     description:
       'Balanced focus on frontend and backend technologies, API development, and database design.',
     icon: 'Layers',
     color: 'blue',
-    highlights: ['React & Spring Boot', 'API Design', 'Database'],
+    highlights: ['React & Spring Boot', 'GraphQL', 'Database'],
     recommended: false,
   },
   {
     id: 'frontend-developer',
-    title: 'Frontend Developer',
-    subtitle: 'UI/UX focused',
+    title: 'Senior Frontend Developer',
+    subtitle: 'UI architecture & DX',
     description:
-      'Emphasis on React, TypeScript, microfrontends, and creating exceptional user experiences.',
+      'Emphasis on React, TypeScript, microfrontends, build optimization, and creating exceptional user experiences.',
     icon: 'Monitor',
     color: 'cyan',
-    highlights: ['React & TypeScript', 'Microfrontends', 'Performance'],
+    highlights: ['React & TypeScript', 'Microfrontends', 'Build Optimization'],
     recommended: false,
   },
   {
     id: 'backend-developer',
-    title: 'Backend Developer',
-    subtitle: 'Server-side specialist',
-    description: 'Focus on Spring Boot, microservices, GraphQL, and scalable backend architecture.',
+    title: 'Senior Backend Developer',
+    subtitle: 'Distributed systems',
+    description:
+      'Focus on Spring Boot, microservices, GraphQL Federation, and scalable backend architecture.',
     icon: 'Server',
     color: 'green',
-    highlights: ['Spring Boot', 'Microservices', 'GraphQL'],
+    highlights: ['Spring Boot', 'GraphQL Federation', 'Microservices'],
     recommended: false,
   },
   {
     id: 'mobile-developer',
-    title: 'Mobile Developer',
+    title: 'Senior Mobile Developer',
     subtitle: 'Native & cross-platform',
     description:
       'Highlighting Android development with Kotlin, mobile architecture, and native integrations.',
@@ -183,10 +184,8 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
     setGeneratingId(roleId)
 
     try {
-      // Generate PDF blob on-the-fly (lazy loaded)
       const blob = await generatePDF(roleId)
 
-      // Create download link
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
@@ -194,10 +193,8 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
       link.style.display = 'none'
       document.body.appendChild(link)
 
-      // Trigger download
       link.click()
 
-      // Clean up after a delay to ensure download starts
       setTimeout(() => {
         document.body.removeChild(link)
         URL.revokeObjectURL(url)
@@ -259,7 +256,8 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
                     </h2>
                   </div>
                   <p className="text-text-secondary max-w-xl text-sm sm:text-base">
-                    Select the format that best matches the role you're hiring for
+                    Each CV is tailored to the role — highlighting relevant skills, experience, and
+                    projects
                   </p>
                 </div>
                 <IconButton
@@ -280,11 +278,6 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
               animate="visible"
               className="p-6 sm:p-8"
             >
-              <p className="text-text-muted mb-6 text-sm">
-                Each CV highlights relevant skills, experience, and projects tailored to the
-                selected role.
-              </p>
-
               {/* CV Cards Grid */}
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {cvVariants.map((variant) => {
@@ -319,7 +312,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
                           <Icon className={cn('h-5 w-5', colors.text)} />
                         </div>
                         <div className="min-w-0 flex-1">
-                          <h3 className="font-display text-text-primary text-lg leading-tight font-semibold">
+                          <h3 className="font-display text-text-primary text-base leading-tight font-semibold">
                             {variant.title}
                           </h3>
                           <p className={cn('mt-0.5 text-xs font-medium', colors.text)}>
@@ -384,7 +377,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
               {/* Footer Note */}
               <div className="border-border-subtle mt-8 border-t pt-6">
                 <p className="text-text-muted text-center text-xs">
-                  CVs are generated on-demand • Last updated: January 2025
+                  CVs are generated on-demand with role-specific content • Last updated: March 2026
                 </p>
               </div>
             </motion.div>

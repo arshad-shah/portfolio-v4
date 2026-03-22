@@ -12,13 +12,16 @@ import skillsData from '@/data/skills.json'
 import personalData from '@/data/personal.json'
 import contactData from '@/data/contact.json'
 
-// ATS-friendly color palette (high contrast, simple)
+// ATS-friendly color palette
 const colors = {
-  black: '#000000',
-  darkGray: '#333333',
-  gray: '#555555',
-  lightGray: '#888888',
-  link: '#0066cc',
+  black: '#1a1a1a',
+  darkGray: '#2d2d2d',
+  gray: '#4a4a4a',
+  lightGray: '#7a7a7a',
+  accent: '#2563eb',
+  accentLight: '#3b82f6',
+  divider: '#e5e7eb',
+  sectionBg: '#f8fafc',
 }
 
 // Consistent spacing system (in points)
@@ -33,13 +36,13 @@ const sp = {
 
 // ATS-optimized typography
 const font = {
-  xs: 9,
-  sm: 10,
-  base: 10.5,
-  md: 11,
-  lg: 12,
-  xl: 14,
-  name: 20,
+  xs: 8.5,
+  sm: 9.5,
+  base: 10,
+  md: 10.5,
+  lg: 11.5,
+  xl: 13,
+  name: 18,
 }
 
 const styles = StyleSheet.create({
@@ -48,30 +51,36 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica',
     fontSize: font.base,
     color: colors.darkGray,
-    paddingTop: 36,
-    paddingBottom: 36,
-    paddingHorizontal: 48,
-    lineHeight: 1.35,
+    paddingTop: 32,
+    paddingBottom: 32,
+    paddingHorizontal: 40,
+    lineHeight: 1.4,
   },
 
-  // Header section
+  // Header
   header: {
     marginBottom: sp.lg,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.black,
     paddingBottom: sp.md,
+    borderBottomWidth: 2,
+    borderBottomColor: colors.accent,
+  },
+  nameRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    marginBottom: sp.sm,
   },
   name: {
     fontSize: font.name,
     fontFamily: 'Helvetica-Bold',
     color: colors.black,
-    letterSpacing: 0.5,
-    marginBottom: sp.xs,
+    letterSpacing: 0.3,
   },
   title: {
     fontSize: font.xl,
-    color: colors.gray,
-    marginBottom: sp.md,
+    color: colors.accent,
+    fontFamily: 'Helvetica-Bold',
+    marginBottom: sp.sm,
   },
   contactLine: {
     flexDirection: 'row',
@@ -81,11 +90,11 @@ const styles = StyleSheet.create({
   },
   contactText: {
     fontSize: font.sm,
-    color: colors.darkGray,
+    color: colors.gray,
   },
   contactLink: {
     fontSize: font.sm,
-    color: colors.link,
+    color: colors.accent,
     textDecoration: 'none',
   },
   contactSep: {
@@ -97,11 +106,14 @@ const styles = StyleSheet.create({
   // Summary
   summary: {
     marginBottom: sp.lg,
+    paddingVertical: sp.md,
+    paddingHorizontal: sp.lg,
+    backgroundColor: colors.sectionBg,
   },
   summaryText: {
     fontSize: font.base,
     color: colors.darkGray,
-    lineHeight: 1.5,
+    lineHeight: 1.55,
   },
 
   // Section styling
@@ -111,16 +123,22 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: font.lg,
     fontFamily: 'Helvetica-Bold',
-    color: colors.black,
+    color: colors.accent,
     textTransform: 'uppercase',
-    letterSpacing: 1.5,
+    letterSpacing: 1.2,
     marginBottom: sp.sm,
     paddingBottom: sp.xs,
-    borderBottomWidth: 0.5,
-    borderBottomColor: colors.gray,
+    borderBottomWidth: 0.75,
+    borderBottomColor: colors.divider,
   },
 
-  // Skills (simple comma-separated for ATS)
+  // Skills
+  skillsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: sp.sm,
+    marginBottom: sp.sm,
+  },
   skillsRow: {
     marginBottom: sp.sm,
   },
@@ -157,7 +175,8 @@ const styles = StyleSheet.create({
   },
   expCompany: {
     fontSize: font.base,
-    color: colors.gray,
+    color: colors.accent,
+    fontFamily: 'Helvetica-Bold',
   },
   expDate: {
     fontSize: font.sm,
@@ -173,21 +192,21 @@ const styles = StyleSheet.create({
   },
   bulletItem: {
     flexDirection: 'row',
-    marginBottom: sp.xs,
+    marginBottom: 3,
   },
   bulletDot: {
     width: 10,
     fontSize: font.sm,
-    color: colors.darkGray,
+    color: colors.accent,
   },
   bulletText: {
     flex: 1,
     fontSize: font.sm,
     color: colors.darkGray,
-    lineHeight: 1.4,
+    lineHeight: 1.45,
   },
 
-  // Projects (linear list for ATS)
+  // Projects
   projectItem: {
     marginBottom: sp.md,
   },
@@ -202,9 +221,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica-Bold',
     color: colors.black,
   },
-  projectType: {
+  projectImpact: {
     fontSize: font.xs,
-    color: colors.lightGray,
+    color: colors.accent,
+    fontFamily: 'Helvetica-Bold',
   },
   projectDesc: {
     fontSize: font.sm,
@@ -236,7 +256,7 @@ const styles = StyleSheet.create({
   },
   eduSchool: {
     fontSize: font.sm,
-    color: colors.gray,
+    color: colors.accent,
   },
   eduDate: {
     fontSize: font.sm,
@@ -249,10 +269,10 @@ const styles = StyleSheet.create({
 
   // Footer
   footer: {
-    marginTop: sp.xl,
+    marginTop: 'auto',
     paddingTop: sp.sm,
     borderTopWidth: 0.5,
-    borderTopColor: colors.lightGray,
+    borderTopColor: colors.divider,
   },
   footerText: {
     fontSize: font.xs,
@@ -261,104 +281,76 @@ const styles = StyleSheet.create({
   },
 })
 
-// Get summary based on role - uses actual personalData.description
+// Get summary based on role
 const getSummary = (variant: string): string => {
-  const base = personalData.description
-
-  switch (variant) {
-    case 'frontend':
-      return `Frontend-focused ${base} Specializing in React, TypeScript, microfrontend architecture, and build optimization.`
-    case 'backend':
-      return `Backend-focused ${base} Specializing in Spring Boot, GraphQL, database optimization, and distributed systems.`
-    case 'fullstack':
-      return `Full-stack ${base.replace('Software engineer', 'developer')} Equally proficient in frontend architecture and backend systems.`
-    case 'mobile':
-      return `${base} Additional expertise in Android development with Kotlin, offline-first architecture, and mobile app development.`
-    default:
-      return base
+  const summaries: Record<string, string> = {
+    default: `Senior Software Engineer with 3+ years of progressive experience at Houghton Mifflin Harcourt, currently leading architecture and cross-team initiatives for platforms serving millions of K-12 students. Expert in full-stack development with React, TypeScript, Spring Boot, and GraphQL. Track record of delivering high-throughput systems (8,250+ RPS, sub-100ms latency), driving large-scale migrations, and mentoring engineering teams.`,
+    frontend: `Senior Frontend Engineer with 3+ years specializing in React, TypeScript, and modern web architecture. Expert in microfrontend systems, build optimization, and exceptional user experiences at scale. Achieved 65-70% build time reduction in a 600+ package monorepo. Currently leading frontend architecture and mentoring engineers.`,
+    backend: `Senior Backend Engineer with 3+ years building high-throughput microservices with Spring Boot, GraphQL, and distributed systems. Achieved 8,250+ RPS at 50% resource utilization. Currently leading federated GraphQL gateway design and platform-wide observability.`,
+    fullstack: `Senior Full-Stack Developer with 3+ years delivering end-to-end platforms at HMH. Expert in React, TypeScript, Spring Boot, and GraphQL Federation. Built systems serving millions with 99.9% uptime. Currently driving cross-team architecture and mentoring engineers.`,
+    mobile: `Senior Software Engineer with mobile development expertise in native Android (Kotlin) and cross-platform solutions. Built Nimaz, an offline-first app with location-based features. Currently leading mobile-optimized feature delivery for educational platforms serving millions.`,
   }
+  return summaries[variant] || summaries.default
 }
 
-// Get skills based on role - uses actual skillsData
+// Get skills based on role
 const getSkills = (variant: string) => {
   const skills = skillsData.technical_skills
 
   switch (variant) {
     case 'frontend':
       return {
-        languages: ['TypeScript', 'JavaScript', 'HTML5', 'CSS3'],
-        frameworks: skills.frontend.skills.slice(0, 6),
+        languages: ['TypeScript', 'JavaScript (ES6+)', 'HTML5', 'CSS3'],
+        frameworks: skills.frontend.skills.slice(0, 8),
         tools: [...skills.devops.skills.slice(0, 4), ...skills.testing.skills.slice(0, 2)],
       }
     case 'backend':
       return {
-        languages: ['Java', 'Kotlin', 'TypeScript', 'SQL'],
-        frameworks: skills.backend.skills.slice(0, 6),
-        tools: [...skills.database.skills.slice(0, 4), ...skills.devops.skills.slice(0, 2)],
+        languages: ['Java', 'Kotlin', 'TypeScript', 'SQL', 'Python'],
+        frameworks: skills.backend.skills.slice(0, 8),
+        tools: [...skills.database.skills.slice(0, 4), ...skills.devops.skills.slice(0, 3)],
       }
     case 'fullstack':
       return {
-        languages: ['TypeScript', 'Java', 'Kotlin', 'SQL'],
-        frameworks: [...skills.frontend.skills.slice(0, 3), ...skills.backend.skills.slice(0, 3)],
-        tools: [...skills.database.skills.slice(0, 3), ...skills.devops.skills.slice(0, 3)],
+        languages: ['TypeScript', 'Java', 'Kotlin', 'SQL', 'Python'],
+        frameworks: [...skills.frontend.skills.slice(0, 4), ...skills.backend.skills.slice(0, 4)],
+        tools: [...skills.database.skills.slice(0, 3), ...skills.devops.skills.slice(0, 4)],
       }
     case 'mobile':
       return {
         languages: ['Kotlin', 'Java', 'TypeScript', 'SQL'],
-        frameworks: skills.mobile.skills.slice(0, 6),
+        frameworks: skills.mobile.skills.slice(0, 8),
         tools: [...skills.database.skills.slice(0, 3), ...skills.testing.skills.slice(0, 3)],
       }
     default:
       return {
-        languages: ['TypeScript', 'Java', 'Kotlin', 'SQL', 'HTML/CSS'],
-        frameworks: [...skills.frontend.skills.slice(0, 3), ...skills.backend.skills.slice(0, 3)],
-        tools: [...skills.database.skills.slice(0, 2), ...skills.devops.skills.slice(0, 4)],
+        languages: ['TypeScript', 'Java', 'Kotlin', 'SQL', 'Python', 'HTML/CSS'],
+        frameworks: [...skills.frontend.skills.slice(0, 4), ...skills.backend.skills.slice(0, 4)],
+        tools: [...skills.database.skills.slice(0, 3), ...skills.devops.skills.slice(0, 4)],
       }
   }
 }
 
-// Get experience bullets based on role - uses actual experienceData
+// Get experience bullets based on role
 type Experience = (typeof experienceData.experience)[0]
 
 const getExperienceBullets = (exp: Experience, variant: string): string[] => {
-  const allBullets = [...exp.responsibilities, ...exp.achievements]
+  const allBullets = [...exp.responsibilities, ...(exp.achievements || [])]
 
-  // Role-specific keyword priorities for sorting relevance
   const keywords: Record<string, string[]> = {
     frontend: [
-      'React',
-      'TypeScript',
-      'webpack',
-      'frontend',
-      'microfrontend',
-      'build',
-      'UI',
-      'SWC',
-      'Module Federation',
-      'PNPM',
+      'React', 'TypeScript', 'webpack', 'frontend', 'microfrontend', 'build',
+      'UI', 'SWC', 'Module Federation', 'PNPM', 'component',
     ],
     backend: [
-      'Spring Boot',
-      'GraphQL',
-      'API',
-      'database',
-      'PostgreSQL',
-      'Kubernetes',
-      'backend',
-      'service',
-      'RPS',
-      'Hasura',
+      'Spring Boot', 'GraphQL', 'API', 'database', 'PostgreSQL', 'Kubernetes',
+      'backend', 'service', 'RPS', 'Hasura', 'observability',
     ],
     fullstack: [
-      'end-to-end',
-      'GraphQL',
-      'React',
-      'Spring Boot',
-      'platform',
-      'integration',
-      'CI/CD',
+      'end-to-end', 'GraphQL', 'React', 'Spring Boot', 'platform',
+      'integration', 'CI/CD', 'migration',
     ],
-    mobile: ['mobile', 'Android', 'app', 'real-time', 'engagement', 'classroom'],
+    mobile: ['mobile', 'Android', 'app', 'real-time', 'engagement', 'responsive'],
     default: [],
   }
 
@@ -368,7 +360,6 @@ const getExperienceBullets = (exp: Experience, variant: string): string[] => {
     return allBullets.slice(0, 4)
   }
 
-  // Score bullets by keyword relevance and sort
   const scored = allBullets.map((bullet) => ({
     bullet,
     score: roleKeywords.reduce(
@@ -381,17 +372,16 @@ const getExperienceBullets = (exp: Experience, variant: string): string[] => {
   return scored.slice(0, 4).map((s) => s.bullet)
 }
 
-// Get projects based on role - uses actual projectsData
+// Get projects based on role
 const getProjects = (variant: string) => {
   const allProjects = projectsData.projects
 
-  // Role-specific project priorities
   const priorities: Record<string, string[]> = {
     frontend: ['build-optimization', 'multi-tool', 'hmh-platform'],
-    backend: ['db-optimization', 'hmh-platform', 'chrome-extension'],
-    fullstack: ['hmh-platform', 'db-optimization', 'expense-tracker'],
+    backend: ['db-optimization', 'hmh-platform', 'graphql-federation'],
+    fullstack: ['hmh-platform', 'graphql-federation', 'expense-tracker'],
     mobile: ['nimaz', 'hmh-platform', 'multi-tool'],
-    default: ['hmh-platform', 'db-optimization', 'build-optimization'],
+    default: ['hmh-platform', 'graphql-federation', 'db-optimization'],
   }
 
   const priorityIds = priorities[variant] || priorities.default
@@ -426,25 +416,27 @@ export function CVDocument({ config }: CVDocumentProps) {
   const github = contactData.social_links.find((s) => s.platform === 'GitHub')
 
   return (
-    <Document title={`${fullName} - ${config.title} CV`} author={fullName}>
+    <Document title={`${fullName} — ${config.title} CV`} author={fullName}>
       <Page size="A4" style={styles.page}>
         {/* Header */}
         <View style={styles.header}>
-          <Text style={styles.name}>{fullName.toUpperCase()}</Text>
+          <View style={styles.nameRow}>
+            <Text style={styles.name}>{fullName}</Text>
+          </View>
           <Text style={styles.title}>{config.title}</Text>
           <View style={styles.contactLine}>
             <Text style={styles.contactText}>{personalData.email}</Text>
-            <Text style={styles.contactSep}>|</Text>
+            <Text style={styles.contactSep}>•</Text>
             <Text style={styles.contactText}>{contactData.location.display}</Text>
-            <Text style={styles.contactSep}>|</Text>
+            <Text style={styles.contactSep}>•</Text>
             <Link src="https://arshadshah.com" style={styles.contactLink}>
               arshadshah.com
             </Link>
-            <Text style={styles.contactSep}>|</Text>
+            <Text style={styles.contactSep}>•</Text>
             <Link src={linkedIn?.url || ''} style={styles.contactLink}>
               LinkedIn
             </Link>
-            <Text style={styles.contactSep}>|</Text>
+            <Text style={styles.contactSep}>•</Text>
             <Link src={github?.url || ''} style={styles.contactLink}>
               GitHub
             </Link>
@@ -491,7 +483,7 @@ export function CVDocument({ config }: CVDocumentProps) {
                 </View>
                 <View style={styles.expRight}>
                   <Text style={styles.expDate}>
-                    {formatDate(exp.startDate, false)} - {formatDate(exp.endDate, exp.current)}
+                    {formatDate(exp.startDate, false)} — {formatDate(exp.endDate, exp.current)}
                   </Text>
                   <Text style={styles.expLocation}>{exp.location}</Text>
                 </View>
@@ -515,7 +507,9 @@ export function CVDocument({ config }: CVDocumentProps) {
             <View key={project.id} style={styles.projectItem}>
               <View style={styles.projectHeader}>
                 <Text style={styles.projectName}>{project.title}</Text>
-                <Text style={styles.projectType}>{project.type}</Text>
+                {project.impact && project.impact.length > 0 && (
+                  <Text style={styles.projectImpact}>{project.impact[0]}</Text>
+                )}
               </View>
               <Text style={styles.projectDesc}>
                 {project.challenge} {project.solution}
@@ -536,7 +530,7 @@ export function CVDocument({ config }: CVDocumentProps) {
               <Text style={styles.eduSchool}>{personalData.alumniOf.name}</Text>
             </View>
             <View style={styles.eduRight}>
-              <Text style={styles.eduDate}>2019 - 2023</Text>
+              <Text style={styles.eduDate}>2019 — 2023</Text>
               <Text style={styles.eduGrade}>Second Class Honours (2.1)</Text>
             </View>
           </View>
