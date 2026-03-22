@@ -1,14 +1,52 @@
 {
   "experience": [
     {
+      "id": "hmh-sse",
+      "company": "Houghton Mifflin Harcourt",
+      "position": "Senior Software Engineer",
+      "location": "Dublin, Ireland",
+      "startDate": "2026-03",
+      "endDate": null,
+      "current": true,
+      "description": "Rebuilt the RCE (Rich Content Editor) platform from scratch with modern architecture, optimized the internal EPUB parser for large-scale content delivery, and maintained backend services powering real-time test proctoring integrations.",
+      "responsibilities": [
+        "Rebuilt the RCE platform from scratch using modern technologies, reducing bundle size from 10MB to 500KB through cleaner architecture and aggressive optimization",
+        "Optimized HMH's internal EPUB parser using low-level algorithm improvements, reducing parse time on large books from 8 seconds to under 3 seconds",
+        "Added support for enhanced content customization capabilities across the RCE platform",
+        "Maintaining and managing multiple backend services for real-time test-to-proctor API integrations",
+        "Ensuring reliability and performance of proctoring services handling concurrent test sessions at scale"
+      ],
+      "technologies": [
+        "React",
+        "TypeScript",
+        "Spring Boot",
+        "GraphQL",
+        "Hasura",
+        "Aurora PostgreSQL",
+        "Kubernetes",
+        "Datadog",
+        "GitHub Actions",
+        "Module Federation",
+        "EPUB",
+        "Docker",
+        "AWS"
+      ],
+      "achievements": [
+        "Reduced RCE platform bundle size by 95% — from 10MB to 500KB — through a ground-up rebuild with modern tech",
+        "Improved EPUB parsing speed by 62% on large books (8s → under 3s) via low-level algorithm optimization",
+        "Delivered enhanced customization features for the RCE, expanding content authoring capabilities",
+        "Maintained zero-downtime across multiple backend proctoring services during peak testing periods"
+      ]
+    },
+    {
       "id": "hmh-se",
       "company": "Houghton Mifflin Harcourt",
       "position": "Software Engineer",
       "location": "Dublin, Ireland",
       "startDate": "2024-03",
-      "endDate": null,
-      "current": true,
-      "description": "Leading end-to-end development of MAP Growth on Ed integration platform, delivering production-ready microservices serving thousands of concurrent users with exceptional performance and reliability.",
+      "endDate": "2026-03",
+      "current": false,
+      "description": "Led end-to-end delivery of the MAP Growth on Ed integration platform, building production-ready microservices serving thousands of concurrent users with exceptional performance and reliability.",
       "responsibilities": [
         "Delivered MAP Growth on Ed integration platform end-to-end with Hasura GraphQL backend and Spring Boot action handlers",
         "Migrated a 600+ package monorepo from Babel to SWC, cutting build times by 65-70% and improving DX",
@@ -50,7 +88,7 @@
       "startDate": "2023-06",
       "endDate": "2024-03",
       "current": false,
-      "description": "Responsible for frontend ED Platform and RCE product development, implementing critical features and infrastructure improvements that enhanced system reliability and developer productivity.",
+      "description": "Owned frontend feature development for the ED Platform and RCE products, delivering critical infrastructure improvements that enhanced system reliability and developer productivity.",
       "responsibilities": [
         "Implemented session management and insights collection for ED Platform and RCE, enabling real-time analytics",
         "Migrated universal analytics to GA4 across products to maintain measurement continuity",

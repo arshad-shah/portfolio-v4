@@ -2,11 +2,11 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Clock, Award, Check, Copy } from 'lucide-react'
+import { Mail, MapPin, Clock, Check, Copy, ArrowUpRight } from 'lucide-react'
 import { Container } from '@/components/common/Container'
 import { SectionHeader } from '@/components/common/SectionHeader'
 import { AnimatedSection } from '@/components/common/AnimatedSection'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
+import { Card, CardContent } from '@/components/ui/Card'
 import { Badge, BadgeGroup } from '@/components/ui/Badge'
 import { IconButton } from '@/components/ui/Button'
 import { cn } from '@/lib/utils'
@@ -20,7 +20,7 @@ interface ContactProps {
 }
 
 /**
- * Contact section with social links and information
+ * Contact section — streamlined and professional
  */
 export function Contact({ data }: ContactProps) {
   const { copy } = useCopyToClipboard()
@@ -29,19 +29,19 @@ export function Contact({ data }: ContactProps) {
   const containerAnimation = useAccessibleAnimation(staggerContainer)
   const itemAnimation = useAccessibleAnimation(staggerItem)
 
-  const focusAreasPreviewCount = 10
-
   const handleCopy = async (text: string, label: string) => {
     await copy(text)
     setCopiedItem(label)
     setTimeout(() => setCopiedItem(null), 2000)
   }
 
+  const primaryLinks = data.social_links.filter((l) => l.primary)
+
   return (
     <AnimatedSection id="contact" className="bg-primary py-24">
       <Container>
-        <SectionHeader>
-          <span className="text-text-primary">Contact</span>
+        <SectionHeader align="center">
+          <span className="text-text-primary">Let's Connect</span>
         </SectionHeader>
 
         <motion.div
@@ -49,161 +49,127 @@ export function Contact({ data }: ContactProps) {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="mx-auto max-w-5xl"
+          className="mx-auto max-w-3xl"
         >
+          {/* Intro */}
           <motion.div variants={itemAnimation} className="mb-10 text-center">
-            <h3 className="font-display text-h2 text-text-primary mb-4 font-bold">
-              {data.heading}
-            </h3>
-            <p className="text-text-secondary mb-2">{data.subheading}</p>
-            <p className="text-text-muted mx-auto max-w-2xl">{data.description}</p>
+            <p className="text-text-secondary mb-2 text-lg">{data.subheading}</p>
+            <p className="text-text-muted mx-auto max-w-xl">{data.description}</p>
           </motion.div>
 
-          {/* Centered card mosaic */}
-          <div className="grid gap-6 lg:grid-cols-6">
-            {/* Email - primary CTA */}
-            <motion.div variants={itemAnimation} className="lg:col-span-6">
-              <Card padding="md" hover>
-                <CardHeader>
-                  <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="bg-accent-gold/20 rounded-sm p-2">
-                        <Mail className="text-accent-gold h-5 w-5" />
-                      </div>
-                      <div>
-                        <p className="text-text-secondary text-sm font-medium">Email</p>
-                        <p className="text-text-primary font-mono">{data.email.display}</p>
-                      </div>
-                    </div>
-                    <IconButton
-                      variant="accent"
-                      icon={
-                        copiedItem === 'email' ? (
-                          <Check className="h-4 w-4" />
-                        ) : (
-                          <Copy className="h-4 w-4" />
-                        )
-                      }
-                      onClick={() => handleCopy(data.email.address, 'email')}
-                      aria-label="Copy email"
-                      className={cn(
-                        copiedItem === 'email' &&
-                          '!border-green-400/40 !bg-green-500/20 !text-green-400'
-                      )}
-                    />
-                  </div>
-                </CardHeader>
-              </Card>
-            </motion.div>
-
-            {/* Location */}
-            <motion.div variants={itemAnimation} className="lg:col-span-3">
-              <Card padding="md">
-                <div className="flex items-center gap-3">
-                  <div className="bg-accent-blue/20 rounded-sm p-2">
-                    <MapPin className="text-accent-blue h-5 w-5" />
+          {/* Email CTA */}
+          <motion.div variants={itemAnimation} className="mb-8">
+            <Card padding="lg" hover>
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex items-center gap-4">
+                  <div className="bg-accent-gold/10 border-accent-gold/20 flex h-12 w-12 flex-shrink-0 items-center justify-center border">
+                    <Mail className="text-accent-gold h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-text-secondary text-sm font-medium">Location</p>
-                    <p className="text-text-primary">{data.location.display}</p>
+                    <p className="text-text-muted text-xs font-medium tracking-wider uppercase">
+                      Email
+                    </p>
+                    <p className="text-text-primary font-mono text-lg">{data.email.display}</p>
+                  </div>
+                </div>
+                <IconButton
+                  variant="accent"
+                  icon={
+                    copiedItem === 'email' ? (
+                      <Check className="h-4 w-4" />
+                    ) : (
+                      <Copy className="h-4 w-4" />
+                    )
+                  }
+                  onClick={() => handleCopy(data.email.address, 'email')}
+                  aria-label="Copy email"
+                  className={cn(
+                    copiedItem === 'email' &&
+                      '!border-green-400/40 !bg-green-500/20 !text-green-400'
+                  )}
+                />
+              </div>
+            </Card>
+          </motion.div>
+
+          {/* Info Grid */}
+          <div className="mb-8 grid gap-4 sm:grid-cols-3">
+            <motion.div variants={itemAnimation}>
+              <Card padding="md">
+                <div className="flex items-center gap-3">
+                  <MapPin className="text-accent-blue h-4 w-4 flex-shrink-0" />
+                  <div>
+                    <p className="text-text-muted text-xs">Location</p>
+                    <p className="text-text-primary text-sm font-medium">{data.location.display}</p>
                   </div>
                 </div>
               </Card>
             </motion.div>
 
-            {/* Timezone */}
-            <motion.div variants={itemAnimation} className="lg:col-span-3">
+            <motion.div variants={itemAnimation}>
               <Card padding="md">
                 <div className="flex items-center gap-3">
-                  <div className="bg-accent-gold/20 rounded-sm p-2">
-                    <Clock className="text-accent-gold h-5 w-5" />
-                  </div>
+                  <Clock className="text-accent-gold h-4 w-4 flex-shrink-0" />
                   <div>
-                    <p className="text-text-secondary text-sm font-medium">Timezone</p>
-                    <p className="text-text-primary font-mono text-sm">{data.location.timezone}</p>
+                    <p className="text-text-muted text-xs">Timezone</p>
+                    <p className="text-text-primary font-mono text-sm font-medium">
+                      {data.location.timezone}
+                    </p>
                   </div>
                 </div>
               </Card>
             </motion.div>
 
-            {/* Availability */}
-            <motion.div variants={itemAnimation} className="lg:col-span-4">
+            <motion.div variants={itemAnimation}>
               <Card padding="md">
-                <CardHeader>
-                  <CardTitle className="mb-4 flex items-center gap-2 text-lg">
-                    <Clock className="text-accent-gold h-5 w-5" />
-                    Availability
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="border-border-subtle flex items-center justify-between border-b pb-3">
-                    <span className="text-text-secondary">Status</span>
-                    <span className="text-text-primary text-sm">{data.availability.status}</span>
-                  </div>
-                  <div className="border-border-subtle flex items-center justify-between border-b pb-3">
-                    <span className="text-text-secondary">Response time</span>
-                    <span className="text-text-primary font-mono text-sm">
+                <div className="flex items-center gap-3">
+                  <span className="bg-accent-gold inline-flex h-2 w-2 flex-shrink-0 rounded-full" />
+                  <div>
+                    <p className="text-text-muted text-xs">Response</p>
+                    <p className="text-text-primary text-sm font-medium">
                       {data.availability.response_time}
-                    </span>
+                    </p>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-text-secondary">Preferred contact</span>
-                    <Badge variant="primary" size="sm">
-                      {data.availability.preferred_contact}
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Open to */}
-            <motion.div variants={itemAnimation} className="lg:col-span-2">
-              <Card padding="md" className="border-accent-gold/20">
-                <CardHeader>
-                  <CardTitle className="mb-4 text-lg">
-                    <span className="text-accent-gold">Open to</span>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {data.availability.open_to.map((item, idx) => (
-                      <li key={idx} className="text-text-secondary flex items-start gap-2">
-                        <span className="text-accent-gold mt-0.5">▸</span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            {/* Focus Areas */}
-            <motion.div variants={itemAnimation} className="lg:col-span-6">
-              <Card padding="md">
-                <CardHeader>
-                  <CardTitle className="mb-4 flex items-center justify-center gap-2 text-lg">
-                    <Award className="text-accent-gold h-5 w-5" />
-                    Focus Areas
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <BadgeGroup className="justify-center">
-                    {data.expertise.slice(0, focusAreasPreviewCount).map((skill, idx) => (
-                      <Badge key={skill} variant="secondary" size="sm" animated index={idx}>
-                        {skill}
-                      </Badge>
-                    ))}
-
-                    {data.expertise.length > focusAreasPreviewCount && (
-                      <Badge variant="default" size="sm" className="font-mono">
-                        +{data.expertise.length - focusAreasPreviewCount}
-                      </Badge>
-                    )}
-                  </BadgeGroup>
-                </CardContent>
+                </div>
               </Card>
             </motion.div>
           </div>
+
+          {/* Social Links */}
+          <motion.div variants={itemAnimation} className="mb-8">
+            <div className="flex flex-wrap justify-center gap-3">
+              {primaryLinks.map((link) => (
+                <a
+                  key={link.platform}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border-border-subtle hover:border-accent-gold/40 hover:bg-accent-gold/5 flex items-center gap-2 border px-5 py-2.5 text-sm transition-all"
+                >
+                  <span className="text-text-primary font-medium">{link.platform}</span>
+                  <ArrowUpRight className="text-text-muted h-3.5 w-3.5" />
+                </a>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Expertise */}
+          <motion.div variants={itemAnimation}>
+            <Card padding="md">
+              <CardContent>
+                <p className="text-text-muted mb-4 text-center text-xs font-medium tracking-wider uppercase">
+                  Areas of Expertise
+                </p>
+                <BadgeGroup className="justify-center">
+                  {data.expertise.map((skill, idx) => (
+                    <Badge key={skill} variant="secondary" size="sm" animated index={idx}>
+                      {skill}
+                    </Badge>
+                  ))}
+                </BadgeGroup>
+              </CardContent>
+            </Card>
+          </motion.div>
         </motion.div>
       </Container>
     </AnimatedSection>

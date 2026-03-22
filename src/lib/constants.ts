@@ -85,6 +85,7 @@ export const EASING = {
  */
 export const NAV_ITEMS = [
   { label: 'Experience', href: '#experience' },
+  { label: 'Skills', href: '#skills' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ] as const
@@ -114,20 +115,21 @@ export const EXTERNAL_LINKS = {
  */
 export const SITE_CONFIG = {
   name: 'Arshad Shah',
-  title: 'Arshad Shah - Software Engineer',
+  title: 'Arshad Shah - Senior Software Engineer',
   description:
-    'Software Engineer specializing in high-performance systems, microfrontend architecture, and educational technology solutions.',
+    'Senior Software Engineer specializing in distributed systems, performance engineering, and technical leadership. Building platforms serving millions at HMH.',
   url: 'https://arshadshah.com',
   ogImage: '/og-image.png',
   author: 'Arshad Shah',
   keywords: [
-    'Software Engineer',
+    'Senior Software Engineer',
     'Full Stack Developer',
     'React Developer',
     'TypeScript',
     'Spring Boot',
-    'Microservices',
+    'Distributed Systems',
     'Performance Engineering',
+    'Technical Leadership',
     'Dublin',
     'Ireland',
   ],
@@ -142,7 +144,7 @@ export const CONTACT_INFO = {
   email: 'arshad@arshadshah.com',
   location: 'Dublin, Ireland',
   timezone: 'GMT',
-  availability: 'Employed (Open to opportunities)',
+  availability: 'Open to Senior+ roles',
   responseTime: 'Within 24 hours',
 } as const
 

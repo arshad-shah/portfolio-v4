@@ -11,6 +11,9 @@ import { Hero } from '@/components/sections/Hero'
 const Experience = lazy(() =>
   import('@/components/sections/Experience').then((m) => ({ default: m.Experience }))
 )
+const Skills = lazy(() =>
+  import('@/components/sections/Skills').then((m) => ({ default: m.Skills }))
+)
 const Projects = lazy(() =>
   import('@/components/sections/Projects').then((m) => ({ default: m.Projects }))
 )
@@ -25,11 +28,13 @@ const Footer = lazy(() =>
 import personalDataRaw from '@/data/personal.json'
 import experienceDataRaw from '@/data/experience.json'
 import projectsDataRaw from '@/data/projects.json'
+import skillsDataRaw from '@/data/skills.json'
 import contactDataRaw from '@/data/contact.json'
 import type {
   Personal,
   Experience as ExperienceType,
   Project,
+  Skills as SkillsType,
   Contact as ContactType,
 } from '@/types/index'
 
@@ -46,6 +51,7 @@ function SectionLoader() {
 const personalData = personalDataRaw satisfies Personal
 const experienceData = experienceDataRaw satisfies { experience: ExperienceType[] }
 const projectsData = projectsDataRaw satisfies { projects: Project[] }
+const skillsData = skillsDataRaw satisfies SkillsType
 const contactData = contactDataRaw satisfies ContactType
 
 /**
@@ -55,7 +61,6 @@ function App() {
   const [mountBelowFold, setMountBelowFold] = useState(false)
 
   // Defer mounting below-the-fold sections until after first paint.
-  // This keeps initial JS work small and avoids showing a Suspense loader immediately.
   useEffect(() => {
     const id = window.setTimeout(() => setMountBelowFold(true), 0)
     return () => window.clearTimeout(id)
@@ -65,12 +70,12 @@ function App() {
     <ErrorBoundary>
       <HelmetProvider>
         <SEO
-          title="Software Engineer & Full-Stack Developer"
+          title="Senior Software Engineer"
           description={personalData.description}
           type="profile"
         />
 
-        {/* Skip to main content link for accessibility - hidden until focused */}
+        {/* Skip to main content link for accessibility */}
         <a
           href="#main-content"
           className="bg-accent-gold text-primary sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded focus:px-4 focus:py-2 focus:font-medium"
@@ -92,6 +97,10 @@ function App() {
               <>
                 <Suspense fallback={<SectionLoader />}>
                   <Experience data={experienceData.experience} />
+                </Suspense>
+
+                <Suspense fallback={<SectionLoader />}>
+                  <Skills data={skillsData} />
                 </Suspense>
 
                 <Suspense fallback={<SectionLoader />}>

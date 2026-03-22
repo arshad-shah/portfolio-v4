@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Calendar, MapPin, ChevronRight, Briefcase } from 'lucide-react'
+import { Calendar, MapPin, ChevronRight, Briefcase, TrendingUp } from 'lucide-react'
 import { Container } from '@/components/common/Container'
 import { SectionHeader } from '@/components/common/SectionHeader'
 import { AnimatedSection } from '@/components/common/AnimatedSection'
@@ -10,7 +10,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Badge, BadgeGroup } from '@/components/ui/Badge'
 import { cn } from '@/lib/utils'
 import { formatDate, calculateDuration } from '@/lib/utils'
-import { fadeInUp, fadeInLeft, staggerContainer, staggerItem } from '@/lib/animations'
+import { fadeInLeft, staggerContainer, staggerItem } from '@/lib/animations'
 import { useAccessibleAnimation } from '@/hooks/usePreferredMotion'
 import { useIsMobile } from '@/hooks/useMediaQuery'
 import type { Experience as ExperienceType } from '@/types/index'
@@ -24,110 +24,56 @@ interface ExperienceProps {
  */
 export function Experience({ data }: ExperienceProps) {
   const [activeJob, setActiveJob] = useState(0)
-  const [expandedAchievements, setExpandedAchievements] = useState<Set<number>>(new Set())
-  const [expandedResponsibilities, setExpandedResponsibilities] = useState<Set<number>>(new Set())
-  const [expandedTechnologies, setExpandedTechnologies] = useState<Set<number>>(new Set())
+  const [expandedSections, setExpandedSections] = useState<Set<string>>(new Set())
   const isMobile = useIsMobile()
-
-  const responsibilitiesPreviewCount = 4
-  const achievementsPreviewCount = 3
-  const technologiesPreviewCount = 8
 
   const containerAnimation = useAccessibleAnimation(staggerContainer)
   const itemAnimation = useAccessibleAnimation(staggerItem)
 
-  const toggleAchievementExpansion = (index: number) => {
-    const next = new Set(expandedAchievements)
-    if (next.has(index)) {
-      next.delete(index)
+  const toggleSection = (key: string) => {
+    const next = new Set(expandedSections)
+    if (next.has(key)) {
+      next.delete(key)
     } else {
-      next.add(index)
+      next.add(key)
     }
-    setExpandedAchievements(next)
+    setExpandedSections(next)
   }
-
-  const toggleResponsibilities = (index: number) => {
-    const next = new Set(expandedResponsibilities)
-    if (next.has(index)) {
-      next.delete(index)
-    } else {
-      next.add(index)
-    }
-    setExpandedResponsibilities(next)
-  }
-
-  const toggleTechnologies = (index: number) => {
-    const next = new Set(expandedTechnologies)
-    if (next.has(index)) {
-      next.delete(index)
-    } else {
-      next.add(index)
-    }
-    setExpandedTechnologies(next)
-  }
-
-  // Get all unique technologies
-  const allTechnologies = Array.from(new Set(data.flatMap((job) => job.technologies))).sort()
 
   return (
     <AnimatedSection id="experience" className="bg-primary py-24">
       <Container>
-        <SectionHeader>
-          <span className="text-accent-gold font-mono">function</span>{' '}
-          <span className="text-text-primary">Experience</span>
-          <span className="text-accent-gold">()</span>
+        <SectionHeader subtitle="My career progression and key contributions">
+          <span className="text-accent-gold font-mono">{'{'}</span>{' '}
+          <span className="text-text-primary">Experience</span>{' '}
+          <span className="text-accent-gold font-mono">{'}'}</span>
         </SectionHeader>
 
         <div className="grid gap-8 lg:grid-cols-12">
-          {/* Timeline Selector - Left Side */}
+          {/* Timeline Selector — Left Side */}
           <div className="lg:col-span-4">
-            <div className={cn('space-y-4', !isMobile && 'sticky top-24')}>
-              {/* Job selector buttons */}
-              <div className="space-y-2">
-                {data.map((job, index) => (
-                  <motion.button
-                    key={job.id}
-                    onClick={() => {
-                      setActiveJob(index)
-                    }}
-                    variants={itemAnimation}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true }}
-                    custom={index}
-                    whileHover={{ x: 4 }}
-                    className={cn(
-                      'group relative w-full rounded-sm border-l-4 p-4 text-left transition-all duration-300',
-                      activeJob === index
-                        ? 'border-accent-gold bg-secondary-light'
-                        : 'border-text-secondary/20 hover:border-accent-gold/50 hover:bg-secondary'
-                    )}
-                  >
-                    {/* Timeline dot */}
-                    <div
-                      className={cn(
-                        'border-primary absolute top-6 -left-2 h-4 w-4 rounded-full border-4 transition-colors',
-                        activeJob === index
-                          ? 'bg-accent-gold'
-                          : 'bg-text-secondary/50 group-hover:bg-accent-gold/50'
-                      )}
-                    />
-
-                    <div className="space-y-1">
-                      <p
-                        className={cn(
-                          'text-sm font-medium transition-colors',
-                          activeJob === index
-                            ? 'text-accent-gold'
-                            : 'text-text-secondary group-hover:text-accent-gold'
-                        )}
-                      >
-                        {formatDate(job.startDate)} -{' '}
-                        {job.current ? 'Present' : job.endDate ? formatDate(job.endDate) : 'N/A'}
-                      </p>
+            <div className={cn('space-y-3', !isMobile && 'sticky top-24')}>
+              {data.map((job, index) => (
+                <motion.button
+                  key={job.id}
+                  onClick={() => setActiveJob(index)}
+                  variants={itemAnimation}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  custom={index}
+                  className={cn(
+                    'group relative w-full border-l-2 p-4 text-left transition-all duration-300',
+                    activeJob === index
+                      ? 'border-accent-gold bg-accent-gold/5'
+                      : 'border-text-secondary/15 hover:border-accent-gold/40 hover:bg-secondary/50'
+                  )}
+                >
+                  <div className="space-y-1.5">
+                    <div className="flex items-center gap-2">
                       <h3
                         className={cn(
-                          'font-display text-lg font-semibold transition-colors',
+                          'font-display text-base font-semibold transition-colors',
                           activeJob === index
                             ? 'text-text-primary'
                             : 'text-text-secondary group-hover:text-text-primary'
@@ -135,50 +81,32 @@ export function Experience({ data }: ExperienceProps) {
                       >
                         {job.position}
                       </h3>
-                      <p className="text-text-secondary text-sm">{job.company}</p>
+                      {job.current && (
+                        <span className="bg-accent-gold/20 text-accent-gold px-1.5 py-0.5 text-[10px] font-semibold tracking-wider uppercase">
+                          Current
+                        </span>
+                      )}
                     </div>
-                  </motion.button>
-                ))}
-              </div>
-
-              {/* Terminal-style info box */}
-              <motion.div
-                variants={fadeInUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="border-secondary-light bg-secondary rounded-sm border p-4 font-mono text-xs"
-              >
-                <div className="mb-2 flex items-center gap-1">
-                  <div className="h-2 w-2 rounded-full bg-red-500" />
-                  <div className="h-2 w-2 rounded-full bg-yellow-500" />
-                  <div className="h-2 w-2 rounded-full bg-green-500" />
-                </div>
-                <div className="text-text-secondary space-y-1">
-                  <p>
-                    <span className="text-accent-blue">const</span>{' '}
-                    <span className="text-text-primary">totalJobs</span> ={' '}
-                    <span className="text-accent-gold">{data.length}</span>;
-                  </p>
-                  <p>
-                    <span className="text-accent-blue">let</span>{' '}
-                    <span className="text-text-primary">activeIndex</span> ={' '}
-                    <span className="text-accent-gold">{activeJob}</span>;
-                  </p>
-                  <p>
-                    <span className="text-accent-blue">const</span>{' '}
-                    <span className="text-text-primary">duration</span> = "
-                    <span className="text-green-400">
-                      {calculateDuration(data[activeJob].startDate, data[activeJob].endDate)}
-                    </span>
-                    ";
-                  </p>
-                </div>
-              </motion.div>
+                    <p className="text-text-secondary text-sm">{job.company}</p>
+                    <p
+                      className={cn(
+                        'font-mono text-xs transition-colors',
+                        activeJob === index ? 'text-accent-gold' : 'text-text-muted'
+                      )}
+                    >
+                      {formatDate(job.startDate)} —{' '}
+                      {job.current ? 'Present' : job.endDate ? formatDate(job.endDate) : 'N/A'}
+                      <span className="text-text-muted ml-2">
+                        ({calculateDuration(job.startDate, job.endDate)})
+                      </span>
+                    </p>
+                  </div>
+                </motion.button>
+              ))}
             </div>
           </div>
 
-          {/* Job Details - Right Side */}
+          {/* Job Details — Right Side */}
           <div className="lg:col-span-8">
             <AnimatePresence mode="wait">
               <motion.div
@@ -187,9 +115,9 @@ export function Experience({ data }: ExperienceProps) {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="space-y-6"
+                className="space-y-5"
               >
-                {/* Job Header Card */}
+                {/* Job Header */}
                 <Card padding="lg">
                   <CardHeader className="border-border-subtle border-b pb-4">
                     <div className="flex items-start justify-between gap-4">
@@ -204,8 +132,8 @@ export function Experience({ data }: ExperienceProps) {
                         <div className="text-text-secondary flex flex-wrap gap-4 text-sm">
                           <div className="flex items-center gap-2">
                             <Calendar className="text-accent-gold h-4 w-4" />
-                            <span className="font-mono">
-                              {formatDate(data[activeJob].startDate)} -{' '}
+                            <span className="font-mono text-xs">
+                              {formatDate(data[activeJob].startDate)} —{' '}
                               {data[activeJob].current
                                 ? 'Present'
                                 : data[activeJob].endDate
@@ -219,201 +147,146 @@ export function Experience({ data }: ExperienceProps) {
                           </div>
                         </div>
                       </div>
-
-                      {data[activeJob].current && (
-                        <Badge variant="success" size="sm">
-                          Current
-                        </Badge>
-                      )}
                     </div>
                   </CardHeader>
 
                   <CardContent className="pt-4">
-                    <p className="text-text-secondary">{data[activeJob].description}</p>
-
-                    {/* Impact snapshot keeps key outcomes scannable */}
-                    {data[activeJob].achievements && data[activeJob].achievements.length > 0 && (
-                      <div className="border-accent-gold/30 bg-secondary/40 mt-6 rounded-sm border p-4">
-                        <h4 className="text-accent-gold mb-3 flex items-center gap-2 font-mono text-sm">
-                          <Briefcase className="h-4 w-4" />
-                          // Impact snapshot
-                        </h4>
-                        <ul className="text-text-secondary space-y-2 text-sm">
-                          {data[activeJob].achievements
-                            .slice(0, achievementsPreviewCount)
-                            .map((item, idx) => (
-                              <li key={idx} className="flex gap-2">
-                                <span className="text-accent-gold">▸</span>
-                                <span>{item}</span>
-                              </li>
-                            ))}
-                        </ul>
-                      </div>
-                    )}
+                    <p className="text-text-secondary leading-relaxed">
+                      {data[activeJob].description}
+                    </p>
                   </CardContent>
                 </Card>
 
-                {/* Responsibilities */}
-                <Card padding="lg">
-                  <h4 className="text-accent-gold mb-4 font-mono text-sm">
-                    // Key Responsibilities:
-                  </h4>
-                  <motion.ul
-                    variants={containerAnimation}
-                    initial="hidden"
-                    animate="visible"
-                    className="space-y-4"
-                  >
-                    {data[activeJob].responsibilities
-                      .slice(
-                        0,
-                        expandedResponsibilities.has(activeJob)
-                          ? data[activeJob].responsibilities.length
-                          : responsibilitiesPreviewCount
-                      )
-                      .map((responsibility, idx) => (
-                        <motion.li
-                          key={idx}
-                          variants={itemAnimation}
-                          custom={idx}
-                          className="group flex gap-3 transition-all hover:-translate-y-0.5"
-                        >
-                          <div className="bg-secondary group-hover:bg-accent-gold/20 mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-sm transition-colors">
-                            <ChevronRight className="text-accent-gold h-4 w-4" />
-                          </div>
-                          <span className="text-text-secondary group-hover:text-text-primary">
-                            {responsibility}
-                          </span>
-                        </motion.li>
-                      ))}
-                  </motion.ul>
-
-                  {data[activeJob].responsibilities.length > responsibilitiesPreviewCount && (
+                {/* Key Achievements */}
+                {data[activeJob].achievements && data[activeJob].achievements.length > 0 && (
+                  <Card padding="lg" className="border-accent-gold/15">
                     <button
                       type="button"
-                      onClick={() => toggleResponsibilities(activeJob)}
-                      className="text-accent-gold mt-4 text-sm font-medium hover:underline"
+                      onClick={() => toggleSection(`achievements-${activeJob}`)}
+                      className="flex w-full items-center justify-between"
                     >
-                      {expandedResponsibilities.has(activeJob) ? 'Show fewer' : 'Show more'}
+                      <h4 className="text-accent-gold flex items-center gap-2 font-mono text-sm font-medium">
+                        <TrendingUp className="h-4 w-4" />
+                        Key Achievements
+                      </h4>
+                      <ChevronRight
+                        className={cn(
+                          'text-text-muted h-4 w-4 transition-transform',
+                          expandedSections.has(`achievements-${activeJob}`) && 'rotate-90'
+                        )}
+                      />
                     </button>
-                  )}
-                </Card>
 
-                {/* Achievements (if available) */}
-                {data[activeJob].achievements && data[activeJob].achievements!.length > 0 && (
-                  <Card padding="lg" className="border-accent-gold/20">
-                    <h4 className="text-accent-gold mb-4 flex items-center gap-2 font-mono text-sm">
-                      <Briefcase className="h-4 w-4" />
-                      // Key Achievements:
-                    </h4>
-                    <motion.ul
-                      variants={containerAnimation}
-                      initial="hidden"
-                      animate="visible"
-                      className="space-y-3"
-                    >
-                      {data[activeJob]
-                        .achievements!.slice(
-                          0,
-                          expandedAchievements.has(activeJob)
-                            ? data[activeJob].achievements!.length
-                            : achievementsPreviewCount
-                        )
-                        .map((achievement, idx) => (
-                          <motion.li
-                            key={idx}
-                            variants={itemAnimation}
-                            custom={idx}
-                            className="text-text-secondary flex gap-3 text-sm"
+                    <AnimatePresence initial={false}>
+                      {(expandedSections.has(`achievements-${activeJob}`) ||
+                        !expandedSections.size) && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="overflow-hidden"
+                        >
+                          <motion.ul
+                            variants={containerAnimation}
+                            initial="hidden"
+                            animate="visible"
+                            className="mt-4 space-y-3"
                           >
-                            <span className="text-accent-gold">▸</span>
-                            <span>{achievement}</span>
-                          </motion.li>
-                        ))}
-                    </motion.ul>
-
-                    {data[activeJob].achievements!.length > achievementsPreviewCount && (
-                      <button
-                        type="button"
-                        onClick={() => toggleAchievementExpansion(activeJob)}
-                        className="text-accent-gold mt-4 text-sm font-medium hover:underline"
-                      >
-                        {expandedAchievements.has(activeJob) ? 'Show fewer' : 'Show more'}
-                      </button>
-                    )}
+                            {data[activeJob].achievements!.map((achievement, idx) => (
+                              <motion.li
+                                key={idx}
+                                variants={itemAnimation}
+                                custom={idx}
+                                className="text-text-secondary flex gap-3 text-sm"
+                              >
+                                <span className="text-accent-gold mt-0.5 flex-shrink-0">▹</span>
+                                <span>{achievement}</span>
+                              </motion.li>
+                            ))}
+                          </motion.ul>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </Card>
                 )}
 
+                {/* Responsibilities */}
+                <Card padding="lg">
+                  <button
+                    type="button"
+                    onClick={() => toggleSection(`responsibilities-${activeJob}`)}
+                    className="flex w-full items-center justify-between"
+                  >
+                    <h4 className="text-accent-blue flex items-center gap-2 font-mono text-sm font-medium">
+                      <Briefcase className="h-4 w-4" />
+                      Responsibilities
+                    </h4>
+                    <ChevronRight
+                      className={cn(
+                        'text-text-muted h-4 w-4 transition-transform',
+                        expandedSections.has(`responsibilities-${activeJob}`) && 'rotate-90'
+                      )}
+                    />
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {(expandedSections.has(`responsibilities-${activeJob}`) ||
+                      !expandedSections.size) && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <motion.ul
+                          variants={containerAnimation}
+                          initial="hidden"
+                          animate="visible"
+                          className="mt-4 space-y-3"
+                        >
+                          {data[activeJob].responsibilities.map((responsibility, idx) => (
+                            <motion.li
+                              key={idx}
+                              variants={itemAnimation}
+                              custom={idx}
+                              className="text-text-secondary group hover:text-text-primary flex gap-3 text-sm transition-colors"
+                            >
+                              <span className="text-accent-blue mt-0.5 flex-shrink-0">▹</span>
+                              <span>{responsibility}</span>
+                            </motion.li>
+                          ))}
+                        </motion.ul>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </Card>
+
                 {/* Technologies */}
                 <Card padding="lg">
-                  <h4 className="text-accent-gold mb-4 font-mono text-sm">// Technologies Used:</h4>
+                  <h4 className="text-text-muted mb-4 font-mono text-xs tracking-wider uppercase">
+                    Technologies
+                  </h4>
                   <BadgeGroup>
-                    {data[activeJob].technologies
-                      .slice(
-                        0,
-                        expandedTechnologies.has(activeJob)
-                          ? data[activeJob].technologies.length
-                          : technologiesPreviewCount
-                      )
-                      .map((tech, idx) => (
-                        <Badge
-                          key={tech}
-                          variant="secondary"
-                          size="sm"
-                          animated
-                          index={idx}
-                          className="font-mono"
-                        >
-                          {tech}
-                        </Badge>
-                      ))}
+                    {data[activeJob].technologies.map((tech, idx) => (
+                      <Badge
+                        key={tech}
+                        variant="secondary"
+                        size="sm"
+                        animated
+                        index={idx}
+                        className="font-mono"
+                      >
+                        {tech}
+                      </Badge>
+                    ))}
                   </BadgeGroup>
-
-                  {data[activeJob].technologies.length > technologiesPreviewCount && (
-                    <button
-                      type="button"
-                      onClick={() => toggleTechnologies(activeJob)}
-                      className="text-accent-gold mt-4 text-sm font-medium hover:underline"
-                    >
-                      {expandedTechnologies.has(activeJob) ? 'Show fewer' : 'Show more'}
-                    </button>
-                  )}
                 </Card>
               </motion.div>
             </AnimatePresence>
           </div>
         </div>
-
-        {/* All Technologies Section */}
-        <motion.div
-          variants={fadeInUp}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="border-secondary-light bg-secondary/30 mt-20 rounded-sm border p-6 backdrop-blur-sm lg:p-8"
-        >
-          <h3 className="text-text-primary mb-6 font-mono text-xl font-bold">
-            <span className="text-accent-gold">import</span>{' '}
-            <span className="text-green-400">{'{ Skills }'}</span>{' '}
-            <span className="text-accent-gold">from</span>{' '}
-            <span className="text-orange-400">'./experience'</span>;
-          </h3>
-
-          <BadgeGroup>
-            {allTechnologies.map((tech, idx) => (
-              <Badge
-                key={tech}
-                variant="default"
-                size="sm"
-                animated
-                index={idx}
-                className="hover:border-accent-gold/50 font-mono"
-              >
-                {tech}
-              </Badge>
-            ))}
-          </BadgeGroup>
-        </motion.div>
       </Container>
     </AnimatedSection>
   )

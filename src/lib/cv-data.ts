@@ -3,7 +3,7 @@
 
 export const personalInfo = {
   name: 'Arshad Shah',
-  title: 'Software Engineer',
+  title: 'Senior Software Engineer',
   email: 'arshad@arshadshah.com',
   location: 'Dublin, Ireland',
   website: 'arshadshah.com',
@@ -16,7 +16,7 @@ export const education = {
   institution: 'Technological University Dublin',
   location: 'Dublin, Ireland',
   year: '2019 - 2023',
-  grade: 'First Class Honours',
+  grade: 'Second Class Honours (2.1)',
 }
 
 export interface ExperienceItem {
@@ -30,38 +30,76 @@ export interface ExperienceItem {
 export const experience: ExperienceItem[] = [
   {
     company: 'Houghton Mifflin Harcourt',
-    position: 'Software Engineer',
+    position: 'Senior Software Engineer',
     location: 'Dublin, Ireland',
-    period: 'Mar 2024 - Present',
+    period: 'Mar 2026 - Present',
     highlights: {
       default: [
-        'Delivered MAP Growth on Ed integration platform end-to-end with Hasura GraphQL backend and Spring Boot action handlers, achieving 8,250+ RPS with 3,456+ concurrent users',
-        'Migrated 600+ package monorepo from Babel to SWC, cutting build times by 65-70% and saving hundreds of developer hours monthly',
-        'Led migration from GHES to GHEC with zero downtime, rebuilding CI/CD pipelines with GitHub Actions',
-        'Developed robust session management services using GraphQL and PostgreSQL with production-ready observability',
+        'Rebuilt RCE platform from scratch using modern tech, reducing bundle size from 10MB to 500KB (95% reduction)',
+        'Optimized internal EPUB parser using low-level algorithm improvements, cutting parse time from 8s to under 3s on large books',
+        'Added enhanced customization capabilities across the RCE platform for content authoring',
+        'Maintaining and managing multiple backend services for real-time test-to-proctor API integrations',
       ],
       frontend: [
-        'Led microfrontend architecture implementation using Module Federation, enabling independent deployments across teams',
-        'Migrated 600+ package monorepo from Babel to SWC, cutting build times by 65-70% and improving hot module replacement',
-        'Enhanced monorepo developer experience via webpack optimization, caching strategies, and build improvements',
-        'Built reusable React component library with TypeScript, improving development velocity across teams',
+        'Rebuilt RCE platform from scratch with modern React, reducing bundle size from 10MB to 500KB (95% reduction)',
+        'Optimized internal EPUB parser with low-level algorithm improvements, reducing parse time from 8s to under 3s',
+        'Added enhanced content customization capabilities expanding authoring features for educators',
+        'Architected clean component structure enabling faster feature development and maintenance',
       ],
       backend: [
-        'Delivered MAP Growth on Ed integration platform with Hasura GraphQL backend and Spring Boot reactive action handlers',
-        'Achieved 8,250+ RPS with 3,456+ concurrent users at 50% resource utilization via connection pooling and query optimization',
-        'Developed robust session management services using GraphQL and PostgreSQL with production-ready observability',
+        'Maintaining and managing multiple backend services for real-time test-to-proctor API integrations',
+        'Optimized EPUB parser using low-level algorithm improvements, cutting parse time from 8s to under 3s',
+        'Ensuring reliability of proctoring services handling concurrent test sessions at scale',
+        'Rebuilt RCE platform backend integrations with cleaner architecture and modern patterns',
+      ],
+      fullstack: [
+        'Rebuilt RCE platform from scratch, reducing bundle size from 10MB to 500KB with modern architecture',
+        'Optimized internal EPUB parser with low-level algorithm improvements (8s → under 3s on large books)',
+        'Maintaining multiple backend services for real-time test-to-proctor API integrations',
+        'Added enhanced customization capabilities across the RCE platform',
+      ],
+      mobile: [
+        'Rebuilt RCE platform with responsive design optimized for tablet content authoring',
+        'Optimized EPUB parser performance for faster content rendering on mobile devices',
+        'Maintained backend services for real-time test proctoring across device types',
+        'Ensured enhanced customization features work seamlessly on mobile form factors',
+      ],
+    },
+  },
+  {
+    company: 'Houghton Mifflin Harcourt',
+    position: 'Software Engineer',
+    location: 'Dublin, Ireland',
+    period: 'Mar 2024 - Mar 2026',
+    highlights: {
+      default: [
+        'Delivered MAP Growth on Ed integration platform end-to-end with Hasura GraphQL and Spring Boot, achieving 8,250+ RPS',
+        'Migrated 600+ package monorepo from Babel to SWC, cutting build times by 65-70%',
+        'Led GHES to GHEC migration with zero downtime, rebuilding CI/CD on GitHub Actions',
+        'Created reusable hasura-client-map package standardizing GraphQL patterns across teams',
+      ],
+      frontend: [
+        'Led microfrontend architecture implementation using Module Federation for independent deployments',
+        'Migrated 600+ package monorepo from Babel to SWC, cutting build times by 65-70%',
+        'Enhanced monorepo DX via webpack optimization, caching strategies, and build improvements',
+        'Built reusable React component library with TypeScript, improving development velocity',
+      ],
+      backend: [
+        'Delivered MAP Growth on Ed integration with Hasura GraphQL and Spring Boot reactive handlers',
+        'Achieved 8,250+ RPS with 3,456+ concurrent users at 50% utilization via connection pooling',
+        'Developed session management services using GraphQL and PostgreSQL with observability',
         'Optimized Aurora PostgreSQL performance, reducing P95 latency from 7+ seconds to sub-100ms',
       ],
       fullstack: [
-        'Delivered MAP Growth on Ed integration platform end-to-end with Hasura GraphQL backend and Spring Boot action handlers',
-        'Achieved 8,250+ RPS with 3,456+ concurrent users at 50% resource utilization via connection pooling',
+        'Delivered MAP Growth on Ed integration end-to-end with Hasura GraphQL and Spring Boot',
+        'Achieved 8,250+ RPS with 3,456+ concurrent users at 50% resource utilization',
         'Migrated 600+ package monorepo from Babel to SWC, cutting build times by 65-70%',
-        'Created reusable hasura-client-map package with React hooks, standardizing GraphQL patterns across teams',
+        'Created reusable hasura-client-map package standardizing GraphQL patterns across teams',
       ],
       mobile: [
-        'Delivered cross-platform educational features supporting millions of K-12 students globally',
+        'Delivered cross-platform educational features supporting millions of K-12 students',
         'Implemented real-time classroom integrations with third-party solutions at scale',
-        'Built responsive, accessible interfaces optimized for tablet devices used in classrooms',
+        'Built responsive, accessible interfaces optimized for tablet devices in classrooms',
         'Developed WebSocket-based real-time features for interactive learning experiences',
       ],
     },
@@ -73,9 +111,9 @@ export const experience: ExperienceItem[] = [
     period: 'Jun 2023 - Mar 2024',
     highlights: {
       default: [
-        'Implemented session management and insights collection for ED Platform and RCE, enabling real-time analytics',
+        'Implemented session management and insights collection for ED Platform enabling real-time analytics',
         'Migrated universal analytics to GA4 across products ahead of sunset with zero tracking gaps',
-        'Deployed session management service to Kubernetes with health checks, resource limits, and autoscaling',
+        'Deployed session management to Kubernetes with health checks, resource limits, and autoscaling',
         'Migrated monorepo to PNPM, cutting build time by ~50% and improving dependency management',
       ],
       frontend: [
@@ -85,14 +123,14 @@ export const experience: ExperienceItem[] = [
         'Improved frontend performance through code splitting and lazy loading strategies',
       ],
       backend: [
-        'Deployed session management service to Kubernetes with health checks, resource limits, and autoscaling',
-        'Created and deployed Concourse CI/CD pipelines for backend automation and release reliability',
+        'Deployed session management service to Kubernetes with health checks and autoscaling',
+        'Created and deployed Concourse CI/CD pipelines for backend automation and reliability',
         'Built Node.js services for real-time analytics and session tracking',
         'Designed RESTful APIs for cross-service communication and data synchronization',
       ],
       fullstack: [
-        'Implemented session management and insights collection for ED Platform enabling real-time analytics',
-        'Deployed session management service to Kubernetes with health checks and autoscaling',
+        'Implemented session management and insights collection enabling real-time analytics',
+        'Deployed session management to Kubernetes with health checks and autoscaling',
         'Migrated monorepo to PNPM, cutting build time by ~50%',
         'Migrated universal analytics to GA4 across products with zero tracking gaps',
       ],
@@ -124,16 +162,16 @@ export const projects: Record<string, ProjectItem[]> = {
       impact: '8,250+ RPS, 99.9% uptime',
     },
     {
+      name: 'RCE Platform Rebuild',
+      description: 'Ground-up rebuild of Rich Content Editor, reducing bundle from 10MB to 500KB',
+      technologies: ['React', 'TypeScript', 'Webpack', 'Module Federation'],
+      impact: '95% bundle size reduction',
+    },
+    {
       name: 'Database Performance Optimization',
       description: 'Resolved critical Aurora PostgreSQL bottlenecks through connection pooling',
       technologies: ['Aurora PostgreSQL', 'Hasura', 'Datadog', 'Gatling'],
       impact: '90% reduction in P95 latency',
-    },
-    {
-      name: 'Build Performance Engineering',
-      description: 'Migrated 600+ package monorepo from Babel to SWC',
-      technologies: ['SWC', 'Webpack', 'PNPM', 'TypeScript'],
-      impact: '65-70% faster builds',
     },
   ],
   frontend: [
@@ -171,10 +209,10 @@ export const projects: Record<string, ProjectItem[]> = {
       impact: '90% latency reduction',
     },
     {
-      name: 'Session Management Service',
-      description: 'High-throughput session service with Kubernetes deployment',
-      technologies: ['Spring Boot', 'PostgreSQL', 'Kubernetes', 'GraphQL'],
-      impact: 'Zero critical incidents',
+      name: 'Test Proctor API Services',
+      description: 'Backend services for real-time test-to-proctor integrations',
+      technologies: ['Spring Boot', 'GraphQL', 'Kubernetes', 'Datadog'],
+      impact: 'Zero-downtime during peak testing',
     },
   ],
   fullstack: [
@@ -185,10 +223,10 @@ export const projects: Record<string, ProjectItem[]> = {
       impact: 'Millions of students served',
     },
     {
-      name: 'Build & Database Optimization',
-      description: 'Full-stack performance improvements across build tools and databases',
-      technologies: ['SWC', 'Aurora PostgreSQL', 'Webpack', 'Hasura'],
-      impact: '65-70% faster builds',
+      name: 'RCE Platform Rebuild',
+      description: 'Ground-up rebuild reducing bundle from 10MB to 500KB',
+      technologies: ['React', 'TypeScript', 'Webpack', 'GraphQL'],
+      impact: '95% bundle size reduction',
     },
     {
       name: 'Expense Tracker',
@@ -228,8 +266,8 @@ export const skills: Record<
 > = {
   default: {
     primary: ['React', 'TypeScript', 'Spring Boot', 'GraphQL', 'PostgreSQL', 'Kubernetes'],
-    secondary: ['Node.js', 'Hasura', 'Docker', 'AWS', 'Git', 'CI/CD'],
-    additional: ['Webpack', 'Microservices', 'Performance Engineering', 'System Design'],
+    secondary: ['Node.js', 'Hasura', 'Docker', 'AWS', 'CI/CD', 'Datadog'],
+    additional: ['System Design', 'Performance Engineering', 'Technical Leadership', 'Mentoring'],
   },
   frontend: {
     primary: ['React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS'],
@@ -265,15 +303,15 @@ export const skills: Record<
 }
 
 export const summaries: Record<string, string> = {
-  default: `Software Engineer with 2+ years of experience building high-performance, scalable systems at Houghton Mifflin Harcourt. Expertise in full-stack development with React, TypeScript, Spring Boot, and GraphQL. Delivered production systems handling 8,250+ RPS with sub-100ms latency. Passionate about developer experience, performance engineering, and building reliable software.`,
+  default: `Senior Software Engineer with 3+ years of progressive experience at Houghton Mifflin Harcourt. Rebuilt the RCE platform from scratch (10MB → 500KB), optimized EPUB parsing performance (8s → under 3s), and delivered high-throughput systems handling 8,250+ RPS. Expert in React, TypeScript, Spring Boot, and GraphQL. Proven track record in platform engineering, performance optimization, and maintaining real-time backend services at scale.`,
 
-  frontend: `Frontend Engineer with 2+ years of experience specializing in React, TypeScript, and modern web technologies. Expert in microfrontend architecture, build optimization, and creating exceptional user experiences. Achieved 65-70% build time reduction through Babel to SWC migration in a 600+ package monorepo. Passionate about performance, accessibility, and developer experience.`,
+  frontend: `Senior Frontend Engineer with 3+ years specializing in React, TypeScript, and modern web architecture. Rebuilt the RCE platform from scratch, achieving a 95% bundle size reduction (10MB → 500KB). Expert in microfrontend systems, build optimization (65-70% faster builds via Babel → SWC migration), and performance-critical platform engineering.`,
 
-  backend: `Backend Engineer with 2+ years of experience building high-throughput microservices with Spring Boot and GraphQL. Achieved 8,250+ RPS at 50% resource utilization through connection pooling and query optimization. Expert in database performance, Kubernetes deployments, and building production-ready systems with comprehensive observability.`,
+  backend: `Senior Backend Engineer with 3+ years building high-throughput microservices with Spring Boot, GraphQL, and distributed systems. Achieved 8,250+ RPS at 50% resource utilization. Currently maintaining multiple backend services for real-time test-to-proctor API integrations and optimizing content delivery pipelines.`,
 
-  fullstack: `Full-Stack Developer with 2+ years of experience delivering end-to-end solutions at Houghton Mifflin Harcourt. Expert in React, TypeScript, Spring Boot, and GraphQL. Built platforms serving millions of students with 99.9% uptime. Proven track record in frontend architecture and backend systems.`,
+  fullstack: `Senior Full-Stack Developer with 3+ years delivering end-to-end platforms at Houghton Mifflin Harcourt. Rebuilt the RCE platform from scratch (95% bundle reduction), optimized EPUB parsing (62% faster), and built systems serving millions with 99.9% uptime. Expert in React, TypeScript, Spring Boot, and GraphQL.`,
 
-  mobile: `Mobile Developer with experience in native Android development using Kotlin and cross-platform solutions. Built Nimaz, an offline-first Islamic companion app with location-based features and reliable background processing. Skilled in MVVM architecture, Room database, WorkManager, and creating responsive, accessible mobile experiences.`,
+  mobile: `Senior Software Engineer with mobile development expertise, including native Android with Kotlin and cross-platform solutions. Built Nimaz, an offline-first Islamic companion app with location-based features and reliable background processing. Currently delivering mobile-optimized features and content authoring experiences for educational platforms.`,
 }
 
 export type CVVariant = 'default' | 'frontend' | 'backend' | 'fullstack' | 'mobile'
@@ -287,37 +325,37 @@ export interface RoleConfig {
 }
 
 export const roleConfig: Record<string, RoleConfig> = {
-  'software-engineer': {
-    id: 'software-engineer',
-    title: 'Software Engineer',
+  'senior-software-engineer': {
+    id: 'senior-software-engineer',
+    title: 'Senior Software Engineer',
     variant: 'default',
     color: '#d4a574',
     colorRgb: '212, 165, 116',
   },
   'fullstack-developer': {
     id: 'fullstack-developer',
-    title: 'Full-Stack Developer',
+    title: 'Senior Full-Stack Developer',
     variant: 'fullstack',
     color: '#4a9eff',
     colorRgb: '74, 158, 255',
   },
   'frontend-developer': {
     id: 'frontend-developer',
-    title: 'Frontend Developer',
+    title: 'Senior Frontend Developer',
     variant: 'frontend',
     color: '#22d3ee',
     colorRgb: '34, 211, 238',
   },
   'backend-developer': {
     id: 'backend-developer',
-    title: 'Backend Developer',
+    title: 'Senior Backend Developer',
     variant: 'backend',
     color: '#34d399',
     colorRgb: '52, 211, 153',
   },
   'mobile-developer': {
     id: 'mobile-developer',
-    title: 'Mobile Developer',
+    title: 'Senior Mobile Developer',
     variant: 'mobile',
     color: '#a855f7',
     colorRgb: '168, 85, 247',

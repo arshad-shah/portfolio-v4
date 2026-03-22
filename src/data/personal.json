@@ -3,9 +3,9 @@
     "first": "Arshad",
     "last": "Shah"
   },
-  "title": "Software Engineer & Full-Stack Developer",
-  "headline": "Building reliable systems with great DX",
-  "description": "Software engineer focused on scalable web systems, microfrontends, and real-time integrations. Currently at HMH, shipping performance-focused features with strong developer experience.",
+  "title": "Senior Software Engineer",
+  "headline": "Engineering high-impact systems at scale",
+  "description": "Senior Software Engineer with 3+ years at HMH. I rebuilt the RCE platform from scratch (10MB → 500KB), optimized the internal EPUB parser (8s → under 3s), and delivered high-throughput systems handling 8,250+ RPS. I maintain backend services for real-time test proctoring and continuously push for better performance and developer experience.",
   "location": {
     "city": "Dublin",
     "country": "Ireland",
@@ -37,26 +37,26 @@
     "Microfrontends"
   ],
   "availability": {
-    "status": "Employed (Open to opportunities)",
+    "status": "Open to Senior+ roles",
     "openTo": [
-      "Interesting projects",
-      "Collaboration opportunities",
-      "Technical discussions",
+      "Senior / Staff Engineer roles",
+      "Architecture & system design",
+      "Technical leadership",
       "Consulting opportunities"
     ],
     "workingHours": "Monday - Friday, 9:00 AM - 6:00 PM GMT",
     "responseTime": "Within 24 hours"
   },
   "expertise": [
-    "Full-Stack Web Development",
-    "Mobile Application Development",
-    "Microfrontend Architecture",
-    "API Development & Integration",
-    "Chrome Extension Development",
-    "UI/UX Engineering",
-    "Database Design & Optimization",
+    "Distributed Systems & Architecture",
     "Performance Engineering",
-    "DevOps & Cloud Deployment",
-    "System Design & Architecture"
+    "Microfrontend Architecture",
+    "Technical Leadership & Mentoring",
+    "Full-Stack Development",
+    "API Design & Integration",
+    "Database Design & Optimization",
+    "DevOps & Cloud Infrastructure",
+    "Developer Experience (DX)",
+    "Mobile Application Development"
   ]
 }
