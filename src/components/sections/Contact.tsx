@@ -66,7 +66,7 @@ export function Contact({ data }: ContactProps) {
                     <Mail className="text-accent-gold h-5 w-5" />
                   </div>
                   <div>
-                    <p className="text-text-muted text-xs font-medium uppercase tracking-wider">
+                    <p className="text-text-muted text-xs font-medium tracking-wider uppercase">
                       Email
                     </p>
                     <p className="text-text-primary font-mono text-lg">{data.email.display}</p>
@@ -100,9 +100,7 @@ export function Contact({ data }: ContactProps) {
                   <MapPin className="text-accent-blue h-4 w-4 flex-shrink-0" />
                   <div>
                     <p className="text-text-muted text-xs">Location</p>
-                    <p className="text-text-primary text-sm font-medium">
-                      {data.location.display}
-                    </p>
+                    <p className="text-text-primary text-sm font-medium">{data.location.display}</p>
                   </div>
                 </div>
               </Card>
@@ -159,7 +157,7 @@ export function Contact({ data }: ContactProps) {
           <motion.div variants={itemAnimation}>
             <Card padding="md">
               <CardContent>
-                <p className="text-text-muted mb-4 text-center text-xs font-medium uppercase tracking-wider">
+                <p className="text-text-muted mb-4 text-center text-xs font-medium tracking-wider uppercase">
                   Areas of Expertise
                 </p>
                 <BadgeGroup className="justify-center">

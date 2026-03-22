@@ -163,8 +163,7 @@ export const projects: Record<string, ProjectItem[]> = {
     },
     {
       name: 'RCE Platform Rebuild',
-      description:
-        'Ground-up rebuild of Rich Content Editor, reducing bundle from 10MB to 500KB',
+      description: 'Ground-up rebuild of Rich Content Editor, reducing bundle from 10MB to 500KB',
       technologies: ['React', 'TypeScript', 'Webpack', 'Module Federation'],
       impact: '95% bundle size reduction',
     },

@@ -49,9 +49,7 @@ export function Projects({ data }: ProjectsProps) {
   return (
     <AnimatedSection id="projects" className="bg-secondary py-24">
       <Container>
-        <SectionHeader
-          subtitle="Selected work showcasing architecture, performance, and craft"
-        >
+        <SectionHeader subtitle="Selected work showcasing architecture, performance, and craft">
           <span className="text-accent-gold font-mono">{'<'}</span>
           <span className="text-text-primary">Projects</span>
           <span className="text-accent-gold font-mono">{' />'}</span>
@@ -158,12 +156,12 @@ function ProjectCard({ project }: ProjectCardProps) {
         <div className="mb-3 flex items-start justify-between">
           <div className="flex items-center gap-2">
             {project.featured && (
-              <span className="bg-accent-gold/15 text-accent-gold flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
+              <span className="bg-accent-gold/15 text-accent-gold flex items-center gap-1 px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase">
                 <Star className="h-3 w-3" />
                 Featured
               </span>
             )}
-            <span className="text-text-muted bg-secondary px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider">
+            <span className="text-text-muted bg-secondary px-2 py-0.5 text-[10px] font-medium tracking-wider uppercase">
               {project.type}
             </span>
           </div>
@@ -245,11 +243,11 @@ function ProjectCard({ project }: ProjectCardProps) {
               )}
               {project.impact && project.impact.length > 0 && (
                 <div>
-                  <h4 className="text-emerald-400 mb-1.5 font-mono text-xs font-medium">Impact</h4>
+                  <h4 className="mb-1.5 font-mono text-xs font-medium text-emerald-400">Impact</h4>
                   <ul className="space-y-1.5">
                     {project.impact.map((item, idx) => (
                       <li key={idx} className="text-text-secondary flex gap-2 text-sm">
-                        <span className="text-emerald-400 flex-shrink-0">▹</span>
+                        <span className="flex-shrink-0 text-emerald-400">▹</span>
                         <span>{item}</span>
                       </li>
                     ))}
@@ -262,13 +260,11 @@ function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Tech */}
         <BadgeGroup>
-          {project.technologies
-            .slice(0, isExpanded ? undefined : 5)
-            .map((tech) => (
-              <Badge key={tech} variant="secondary" size="sm" className="font-mono text-xs">
-                {tech}
-              </Badge>
-            ))}
+          {project.technologies.slice(0, isExpanded ? undefined : 5).map((tech) => (
+            <Badge key={tech} variant="secondary" size="sm" className="font-mono text-xs">
+              {tech}
+            </Badge>
+          ))}
           {!isExpanded && project.technologies.length > 5 && (
             <Badge variant="default" size="sm" className="text-xs">
               +{project.technologies.length - 5}

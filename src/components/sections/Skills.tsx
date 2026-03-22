@@ -2,15 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import {
-  Monitor,
-  Server,
-  Database,
-  Cloud,
-  TestTube,
-  Smartphone,
-  Users,
-} from 'lucide-react'
+import { Monitor, Server, Database, Cloud, TestTube, Smartphone, Users } from 'lucide-react'
 import { Container } from '@/components/common/Container'
 import { SectionHeader } from '@/components/common/SectionHeader'
 import { AnimatedSection } from '@/components/common/AnimatedSection'
@@ -57,9 +49,7 @@ export function Skills({ data }: SkillsProps) {
   return (
     <AnimatedSection id="skills" className="bg-secondary py-24">
       <Container>
-        <SectionHeader
-          subtitle="Technologies and tools I work with daily"
-        >
+        <SectionHeader subtitle="Technologies and tools I work with daily">
           <span className="text-accent-gold font-mono">{'<'}</span>
           <span className="text-text-primary">Skills</span>
           <span className="text-accent-gold font-mono">{' />'}</span>
@@ -87,7 +77,7 @@ export function Skills({ data }: SkillsProps) {
                 className={cn(
                   'group relative border p-5 text-left transition-all duration-300',
                   isActive
-                    ? 'border-accent-gold/40 bg-primary shadow-lg shadow-accent-gold/5'
+                    ? 'border-accent-gold/40 bg-primary shadow-accent-gold/5 shadow-lg'
                     : 'border-border-subtle bg-primary/50 hover:border-border-medium hover:bg-primary'
                 )}
               >
@@ -103,12 +93,8 @@ export function Skills({ data }: SkillsProps) {
                     <Icon className={cn('h-4 w-4', color)} />
                   </div>
                   <div>
-                    <h3 className="text-text-primary text-sm font-semibold">
-                      {category.label}
-                    </h3>
-                    <p className="text-text-muted text-xs">
-                      {category.skills.length} skills
-                    </p>
+                    <h3 className="text-text-primary text-sm font-semibold">{category.label}</h3>
+                    <p className="text-text-muted text-xs">{category.skills.length} skills</p>
                   </div>
                 </div>
 
@@ -132,7 +118,7 @@ export function Skills({ data }: SkillsProps) {
                 {/* Expand indicator */}
                 <div
                   className={cn(
-                    'absolute right-3 top-3 h-1.5 w-1.5 rounded-full transition-colors',
+                    'absolute top-3 right-3 h-1.5 w-1.5 rounded-full transition-colors',
                     isActive ? 'bg-accent-gold' : 'bg-text-muted/30'
                   )}
                 />
@@ -151,9 +137,8 @@ export function Skills({ data }: SkillsProps) {
             className="border-accent-gold/20 bg-primary mt-6 border p-6"
           >
             <h4 className="text-text-primary mb-4 font-mono text-sm font-semibold">
-              <span className="text-accent-gold">const</span>{' '}
-              {activeCategory}Skills <span className="text-accent-gold">=</span>{' '}
-              <span className="text-text-muted">[</span>
+              <span className="text-accent-gold">const</span> {activeCategory}Skills{' '}
+              <span className="text-accent-gold">=</span> <span className="text-text-muted">[</span>
             </h4>
             <BadgeGroup>
               {data.technical_skills[activeCategory].skills.map((skill, idx) => (

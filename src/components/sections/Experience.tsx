@@ -10,7 +10,7 @@ import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card'
 import { Badge, BadgeGroup } from '@/components/ui/Badge'
 import { cn } from '@/lib/utils'
 import { formatDate, calculateDuration } from '@/lib/utils'
-import { fadeInUp, fadeInLeft, staggerContainer, staggerItem } from '@/lib/animations'
+import { fadeInLeft, staggerContainer, staggerItem } from '@/lib/animations'
 import { useAccessibleAnimation } from '@/hooks/usePreferredMotion'
 import { useIsMobile } from '@/hooks/useMediaQuery'
 import type { Experience as ExperienceType } from '@/types/index'
@@ -43,9 +43,7 @@ export function Experience({ data }: ExperienceProps) {
   return (
     <AnimatedSection id="experience" className="bg-primary py-24">
       <Container>
-        <SectionHeader
-          subtitle="My career progression and key contributions"
-        >
+        <SectionHeader subtitle="My career progression and key contributions">
           <span className="text-accent-gold font-mono">{'{'}</span>{' '}
           <span className="text-text-primary">Experience</span>{' '}
           <span className="text-accent-gold font-mono">{'}'}</span>
@@ -84,7 +82,7 @@ export function Experience({ data }: ExperienceProps) {
                         {job.position}
                       </h3>
                       {job.current && (
-                        <span className="bg-accent-gold/20 text-accent-gold px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider">
+                        <span className="bg-accent-gold/20 text-accent-gold px-1.5 py-0.5 text-[10px] font-semibold tracking-wider uppercase">
                           Current
                         </span>
                       )}
@@ -93,9 +91,7 @@ export function Experience({ data }: ExperienceProps) {
                     <p
                       className={cn(
                         'font-mono text-xs transition-colors',
-                        activeJob === index
-                          ? 'text-accent-gold'
-                          : 'text-text-muted'
+                        activeJob === index ? 'text-accent-gold' : 'text-text-muted'
                       )}
                     >
                       {formatDate(job.startDate)} —{' '}
@@ -155,7 +151,9 @@ export function Experience({ data }: ExperienceProps) {
                   </CardHeader>
 
                   <CardContent className="pt-4">
-                    <p className="text-text-secondary leading-relaxed">{data[activeJob].description}</p>
+                    <p className="text-text-secondary leading-relaxed">
+                      {data[activeJob].description}
+                    </p>
                   </CardContent>
                 </Card>
 
@@ -253,7 +251,7 @@ export function Experience({ data }: ExperienceProps) {
                               key={idx}
                               variants={itemAnimation}
                               custom={idx}
-                              className="text-text-secondary group flex gap-3 text-sm transition-colors hover:text-text-primary"
+                              className="text-text-secondary group hover:text-text-primary flex gap-3 text-sm transition-colors"
                             >
                               <span className="text-accent-blue mt-0.5 flex-shrink-0">▹</span>
                               <span>{responsibility}</span>
@@ -267,7 +265,7 @@ export function Experience({ data }: ExperienceProps) {
 
                 {/* Technologies */}
                 <Card padding="lg">
-                  <h4 className="text-text-muted mb-4 font-mono text-xs uppercase tracking-wider">
+                  <h4 className="text-text-muted mb-4 font-mono text-xs tracking-wider uppercase">
                     Technologies
                   </h4>
                   <BadgeGroup>

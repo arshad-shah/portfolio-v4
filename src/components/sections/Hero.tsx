@@ -117,7 +117,8 @@ export function Hero({ data }: HeroProps) {
                   transition={{ delay: 0.25 }}
                   className="text-accent-gold/80 mb-6 font-mono text-sm"
                 >
-                  {'// '}{data.headline}
+                  {'// '}
+                  {data.headline}
                 </motion.p>
               )}
 
@@ -227,13 +228,16 @@ export function Hero({ data }: HeroProps) {
                 <div className="border-border-subtle bg-primary/90 absolute -right-4 -bottom-4 z-30 border p-4 backdrop-blur-sm">
                   <div className="text-accent-gold font-mono text-xs">
                     <p>
-                      <span className="text-text-muted">years</span> → <span className="font-semibold">3+</span>
+                      <span className="text-text-muted">years</span> →{' '}
+                      <span className="font-semibold">3+</span>
                     </p>
                     <p>
-                      <span className="text-text-muted">rps</span> → <span className="font-semibold">8,250+</span>
+                      <span className="text-text-muted">rps</span> →{' '}
+                      <span className="font-semibold">8,250+</span>
                     </p>
                     <p>
-                      <span className="text-text-muted">uptime</span> → <span className="font-semibold">99.9%</span>
+                      <span className="text-text-muted">uptime</span> →{' '}
+                      <span className="font-semibold">99.9%</span>
                     </p>
                   </div>
                 </div>
@@ -250,7 +254,7 @@ export function Hero({ data }: HeroProps) {
           animate={isIntersecting ? 'visible' : 'hidden'}
           className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex"
         >
-          <span className="text-text-muted text-xs font-mono">scroll</span>
+          <span className="text-text-muted font-mono text-xs">scroll</span>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{

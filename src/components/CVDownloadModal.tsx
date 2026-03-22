@@ -127,8 +127,7 @@ const cvVariants = [
     id: 'backend-developer',
     title: 'Senior Backend Developer',
     subtitle: 'Distributed systems',
-    description:
-      'Focus on Spring Boot, microservices, GraphQL, and scalable backend architecture.',
+    description: 'Focus on Spring Boot, microservices, GraphQL, and scalable backend architecture.',
     icon: 'Server',
     color: 'green',
     highlights: ['Spring Boot', 'GraphQL', 'Microservices'],
