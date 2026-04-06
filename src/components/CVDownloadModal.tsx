@@ -1,6 +1,7 @@
 // src/components/CVDownloadModal.tsx
 
 import { useRef, useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   X,
@@ -205,7 +206,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
     }
   }
 
-  return (
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <motion.div
@@ -383,6 +384,7 @@ export function CVDownloadModal({ isOpen, onClose }: CVDownloadModalProps) {
           </motion.div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }
