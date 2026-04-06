@@ -270,10 +270,10 @@ export const Z_INDEX = {
   base: 0,
   dropdown: 10,
   sticky: 20,
-  modal: 30,
-  popover: 40,
-  toast: 50,
-  tooltip: 60,
+  modal: 60,
+  popover: 70,
+  toast: 80,
+  tooltip: 90,
 } as const
 
 /**
